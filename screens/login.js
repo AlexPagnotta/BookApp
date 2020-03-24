@@ -14,7 +14,7 @@ class LoginScreen extends Component {
     constructor(props) {
       super(props)
   
-      // init local state
+      //Init local state
       this.state = {
         username: '',
         password: ''
@@ -67,14 +67,15 @@ class LoginScreen extends Component {
     (state: States) => ({
       
       // props.loading -> modules.app.loading
-      loading: state.user.isLoading
+      loading: state.authentication.isLoading
     }),
     
     // inject actions
     dispatch => ({
   
-      // props.doLogin -> modules.login.login()
+      // (Alternative way) props.doLogin -> modules.login.login()
       executeLogin: (username, password) =>
-        dispatch(actions.user.login(username, password))
+        dispatch(actions.authentication.login(username, password))
     })
+
   )(LoginScreen)

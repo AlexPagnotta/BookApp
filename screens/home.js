@@ -6,7 +6,7 @@ import { Login } from './login'
 
 class HomeScreen extends Component {
   render() {
-    const { executeLogout, loggedIn, fullName } = this.props
+    const { executeLogout, loggedIn, name, lastName } = this.props
 
     // Display login screen when user is not logged in
     if (!loggedIn) {
@@ -21,7 +21,7 @@ class HomeScreen extends Component {
     // Display greeting with user full name displayed
     return (
       <View>
-        <Text>Welcome {fullName}!</Text>
+        <Text>Welcome {name} {lastName}!</Text>
         <Button
           onPress={() => {
             executeLogout()
@@ -38,12 +38,13 @@ export const Home = connect(
 
   // inject states to props
   (state: States) => ({
-    loggedIn: state.user.loggedIn,
-    fullName: state.user.fullName
+    loggedIn: state.authentication.loggedIn,
+    name: state.authentication.name,
+    lastName: state.authentication.lastName
   }),
   
   // inject actions to props
   dispatch => ({
-    executeLogout: () => dispatch(actions.user.logout())
+    executeLogout: () => dispatch(actions.authentication.logout())
   })
 )(HomeScreen)

@@ -1,4 +1,4 @@
-import { UserState, user } from './user'
+import { AuthenticationState, authentication } from './authentication'
 import { AppState, app } from './app'
 
 /**
@@ -6,7 +6,7 @@ import { AppState, app } from './app'
  */
 export type States = {
   app: AppState,
-  user: UserState
+  authentication: AuthenticationState
 }
 
 /**
@@ -14,7 +14,7 @@ export type States = {
  */
 export const reducers = {
   app: app.reducer,
-  user: user.reducer
+  authentication: authentication.reducer
 }
 
 /**
@@ -22,7 +22,7 @@ export const reducers = {
  */
 export const actions = {
   app: app.actions,
-  user: user.actions
+  authentication: authentication.actions
 }
 
-export { app, user }
+export { app, authentication }
