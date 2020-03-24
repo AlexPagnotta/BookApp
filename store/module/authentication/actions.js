@@ -1,4 +1,7 @@
 import * as types from './constants'
+import axios from 'axios';
+
+const url = 'http://192.168.1.107:5000/login'
 
 /**
 * Execute the login async call
@@ -7,43 +10,48 @@ import * as types from './constants'
 */
 export const login = (username: string, password: string) => {
 
-  //TODO Async Call HERE
-
   return dispatch => {
 
     //Start Login Action
     dispatch({
       type: types.AUTHENTICATION_LOGIN
     })
-    
-    // simulate ajax login TEMP
-    setTimeout(() => {
-      if (username === 'alex' && password === 'test') {
 
-        //Login has succeded
-        dispatch({
-          type: types.AUTHENTICATION_LOGIN_SUCCESS,
-          payload: {
-            userId: 1,
-            userName: username,
-            name: 'Alex',
-            lastName: 'Pagnotta',
-            token: 'adhwadhwudohqh4he22oqsq'
-          }
+    return new Promise(() => {
+
+      axios
+        .post(url,{
+          userName: username,
+          password: password
         })
-      }
-      else{
+        .then(response => {
 
-        //Error on login
-        dispatch({
-          type: types.AUTHENTICATION_LOGIN_ERROR,
-          payload: {
-            callError: "Error"
-          }
+          var data = response.data;
+
+          //Login has succeded
+          dispatch({
+            type: types.AUTHENTICATION_LOGIN_SUCCESS,
+            payload: {
+              userId: data.userId,
+              userName: data.userName,
+              name: data.name,
+              lastName: data.lastName,
+              token: data.token
+            }
+          })
+
         })
-
-      }     
-    }, 3000)
+        .catch(error => {
+  
+          //Error on login
+          dispatch({
+            type: types.AUTHENTICATION_LOGIN_ERROR,
+            payload: {
+              callError: error
+            }
+          })
+        })
+    });
   }
 }
 
