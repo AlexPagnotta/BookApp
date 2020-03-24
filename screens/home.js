@@ -6,7 +6,7 @@ import { Login } from './login'
 
 class HomeScreen extends Component {
   render() {
-    const { doLogout, loggedIn, fullName } = this.props
+    const { executeLogout, loggedIn, fullName } = this.props
 
     // Display login screen when user is not logged in
     if (!loggedIn) {

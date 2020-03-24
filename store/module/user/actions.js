@@ -12,23 +12,30 @@ export const login = (username: string, password: string) => {
     // turn loading animation on
     // by dispacthing `loading` action from module `app`.
     // yes, each action can interact with another module actions.
-    dispatch(actions.app.loading())
+    dispatch({
+      type: types.LOGIN
+    })
     
     // simulate ajax login
     // in real world you can use `fetch` to make ajax request.
     setTimeout(() => {
       if (username === 'admin' && password === 'secret') {
         dispatch({
-          type: types.LOGIN,
+          type: types.LOGIN_SUCCESS,
           payload: {
             userId: username,
             fullName: 'Clark Kent'
           }
         })
       }
-    
-      // turn loading animation off
-      dispatch(actions.app.loading(false))
+      else{
+        dispatch({
+          type: types.LOGIN_ERROR,
+          payload: {
+            error: "Error"
+          }
+        })
+      }     
     }, 3000)
   }
 }

@@ -67,7 +67,7 @@ class LoginScreen extends Component {
     (state: States) => ({
       
       // props.loading -> modules.app.loading
-      loading: state.app.loading
+      loading: state.user.isLoading
     }),
     
     // inject actions
