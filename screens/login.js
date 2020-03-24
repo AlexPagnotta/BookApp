@@ -71,9 +71,7 @@ class LoginScreen extends Component {
     }),
     
     // inject actions
-    dispatch => ({
-  
-      // (Alternative way) props.doLogin -> modules.login.login()
+    dispatch => ({ 
       executeLogin: (username, password) =>
         dispatch(actions.authentication.login(username, password))
     })
