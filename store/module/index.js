@@ -1,11 +1,11 @@
 import { AuthenticationState, authentication } from './authentication'
-import { AppState, app } from './app'
+import { HomeState, home } from './home'
 
 /**
  * Root states.
  */
 export type States = {
-  app: AppState,
+  home: HomeState,
   authentication: AuthenticationState
 }
 
@@ -13,7 +13,7 @@ export type States = {
  * Root reducers.
  */
 export const reducers = {
-  app: app.reducer,
+  home: home.reducer,
   authentication: authentication.reducer
 }
 
@@ -21,8 +21,8 @@ export const reducers = {
  * Root actions.
  */
 export const actions = {
-  app: app.actions,
+  home: home.actions,
   authentication: authentication.actions
 }
 
-export { app, authentication }
+export { home, authentication }
