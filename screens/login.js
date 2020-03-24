@@ -1,14 +1,11 @@
 import React, { Component } from 'react'
 import {
   StyleSheet,
-  View,
-  Text,
-  TextInput,
   ActivityIndicator,
-  Button
 } from 'react-native'
 import { connect } from 'react-redux'
 import { actions, States } from '../store'
+import { Button, Input,Layout,Text } from '@ui-kitten/components';
 
 class LoginScreen extends Component {
     constructor(props) {
@@ -32,31 +29,54 @@ class LoginScreen extends Component {
   
       // display login screen
       return (
-        <View style={styles.container}>
-          <Text>Login</Text>
-          <TextInput 
-            onChangeText={username => this.setState({ username })}
-            value={this.state.username}
-          />
-          <TextInput
-            onChangeText={password => this.setState({ password })}
-            value={this.state.password}
-          />
-          <Button
-            title="Login"
-            color="#f194ff"
-            onPress={() => executeLogin(this.state.username, this.state.password)}
-          />
-        </View>
+        <Layout style={styles.container}>
+          <Layout style={styles.logoContainer}>
+            <Text category='h1'>BookApp</Text>
+          </Layout>
+          <Layout style={styles.inputsContainer}>
+            <Input style={styles.input}
+              label='Email'
+              onChangeText={username => this.setState({ username })}
+              value={this.state.username}
+            />
+            <Input
+              label='Password'
+              onChangeText={password => this.setState({ password })}
+              value={this.state.password}
+            />
+          </Layout>
+          <Layout style={styles.buttonsContainer}>
+            <Button style={styles.button}
+              onPress={() => executeLogin(this.state.username, this.state.password)}>
+                LOGIN
+            </Button>     
+          </Layout>      
+        </Layout>
       )
     }
   }
   
   const styles = StyleSheet.create({
     container: {
-      backgroundColor: '#fff',
-      justifyContent: 'center',
-      margin: 100
+      flex: 1,
+      padding: 32
+    },
+    logoContainer: {
+      flex: 1,
+      alignItems: 'center',
+      justifyContent: 'center'
+    },
+    inputsContainer: {
+      flex: 3
+    },
+    buttonsContainer: {
+      flex: 1,
+      flexDirection: 'column-reverse'
+    },
+    input: {
+      marginBottom: 20
+    },
+    button: {
     }
   })
 
