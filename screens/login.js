@@ -34,7 +34,7 @@ class LoginScreen extends Component {
       return (
         <View style={styles.container}>
           <Text>Login</Text>
-          <TextInput
+          <TextInput 
             onChangeText={username => this.setState({ username })}
             value={this.state.username}
           />
@@ -43,12 +43,10 @@ class LoginScreen extends Component {
             value={this.state.password}
           />
           <Button
-            onPress={() => {
-                executeLogin(this.state.username, this.state.password)
-            }}
-          >
-            Login
-          </Button>
+            title="Login"
+            color="#f194ff"
+            onPress={() => executeLogin(this.state.username, this.state.password)}
+          />
         </View>
       )
     }
@@ -57,7 +55,8 @@ class LoginScreen extends Component {
   const styles = StyleSheet.create({
     container: {
       backgroundColor: '#fff',
-      justifyContent: 'center'
+      justifyContent: 'center',
+      margin: 100
     }
   })
 

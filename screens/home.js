@@ -23,12 +23,10 @@ class HomeScreen extends Component {
       <View>
         <Text>Welcome {name} {lastName}!</Text>
         <Button
-          onPress={() => {
-            executeLogout()
-          }}
-        >
-          Logout
-        </Button>
+          title="Login"
+          color="#f194ff"
+          onPress={() => executeLogout()}
+        />   
       </View>
     )
   }
