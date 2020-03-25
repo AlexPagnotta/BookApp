@@ -2,10 +2,12 @@ import React, { Component } from 'react'
 import {
   StyleSheet,
   ActivityIndicator,
+  TouchableWithoutFeedback,
+  Keyboard
 } from 'react-native'
 import { connect } from 'react-redux'
 import { actions, States } from '../store'
-import { Button, Input,Layout,Text } from '@ui-kitten/components';
+import { Button, Input,Layout,Text ,Icon } from '@ui-kitten/components';
 
 class LoginScreen extends Component {
     constructor(props) {
@@ -14,12 +16,22 @@ class LoginScreen extends Component {
       //Init local state
       this.state = {
         username: '',
-        password: ''
+        password: '', 
+        secureTextEntry: true
       }
     }
   
     render() {
+
       const { loading, executeLogin } = this.props
+
+      const passwordEyeIcon = (style) => (
+        <Icon {...style} name={this.state.secureTextEntry ? 'eye-off' : 'eye'}/>
+      );
+
+      const onSecureTextIconPress = () => {
+        this.setState({secureTextEntry : !this.state.secureTextEntry});
+      };
   
       // show only loading indicator if loading state is true
       if (loading) {
@@ -29,29 +41,37 @@ class LoginScreen extends Component {
   
       // display login screen
       return (
-        <Layout style={styles.container}>
-          <Layout style={styles.logoContainer}>
-            <Text category='h1'>BookApp</Text>
+        <TouchableWithoutFeedback 
+          onPress={ () => { Keyboard.dismiss() }}>
+          <Layout 
+            style={styles.container}
+            onPress={Keyboard.dismiss()}>
+            <Layout style={styles.logoContainer}>
+              <Text category='h1'>BookApp</Text>
+            </Layout>
+            <Layout style={styles.inputsContainer}>
+              <Input style={styles.input}
+                label='Email'
+                onChangeText={username => this.setState({ username })}
+                value={this.state.username}
+              />
+              <Input
+                icon={passwordEyeIcon}
+                label='Password'
+                secureTextEntry={this.state.secureTextEntry}
+                onIconPress={onSecureTextIconPress}
+                onChangeText={password => this.setState({ password })}
+                value={this.state.password}
+              />
+            </Layout>
+            <Layout style={styles.buttonsContainer}>
+              <Button style={styles.button}
+                onPress={() => executeLogin(this.state.username, this.state.password)}>
+                  LOGIN
+              </Button>     
+            </Layout>      
           </Layout>
-          <Layout style={styles.inputsContainer}>
-            <Input style={styles.input}
-              label='Email'
-              onChangeText={username => this.setState({ username })}
-              value={this.state.username}
-            />
-            <Input
-              label='Password'
-              onChangeText={password => this.setState({ password })}
-              value={this.state.password}
-            />
-          </Layout>
-          <Layout style={styles.buttonsContainer}>
-            <Button style={styles.button}
-              onPress={() => executeLogin(this.state.username, this.state.password)}>
-                LOGIN
-            </Button>     
-          </Layout>      
-        </Layout>
+        </TouchableWithoutFeedback>
       )
     }
   }
