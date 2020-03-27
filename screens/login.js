@@ -42,10 +42,10 @@ class LoginScreen extends Component {
       // display login screen
       return (
         <TouchableWithoutFeedback 
-          onPress={ () => { Keyboard.dismiss() }}>
+          onPress={ () => { Keyboard.dismiss() }}
+          accessible={false}>
           <Layout 
-            style={styles.container}
-            onPress={Keyboard.dismiss()}>
+            style={styles.container}>
             <Layout style={styles.logoContainer}>
               <Text category='h1'>BookApp</Text>
             </Layout>
