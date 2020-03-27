@@ -45,11 +45,22 @@ export const login = (username: string, password: string) => {
     }
     catch (error) {
 
+      var errorMessage = '';
+
+      var response = error.response;
+
+      if(response.status === 400){
+          errorMessage = response.data.message;
+      }
+      else{
+        errorMessage = 'Error! Cannot execute Login.';
+      }
+
       //Error on login
       dispatch({
         type: costants.AUTHENTICATION_LOGIN_ERROR,
         payload: {
-          callError: 'Unable to execute Login'
+          callError: errorMessage
         }
       })
       
@@ -64,6 +75,15 @@ export const login = (username: string, password: string) => {
 export const hideErrorModal = () => {
   return {
     type: costants.AUTHENTICATION_HIDE_ERROR_MODAL
+  } 
+}
+
+/**
+* Toggle secure text entry method
+*/
+export const toggleSecureTextEntry = () => {
+  return {
+    type: costants.AUTHENTICATION_TOGGLE_SECURE_TEXT_ENTRY
   } 
 }
 

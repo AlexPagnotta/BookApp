@@ -12,27 +12,18 @@ class LoginScreen extends Component {
 
     constructor(props) {
       super(props)
-  
-      //Init local state
-      this.state = { 
-        secureTextEntry: true
-      }
 
     }
   
     render() {
 
       //Props from Redux
-      const { loading, callError, modalErrorVisible, executeLogin, hideErrorModal } = this.props
+      const { loading, callError, modalErrorVisible, executeLogin, secureTextEntry, hideErrorModal, toggleSecureTextEntry } = this.props
 
       //Icon Hide Password Methods
       const passwordEyeIcon = (style) => (
-        <Icon {...style} name={this.state.secureTextEntry ? 'eye-off' : 'eye'}/>
+        <Icon {...style} name={secureTextEntry ? 'eye-off' : 'eye'}/>
       );
-
-      const onSecureTextIconPress = () => {
-        this.setState({secureTextEntry : !this.state.secureTextEntry});
-      };
 
       //Validation Form
       const validationSchema = Yup.object().shape({
@@ -82,8 +73,8 @@ class LoginScreen extends Component {
                     icon={passwordEyeIcon}
                     name='password'
                     label='Password'
-                    secureTextEntry={this.state.secureTextEntry}
-                    onIconPress={onSecureTextIconPress}
+                    secureTextEntry={secureTextEntry}
+                    onIconPress={toggleSecureTextEntry}
                     onChangeText={handleChange('password')}
                     value={values.password}
                     caption={touched.password ? errors.password : ''}
@@ -157,7 +148,8 @@ class LoginScreen extends Component {
       
       loading: state.authentication.isLoading,
       callError: state.authentication.callError,
-      modalErrorVisible: state.authentication.modalErrorVisible
+      modalErrorVisible: state.authentication.modalErrorVisible,
+      secureTextEntry: state.authentication.secureTextEntry
     }),
     
     // inject actions
@@ -173,7 +165,10 @@ class LoginScreen extends Component {
       },
       hideErrorModal: () => {
         dispatch(actions.authentication.hideErrorModal())
-      }           
+      },
+      toggleSecureTextEntry: () => {
+        dispatch(actions.authentication.toggleSecureTextEntry())
+      }          
     })
 
   )(LoginScreen)

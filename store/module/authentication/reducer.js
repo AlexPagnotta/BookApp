@@ -4,6 +4,7 @@ import {
   AUTHENTICATION_LOGIN_ERROR, 
   AUTHENTICATION_LOGIN_SUCCESS, 
   AUTHENTICATION_HIDE_ERROR_MODAL,
+  AUTHENTICATION_TOGGLE_SECURE_TEXT_ENTRY,
   AUTHENTICATION_LOGOUT } from './constants'
 
 /**
@@ -18,7 +19,8 @@ export type AuthenticationState = {
   token: string,
   callError: string,
   modaErrorVisible: Boolean,
-  isLoading: Boolean
+  isLoading: Boolean,
+  secureTextEntry: Boolean
 }
 
 /** 
@@ -33,7 +35,8 @@ const initialState: AuthenticationState = {
   token: '',
   callError: '',
   modalErrorVisible: false,
-  isLoading: false
+  isLoading: false,
+  secureTextEntry: true
 }
 
 export default handleActions(
@@ -69,13 +72,18 @@ export default handleActions(
         isLoading: false
       }
     },
-    [AUTHENTICATION_HIDE_ERROR_MODAL]: (): AuthenticationState => {
+    [AUTHENTICATION_HIDE_ERROR_MODAL]: (state: AuthenticationState = initialState, action): AuthenticationState => {
       return {
         modalErrorVisible: false,
         callError: ''
       }
     },
-    [AUTHENTICATION_LOGOUT]: (): AuthenticationState => {
+    [AUTHENTICATION_TOGGLE_SECURE_TEXT_ENTRY]: (state: AuthenticationState = initialState, action): AuthenticationState => {
+      return {
+        secureTextEntry: !state.secureTextEntry,
+      }
+    },
+    [AUTHENTICATION_LOGOUT]: (state: AuthenticationState = initialState, action): AuthenticationState => {
       return {
         loggedIn: false,
         modalErrorVisible: false,
