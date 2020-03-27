@@ -157,7 +157,6 @@ class LoginScreen extends Component {
   
     // inject states
     (state: States) => ({
-      
       loading: state.authentication.isLoading,
       callError: state.authentication.callError,
       modalErrorVisible: state.authentication.modalErrorVisible,

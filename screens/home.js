@@ -2,21 +2,31 @@ import React, { Component } from 'react'
 import {StyleSheet, ScrollView } from 'react-native'
 import { connect } from 'react-redux'
 import { actions, States } from '../store'
-import { Login } from './login'
 import { Button, Input,Layout,Text ,Icon, Spinner } from '@ui-kitten/components';
 
 class HomeScreen extends Component {
-  render() {
-    const { executeLogout, loggedIn, name, lastName } = this.props
 
-    // Display login screen when user is not logged in
-    if (!loggedIn) {
-      return (
-        <Layout style={styles.container}>
-          <Login />
-        </Layout>
-      )
-    }
+  constructor() {
+    super();
+  }
+
+  componentDidMount() {
+
+    //Get the token 
+    this.props.getAuthToken().then(() => {
+
+      //If token is not present go to login
+      if(this.props.authToken == null || this.props.authToken === ''){
+        this.props.navigation.replace('Login');
+      }
+
+    })
+
+  }
+
+  render() {
+    const { executeLogout, name, lastName, authToken } = this.props
+
 
     // Display greeting with user full name displayed
     return (
@@ -59,13 +69,16 @@ export const Home = connect(
 
   // inject states to props
   (state: States) => ({
-    loggedIn: state.authentication.loggedIn,
     name: state.authentication.name,
-    lastName: state.authentication.lastName
+    lastName: state.authentication.lastName,
+    authToken: state.authentication.authToken
   }),
   
   // inject actions to props
   dispatch => ({
-    executeLogout: () => dispatch(actions.authentication.logout())
+    executeLogout: () =>{ 
+      dispatch(actions.authentication.logout())
+    },
+    getAuthToken: () => dispatch(actions.authentication.getAuthToken())
   })
 )(HomeScreen)
