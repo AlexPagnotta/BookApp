@@ -5,38 +5,37 @@ import {
   AUTHENTICATION_LOGIN_SUCCESS, 
   AUTHENTICATION_HIDE_ERROR_MODAL,
   AUTHENTICATION_TOGGLE_SECURE_TEXT_ENTRY,
-  AUTHENTICATION_LOGOUT } from './constants'
+  AUTHENTICATION_LOGOUT, 
+  AUTHENTICATION_GET_AUTH_TOKEN} from './constants'
 
 /**
  * Define State model
  */
 export type AuthenticationState = {
-  loggedIn: boolean,
   userId: int,
   userName: string,
   name: string,
   lastName: string,
-  token: string,
   callError: string,
   modaErrorVisible: Boolean,
   isLoading: Boolean,
-  secureTextEntry: Boolean
+  secureTextEntry: Boolean, 
+  authToken: string
 }
 
 /** 
  * Define Initial State
  */
 const initialState: AuthenticationState = {
-  loggedIn: false,
   userId: -1,
   userName: '',
   name: '',
   lastName:'',
-  token: '',
   callError: '',
   modalErrorVisible: false,
   isLoading: false,
-  secureTextEntry: true
+  secureTextEntry: true,
+  authToken: null
 }
 
 export default handleActions(
@@ -61,15 +60,20 @@ export default handleActions(
     [AUTHENTICATION_LOGIN_SUCCESS]: (state: AuthenticationState = initialState, action): AuthenticationState => {
       const payload = action.payload
       return {
-        loggedIn: true,
         userId: payload.userId,
         userName: payload.userName,
         name: payload.name,
         lastName: payload.lastName,
-        token: payload.token,
+        authToken: payload.authToken,
         callError: '',
         modalErrorVisible: false,
         isLoading: false
+      }
+    },
+    [AUTHENTICATION_GET_AUTH_TOKEN]: (state: AuthenticationState = initialState, action): AuthenticationState => {
+      const payload = action.payload      
+      return {
+        authToken: payload.authToken
       }
     },
     [AUTHENTICATION_HIDE_ERROR_MODAL]: (state: AuthenticationState = initialState, action): AuthenticationState => {

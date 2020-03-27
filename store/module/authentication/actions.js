@@ -1,6 +1,7 @@
 import * as costants from './constants'
 import axios from 'axios';
 import * as SecureStore from 'expo-secure-store';
+import * as RootNavigation from '../../../rootNavigation/rootNavigation'
 
 /**
 * Execute the login async call
@@ -31,6 +32,8 @@ export const login = (username: string, password: string) => {
       //Save token
       await SecureStore.setItemAsync(costants.AUTHENTICATION_TOKEN_KEY, data.token)
 
+      RootNavigation.replace('Home');
+
       dispatch({
         type: costants.AUTHENTICATION_LOGIN_SUCCESS,
         payload: {
@@ -38,7 +41,7 @@ export const login = (username: string, password: string) => {
           userName: data.userName,
           name: data.name,
           lastName: data.lastName,
-          token: data.token
+          authToken: data.token
         }
       })
       
@@ -72,6 +75,25 @@ export const login = (username: string, password: string) => {
 /**
 * Hide error modal method
 */
+export const getAuthToken = () => {
+
+  return async dispatch => {
+
+    var token = await SecureStore.getItemAsync(costants.AUTHENTICATION_TOKEN_KEY)
+
+    dispatch({
+      type: costants.AUTHENTICATION_GET_AUTH_TOKEN,
+      payload: {
+        authToken: token
+      }
+    })
+  }
+
+}
+
+/**
+* Hide error modal method
+*/
 export const hideErrorModal = () => {
   return {
     type: costants.AUTHENTICATION_HIDE_ERROR_MODAL
@@ -95,6 +117,8 @@ export const logout = () => {
   return async dispatch => {
 
     await SecureStore.setItemAsync(costants.AUTHENTICATION_TOKEN_KEY, '')
+
+    RootNavigation.replace('Login');
 
     dispatch({
       type: costants.AUTHENTICATION_LOGOUT,
