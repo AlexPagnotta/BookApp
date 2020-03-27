@@ -90,13 +90,15 @@ class LoginScreen extends Component {
                   </Button>     
                 </Layout>
                 <Modal
-                  backdropStyle={styles.backdrop}
+                  backdropStyle={styles.modalBackdrop}
                   onBackdropPress={hideErrorModal}
                   visible={modalErrorVisible}>
                   <Layout
                     level='3'
                     style={styles.modalContainer}>
-                    <Text>{callError}</Text>
+                    <Text category='h4' style={styles.modalTitle}>Error</Text>
+                    <Text style={styles.modalText}>{callError}</Text>
+                    <Button style={styles.modalButton} onPress={hideErrorModal}>Close</Button>
                   </Layout>
                 </Modal>   
               </Fragment> 
@@ -132,12 +134,22 @@ class LoginScreen extends Component {
     },
     modalContainer: {
       justifyContent: 'center',
-      alignItems: 'center',
-      width: 256,
-      padding: 16,
+      alignItems: 'flex-start',
+      padding: 24,
+      margin: 0,
+      borderRadius: 5
     },
-    backdrop: {
+    modalTitle: {
+    },
+    modalText: {
+      marginTop: 24
+    },
+    modalBackdrop: {
       backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    },
+    modalButton: {
+      marginTop: 24,
+      alignSelf: 'flex-end'
     },
   })
 
