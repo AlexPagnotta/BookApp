@@ -3,6 +3,8 @@ import {
   AUTHENTICATION_LOGIN,
   AUTHENTICATION_LOGIN_ERROR, 
   AUTHENTICATION_LOGIN_SUCCESS, 
+  AUTHENTICATION_HIDE_ERROR_MODAL,
+  AUTHENTICATION_TOGGLE_SECURE_TEXT_ENTRY,
   AUTHENTICATION_LOGOUT } from './constants'
 
 /**
@@ -16,7 +18,9 @@ export type AuthenticationState = {
   lastName: string,
   token: string,
   callError: string,
-  isLoading: Boolean
+  modaErrorVisible: Boolean,
+  isLoading: Boolean,
+  secureTextEntry: Boolean
 }
 
 /** 
@@ -30,7 +34,9 @@ const initialState: AuthenticationState = {
   lastName:'',
   token: '',
   callError: '',
-  isLoading: false
+  modalErrorVisible: false,
+  isLoading: false,
+  secureTextEntry: true
 }
 
 export default handleActions(
@@ -39,6 +45,7 @@ export default handleActions(
       return {
         loggedIn: false,
         callError: '',
+        modalErrorVisible: false,
         isLoading: true
       }
     },
@@ -46,7 +53,8 @@ export default handleActions(
       const payload = action.payload
       return {
         loggedIn: false,
-        error: payload.error,
+        callError: payload.callError,
+        modalErrorVisible: true,
         isLoading: false
       }
     },
@@ -60,12 +68,25 @@ export default handleActions(
         lastName: payload.lastName,
         token: payload.token,
         callError: '',
+        modalErrorVisible: false,
         isLoading: false
       }
     },
-    [AUTHENTICATION_LOGOUT]: (): AuthenticationState => {
+    [AUTHENTICATION_HIDE_ERROR_MODAL]: (state: AuthenticationState = initialState, action): AuthenticationState => {
+      return {
+        modalErrorVisible: false,
+        callError: ''
+      }
+    },
+    [AUTHENTICATION_TOGGLE_SECURE_TEXT_ENTRY]: (state: AuthenticationState = initialState, action): AuthenticationState => {
+      return {
+        secureTextEntry: !state.secureTextEntry,
+      }
+    },
+    [AUTHENTICATION_LOGOUT]: (state: AuthenticationState = initialState, action): AuthenticationState => {
       return {
         loggedIn: false,
+        modalErrorVisible: false,
         callError: ''
       }
     }

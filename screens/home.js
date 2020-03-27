@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { View, Text, Button } from 'react-native'
+import { View, Text, Button,StyleSheet } from 'react-native'
 import { connect } from 'react-redux'
 import { actions, States } from '../store'
 import { Login } from './login'
@@ -11,8 +11,7 @@ class HomeScreen extends Component {
     // Display login screen when user is not logged in
     if (!loggedIn) {
       return (
-        <View>
-          <Text>Awesome Project</Text>
+        <View style={styles.container}>
           <Login />
         </View>
       )
@@ -23,7 +22,7 @@ class HomeScreen extends Component {
       <View>
         <Text>Welcome {name} {lastName}!</Text>
         <Button
-          title="Login"
+          title="LOGOUT"
           color="#f194ff"
           onPress={() => executeLogout()}
         />   
@@ -31,6 +30,13 @@ class HomeScreen extends Component {
     )
   }
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    marginTop: 48
+  }
+})
 
 export const Home = connect(
 
