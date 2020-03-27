@@ -1,8 +1,9 @@
 import React, { Component } from 'react'
-import { View, Text, Button,StyleSheet } from 'react-native'
+import {StyleSheet, ScrollView } from 'react-native'
 import { connect } from 'react-redux'
 import { actions, States } from '../store'
 import { Login } from './login'
+import { Button, Input,Layout,Text ,Icon, Spinner } from '@ui-kitten/components';
 
 class HomeScreen extends Component {
   render() {
@@ -11,22 +12,26 @@ class HomeScreen extends Component {
     // Display login screen when user is not logged in
     if (!loggedIn) {
       return (
-        <View style={styles.container}>
+        <Layout style={styles.container}>
           <Login />
-        </View>
+        </Layout>
       )
     }
 
     // Display greeting with user full name displayed
     return (
-      <View>
-        <Text>Welcome {name} {lastName}!</Text>
-        <Button
-          title="LOGOUT"
-          color="#f194ff"
-          onPress={() => executeLogout()}
-        />   
-      </View>
+      <Layout style={styles.container}>
+        <Layout style={styles.statusBar}>
+          <Text category='h4'>BookApp</Text>
+          <Button
+            onPress={() => executeLogout()}>
+            Logout
+          </Button>
+        </Layout>
+        <ScrollView style={styles.homeContainer}>
+        </ScrollView>
+          
+      </Layout>
     )
   }
 }
@@ -35,6 +40,18 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     marginTop: 48
+  },
+  statusBar: {
+    height: 70,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    padding: 10
+  },
+  homeContainer: {
+    flex: 1,
+    backgroundColor: 'red',
+    padding: 10
   }
 })
 
