@@ -3,6 +3,7 @@ import {
   AUTHENTICATION_LOGIN,
   AUTHENTICATION_LOGIN_ERROR, 
   AUTHENTICATION_LOGIN_SUCCESS, 
+  AUTHENTICATION_HIDE_ERROR_MODAL,
   AUTHENTICATION_LOGOUT } from './constants'
 
 /**
@@ -16,6 +17,7 @@ export type AuthenticationState = {
   lastName: string,
   token: string,
   callError: string,
+  modaErrorVisible: Boolean,
   isLoading: Boolean
 }
 
@@ -30,6 +32,7 @@ const initialState: AuthenticationState = {
   lastName:'',
   token: '',
   callError: '',
+  modalErrorVisible: false,
   isLoading: false
 }
 
@@ -39,6 +42,7 @@ export default handleActions(
       return {
         loggedIn: false,
         callError: '',
+        modalErrorVisible: false,
         isLoading: true
       }
     },
@@ -46,7 +50,8 @@ export default handleActions(
       const payload = action.payload
       return {
         loggedIn: false,
-        error: payload.error,
+        callError: payload.callError,
+        modalErrorVisible: true,
         isLoading: false
       }
     },
@@ -60,12 +65,20 @@ export default handleActions(
         lastName: payload.lastName,
         token: payload.token,
         callError: '',
+        modalErrorVisible: false,
         isLoading: false
+      }
+    },
+    [AUTHENTICATION_HIDE_ERROR_MODAL]: (): AuthenticationState => {
+      return {
+        modalErrorVisible: false,
+        callError: ''
       }
     },
     [AUTHENTICATION_LOGOUT]: (): AuthenticationState => {
       return {
         loggedIn: false,
+        modalErrorVisible: false,
         callError: ''
       }
     }

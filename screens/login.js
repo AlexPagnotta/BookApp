@@ -4,7 +4,7 @@ import {
 } from 'react-native'
 import { connect } from 'react-redux'
 import { actions, States } from '../store'
-import { Button, Input,Layout,Text ,Icon } from '@ui-kitten/components';
+import { Button, Input,Layout,Text ,Icon, Modal, Spinner } from '@ui-kitten/components';
 import { Formik } from 'formik'
 import * as Yup from 'yup'
 
@@ -23,7 +23,7 @@ class LoginScreen extends Component {
     render() {
 
       //Props from Redux
-      const { loading, executeLogin } = this.props
+      const { loading, callError, modalErrorVisible, executeLogin, hideErrorModal } = this.props
 
       //Icon Hide Password Methods
       const passwordEyeIcon = (style) => (
@@ -44,11 +44,6 @@ class LoginScreen extends Component {
           .required('Password cannot be empty')
           .min(5, 'Password must have at least 5 characters ')
       })
-  
-      // Loading Indicator on Loading
-      if (loading) {
-        return <ActivityIndicator />
-      }
   
       // Login Screen
       return (
@@ -99,10 +94,20 @@ class LoginScreen extends Component {
                 <Layout style={styles.buttonsContainer}>
                   <Button style={styles.button}
                     onPress={handleSubmit}
-                    disabled={!isValid}>
-                      LOGIN
+                    disabled={loading || !isValid}>
+                      {loading ? 'Loading...': 'Login'}
                   </Button>     
-                </Layout>   
+                </Layout>
+                <Modal
+                  backdropStyle={styles.backdrop}
+                  onBackdropPress={hideErrorModal}
+                  visible={modalErrorVisible}>
+                  <Layout
+                    level='3'
+                    style={styles.modalContainer}>
+                    <Text>{callError}</Text>
+                  </Layout>
+                </Modal>   
               </Fragment> 
               )}
             </Formik>                        
@@ -133,7 +138,16 @@ class LoginScreen extends Component {
       marginBottom: 20
     },
     button: {
-    }
+    },
+    modalContainer: {
+      justifyContent: 'center',
+      alignItems: 'center',
+      width: 256,
+      padding: 16,
+    },
+    backdrop: {
+      backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    },
   })
 
   export const Login = connect(
@@ -141,8 +155,9 @@ class LoginScreen extends Component {
     // inject states
     (state: States) => ({
       
-      // props.loading -> modules.app.loading
-      loading: state.authentication.isLoading
+      loading: state.authentication.isLoading,
+      callError: state.authentication.callError,
+      modalErrorVisible: state.authentication.modalErrorVisible
     }),
     
     // inject actions
@@ -155,7 +170,10 @@ class LoginScreen extends Component {
         else{
           alert('error')
         } 
-      }       
+      },
+      hideErrorModal: () => {
+        dispatch(actions.authentication.hideErrorModal())
+      }           
     })
 
   )(LoginScreen)

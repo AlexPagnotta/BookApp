@@ -45,19 +45,26 @@ export const login = (username: string, password: string) => {
     }
     catch (error) {
 
-      console.log(error);
-
       //Error on login
       dispatch({
         type: costants.AUTHENTICATION_LOGIN_ERROR,
         payload: {
-          callError: error
+          callError: 'Unable to execute Login'
         }
       })
       
       
     }
   }
+}
+
+/**
+* Hide error modal method
+*/
+export const hideErrorModal = () => {
+  return {
+    type: costants.AUTHENTICATION_HIDE_ERROR_MODAL
+  } 
 }
 
 /**
@@ -73,6 +80,4 @@ export const logout = () => {
       type: costants.AUTHENTICATION_LOGOUT,
     })
   }
-  
-  
 }
