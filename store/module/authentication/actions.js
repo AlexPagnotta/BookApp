@@ -1,4 +1,5 @@
 import * as costants from './constants'
+import * as globalCostants from '../globalCostants'
 import axios from 'axios';
 import * as SecureStore from 'expo-secure-store';
 import * as RootNavigation from '../../../rootNavigation/rootNavigation'
@@ -20,7 +21,7 @@ export const login = (username: string, password: string) => {
     try{
 
       var loginPromise = axios
-                      .post(costants.API_URL,{
+                      .post(globalCostants.API_URL + costants.API_URL_NAME,{
                         userName: username,
                         password: password
                       });
@@ -30,7 +31,7 @@ export const login = (username: string, password: string) => {
       var data = response.data;
 
       //Save token
-      await SecureStore.setItemAsync(costants.AUTHENTICATION_TOKEN_KEY, data.token)
+      await SecureStore.setItemAsync(globalCostants.TOKEN_KEY, data.token)
 
       RootNavigation.replace('Home');
 
@@ -79,7 +80,7 @@ export const getAuthToken = () => {
 
   return async dispatch => {
 
-    var token = await SecureStore.getItemAsync(costants.AUTHENTICATION_TOKEN_KEY)
+    var token = await SecureStore.getItemAsync(globalCostants.TOKEN_KEY)
 
     dispatch({
       type: costants.AUTHENTICATION_GET_AUTH_TOKEN,
@@ -116,7 +117,7 @@ export const logout = () => {
 
   return async dispatch => {
 
-    await SecureStore.setItemAsync(costants.AUTHENTICATION_TOKEN_KEY, '')
+    await SecureStore.setItemAsync(globalCostants.TOKEN_KEY, '')
 
     RootNavigation.replace('Login');
 

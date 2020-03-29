@@ -1,1 +1,0 @@
-export const ACTION_NAME = 'HOME/ACTION_NAME'
