@@ -1,8 +1,10 @@
 import React, { Component } from 'react'
-import {StyleSheet, ScrollView } from 'react-native'
+import {StyleSheet} from 'react-native'
 import { connect } from 'react-redux'
 import { actions, States } from '../store'
-import { Button, Input,Layout,Text ,Icon, Spinner } from '@ui-kitten/components';
+import { Icon, Tab, Layout, Text,Button, BottomNavigation } from '@ui-kitten/components';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 class HomeScreen extends Component {
 
@@ -25,10 +27,62 @@ class HomeScreen extends Component {
   }
 
   render() {
-    const { executeLogout, name, lastName, authToken } = this.props
 
+    const { executeLogout, name, lastName, authToken, navigation } = this.props
 
-    // Display greeting with user full name displayed
+    /*TODO Move in separate file*/
+    const BooksScreen = () => (
+      <Layout style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+        <Text category='h1'>Books</Text>
+      </Layout>
+    );
+
+    const ShelvesScreen = () => (
+      <Layout style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+        <Text category='h1'>Shelves</Text>
+      </Layout>
+    );
+
+    const SettingsScreen = () => (
+      <Layout style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+        <Text category='h1'>Settings</Text>
+      </Layout>
+    );
+
+    const BookIcon = (style) => (
+      <Icon {...style} name='book-open-outline'/>
+    );
+    
+    const ShelfIcon = (style) => (
+      <Icon {...style} name='bookmark-outline'/>
+    );
+    
+    const SettingIcon = (style) => (
+      <Icon {...style} name='settings-outline'/>
+    );
+
+    //Bottom Tab Bar methods
+
+    const BottomTab = createBottomTabNavigator();
+
+    const BottomTabBar = ({ state }) => {
+
+      const onTabSelect = (index) => {
+        navigation.navigate(state.routeNames[index]);
+      };
+    
+      return (
+        <SafeAreaView>
+          <BottomNavigation selectedIndex={state.index} onSelect={onTabSelect}>
+            <Tab icon={BookIcon} />
+            <Tab icon={ShelfIcon} />
+            <Tab icon={SettingIcon} />
+          </BottomNavigation>
+        </SafeAreaView>
+      );
+    };
+    
+    
     return (
       <Layout style={styles.container}>
         <Layout style={styles.statusBar}>
@@ -38,9 +92,11 @@ class HomeScreen extends Component {
             Logout
           </Button>
         </Layout>
-        <ScrollView style={styles.homeContainer}>
-        </ScrollView>
-          
+        <BottomTab.Navigator tabBar={props => <BottomTabBar {...props} />}>
+          <BottomTab.Screen name='Books' component={BooksScreen}/>
+          <BottomTab.Screen name='Shelves' component={ShelvesScreen}/>
+          <BottomTab.Screen name='Settings' component={SettingsScreen}/>
+        </BottomTab.Navigator>
       </Layout>
     )
   }
@@ -49,7 +105,6 @@ class HomeScreen extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    marginTop: 48
   },
   statusBar: {
     height: 70,

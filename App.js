@@ -9,6 +9,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { Home, Login } from './screens';
 import { navigationRef } from './rootNavigation/rootNavigation';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 const store = createStore()
 
@@ -19,12 +20,14 @@ const App = () => {
     <Provider store={store}>     
         <IconRegistry icons={EvaIconsPack} />
         <ApplicationProvider mapping={mapping} theme={lightTheme}>
-          <NavigationContainer ref={navigationRef}>
-            <Stack.Navigator initialRouteName="Home">
-              <Stack.Screen name="Home" component={Home} />
-              <Stack.Screen name="Login" component={Login} />
-            </Stack.Navigator>
-          </NavigationContainer>     
+          <SafeAreaProvider>
+            <NavigationContainer ref={navigationRef}>
+              <Stack.Navigator initialRouteName="Home">
+                <Stack.Screen name="Home" component={Home} />
+                <Stack.Screen name="Login" component={Login} />
+              </Stack.Navigator>
+            </NavigationContainer>    
+          </SafeAreaProvider> 
         </ApplicationProvider>
     </Provider>
   )
