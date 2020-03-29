@@ -23,6 +23,8 @@ class HomeScreen extends Component {
       if(this.props.authToken == null || this.props.authToken === ''){
         this.props.navigation.replace('Login');
       }
+
+      //FIXME: This happens after the call to get the books, so it return to login
       //Set token in axios
       axios.defaults.headers.common['Authorization'] = `Bearer ${this.props.authToken}`;
     })
@@ -35,7 +37,7 @@ class HomeScreen extends Component {
 
     /*TODO: Move in separate file*/
     const ShelvesScreen = () => (
-      <Layout style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+      <Layout style={{ flex: 1, justifyContent: 'center', alignItems: 'center'}}>
         <Text category='h1'>Shelves</Text>
       </Layout>
     );
