@@ -6,6 +6,7 @@ import { Icon, Tab, Layout, Text,Button, BottomNavigation } from '@ui-kitten/com
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Books } from './tabs';
+import axios from 'axios';
 
 class HomeScreen extends Component {
 
@@ -21,6 +22,10 @@ class HomeScreen extends Component {
       //If token is not present go to login
       if(this.props.authToken == null || this.props.authToken === ''){
         this.props.navigation.replace('Login');
+      }
+      //Set token in axios
+      else{
+        axios.defaults.headers.common['Authorization'] = `Bearer ${this.props.authToken}`;
       }
 
     })
