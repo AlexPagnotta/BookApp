@@ -24,10 +24,7 @@ class HomeScreen extends Component {
         this.props.navigation.replace('Login');
       }
       //Set token in axios
-      else{
-        axios.defaults.headers.common['Authorization'] = `Bearer ${this.props.authToken}`;
-      }
-
+      axios.defaults.headers.common['Authorization'] = `Bearer ${this.props.authToken}`;
     })
 
   }

@@ -1,8 +1,9 @@
 import React, { Component } from 'react'
-import {StyleSheet, ActivityIndicator} from 'react-native'
+import {StyleSheet, ActivityIndicator,FlatList} from 'react-native'
 import { connect } from 'react-redux'
 import { actions, States } from '../../store'
-import { Icon, Layout, Text,Button, List, ListItem } from '@ui-kitten/components';
+import { Icon, Layout, Text,Button, Card } from '@ui-kitten/components';
+import BookCardItem from '../../components/bookCardItem'
 
 class BooksTab extends Component {
 
@@ -19,28 +20,33 @@ class BooksTab extends Component {
     //Props from Redux
     const { loading, error, books } = this.props
 
-    const renderItem = ({ item, index }) => (
-      <ListItem title={`${item.bookId} ${index + 1}`}/>
-    );
+    function Item({ book }) {
+      return (
+        <Layout>
+          <Text >{ book.bookId}</Text>
+        </Layout>
+      );
+    }
 
     if(loading){
       return (
           <ActivityIndicator></ActivityIndicator>
       )
     }
+
     return (
-      <List style={styles.list}
-          data={books}
-          renderItem={renderItem}
+      <FlatList
+        data={books}
+        renderItem={({ item }) => <BookCardItem book={item} />}
+        keyExtractor={item => item.bookId}
+        numColumns={3}
+        horizontal={false}
       />
     )
   }
 }
 
 const styles = StyleSheet.create({
-  list: {
-    flex: 1
-  },
 })
 
 export const Books = connect(
