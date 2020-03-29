@@ -31,8 +31,7 @@ class HomeScreen extends Component {
 
     const { executeLogout, name, lastName, authToken, navigation } = this.props
 
-    /*TODO Move in separate file*/
-
+    /*TODO: Move in separate file*/
     const ShelvesScreen = () => (
       <Layout style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
         <Text category='h1'>Shelves</Text>
