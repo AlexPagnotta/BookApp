@@ -1,5 +1,5 @@
 import * as costants from './constants'
-import * as globalCostants from '../globalCostants'
+import * as globalCostants from '../costants/globalCostants'
 import axios from 'axios';
 import * as RootNavigation from '../../../rootNavigation/rootNavigation'
 
