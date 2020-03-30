@@ -1,33 +1,33 @@
 import { handleActions } from 'redux-actions'
-import { HOME_GET_BOOKS, HOME_GET_BOOKS_SUCCESS, HOME_GET_BOOKS_ERROR } from './constants'
+import { BOOKS_GET_BOOKS, BOOKS_GET_BOOKS_SUCCESS, BOOKS_GET_BOOKS_ERROR } from './constants'
 
 // exporting type of state for type safe
-export type HomeState = {
+export type BooksState = {
   books: [], 
   isLoading: false,
   error: ''
 }
 
-const initialState: HomeState = {
+const initialState: BooksState = {
 }
 
 // handle actions
 export default handleActions(
   {
-    [HOME_GET_BOOKS]: (state: HomeState = initialState, action): HomeState => {
+    [BOOKS_GET_BOOKS]: (state: BooksState = initialState, action): BooksState => {
       const payload = action.payload
       return {
         isLoading: true
       }
     },
-    [HOME_GET_BOOKS_SUCCESS]: (state: HomeState = initialState, action): HomeState => {
+    [BOOKS_GET_BOOKS_SUCCESS]: (state: BooksState = initialState, action): BooksState => {
       const payload = action.payload
       return {
         isLoading: false,
         books: payload.books
       }
     },
-    [HOME_GET_BOOKS_ERROR]: (state: HomeState = initialState, action): HomeState => {
+    [BOOKS_GET_BOOKS_ERROR]: (state: BooksState = initialState, action): BooksState => {
       const payload = action.payload
       return {
         isLoading: false,

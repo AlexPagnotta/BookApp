@@ -7,7 +7,7 @@ import { EvaIconsPack } from '@ui-kitten/eva-icons';
 import 'react-native-gesture-handler';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import { Home, Login } from './screens';
+import { Home, Login, BookDetail } from './screens';
 import { navigationRef } from './rootNavigation/rootNavigation';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 
@@ -25,6 +25,7 @@ const App = () => {
               <Stack.Navigator initialRouteName="Home">
                 <Stack.Screen name="Home" component={Home} />
                 <Stack.Screen name="Login" component={Login} />
+                <Stack.Screen name="BookDetail" component={BookDetail} />
               </Stack.Navigator>
             </NavigationContainer>    
           </SafeAreaProvider> 

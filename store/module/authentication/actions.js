@@ -66,9 +66,7 @@ export const login = (username: string, password: string) => {
         payload: {
           callError: errorMessage
         }
-      })
-      
-      
+      }) 
     }
   }
 }
