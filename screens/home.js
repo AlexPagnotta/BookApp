@@ -23,10 +23,6 @@ class HomeScreen extends Component {
       if(this.props.authToken == null || this.props.authToken === ''){
         this.props.navigation.replace('Login');
       }
-
-      //FIXME: This happens after the call to get the books, so it return to login
-      //Set token in axios
-      axios.defaults.headers.common['Authorization'] = `Bearer ${this.props.authToken}`;
     })
 
   }
