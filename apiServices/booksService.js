@@ -1,12 +1,15 @@
-import request from '../ApiCentral'
+import request from './baseService'
 
 const API_NAME = 'books'
 
 function getAll() {
-  return request({
+
+  var requestFunction = request({
     url:    API_NAME,
     method: 'GET'
   });
+
+  return requestFunction;
 }
 
 

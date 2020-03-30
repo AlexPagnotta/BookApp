@@ -1,8 +1,9 @@
 import * as costants from './constants'
-import * as globalCostants from '../costants/globalCostants'
+import * as globalCostants from '../../../constants/globalConstants'
 import axios from 'axios';
 import * as SecureStore from 'expo-secure-store';
 import * as RootNavigation from '../../../rootNavigation/rootNavigation'
+import AuthenticationService from '../../../apiServices/authenticationService';
 
 /**
 * Execute the login async call
@@ -20,51 +21,34 @@ export const login = (username: string, password: string) => {
 
     try{
 
-      var loginPromise = axios
-                      .post(globalCostants.API_URL + costants.API_URL_NAME,{
-                        userName: username,
-                        password: password
-                      });
+      var loginPromise = AuthenticationService.login(username, password);
 
       var response = await loginPromise;
-      
-      var data = response.data;
-
+    
       //Save token
-      await SecureStore.setItemAsync(globalCostants.TOKEN_KEY, data.token)
+      await SecureStore.setItemAsync(globalCostants.TOKEN_KEY, response.token)
 
       RootNavigation.replace('Home');
 
       dispatch({
         type: costants.AUTHENTICATION_LOGIN_SUCCESS,
         payload: {
-          userId: data.userId,
-          userName: data.userName,
-          name: data.name,
-          lastName: data.lastName,
-          authToken: data.token
+          userId: response.userId,
+          userName: response.userName,
+          name: response.name,
+          lastName: response.lastName,
+          authToken: response.token
         }
       })
       
     }
     catch (error) {
 
-      var errorMessage = '';
-
-      var response = error.response;
-
-      if(response.status === 400){
-          errorMessage = response.data.message;
-      }
-      else{
-        errorMessage = 'Error! Cannot execute Login.';
-      }
-
       //Error on login
       dispatch({
         type: costants.AUTHENTICATION_LOGIN_ERROR,
         payload: {
-          callError: errorMessage
+          callError: error.errorMessage
         }
       }) 
     }

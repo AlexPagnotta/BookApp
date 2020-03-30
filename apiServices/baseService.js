@@ -1,47 +1,59 @@
 import axios from 'axios';
 import { AsyncStorage } from 'react-native'
-import * as globalCostants from '../costants/globalCostants'
+import * as globalCostants from '../constants/globalConstants'
+import * as RootNavigation from '../rootNavigation/rootNavigation'
+import * as SecureStore from 'expo-secure-store';
 
-/**
- * Request Wrapper with default success/error actions
- */
-
+ /**
+  * Request Wrapper with default success/error actions
+  * @param {*} options 
+  * @param {*} isHeader 
+  */
 const request = async function (options, isHeader = true) {
 
-  let authHeader = null;
+  let authToken = null;
 
   if (isHeader) {
-    authHeader = await AsyncStorage.getItem(globalCostants.TOKEN_KEY); /// Add header
+    authToken = await SecureStore.getItemAsync(globalCostants.TOKEN_KEY); /// Add header
   }
 
-  const client = axios.get({
-    baseURL: {globalCostants.API_URL},
-    headers: { `Bearer ${authHeader}` } //TODO: Check Syntax
+  const client = axios.create({
+    baseURL: globalCostants.API_URL,
+    headers: {'Authorization': 'Bearer '+ authToken}
   });
 
   const onSuccess = function (response) {
 
-    console.debug('Request Successful!', response);
     return response.data;
+
   }
 
   const onError = function (error) {
+
     console.debug('Request Failed:', error.config);
 
-    if (error.response) {
-      // Request was made but server responded with something
-      // other than 2xx
-      console.debug('Status:', error.response.status);
-      console.debug('Data:', error.response.data);
-      console.debug('Headers:', error.response.headers);
+    var errorMessage = '';
 
-    } else {
-      // Something else happened while setting up the request
-      // triggered the error
-      console.debug('Error Message:', error.message);
+    var response = error.response;
+
+    //Reeturn message if BadRequest
+    if(response.status === 400){
+      errorMessage = response.data.message;
+    }
+    //Go to login if not aithenticated
+    else if(response.status === 401){
+      RootNavigation.replace('Login');
+    }
+    else{
+      errorMessage = 'Error while executing Action.';
     }
 
-    return Promise.reject(error.response || error.message);
+    //Build error object
+    var error = {
+      error, errorMessage
+    }
+
+    return Promise.reject(error);
   }
 
 
