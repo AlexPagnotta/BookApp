@@ -1,6 +1,6 @@
 import React from 'react'
-import { Card, Text } from '@ui-kitten/components';
-import {StyleSheet} from 'react-native'
+import { Card, Text} from '@ui-kitten/components';
+import {StyleSheet, Image} from 'react-native'
 import { BookDetail } from '../screens';
 import { useNavigation } from '@react-navigation/native';
 
@@ -8,26 +8,37 @@ function BookCardItem({ book }) {
 
   const navigation = useNavigation();
   
+  const CardHeader = () => (
+    <React.Fragment>  
+      <Image
+        style={styles.headerCardImage}
+        source={{ uri: book.imageUrl }}
+      />
+    </React.Fragment>
+  );
+  
   return (
-    <Card style={styles.bookCard}
+    <Card header={CardHeader} style={styles.bookCard}
         onPress={() =>
           navigation.navigate('BookDetail', {
-            bookId: book.bookId,
+            book: book,
           })
         }>
-      <Text>
-        {book.bookId}
-      </Text>
+        <Text>{book.title}</Text>
     </Card>
   )
 }
 
 const styles = StyleSheet.create({
   bookCard: {
-    flex: 1/3,
-    height: 200,
-    margin: 10
-  }
+    flex: 1/2,
+    height: 300,
+    margin: 20,
+    padding: 0
+  },
+  headerCardImage: {
+    flex: 1
+  },
 })
 
 export default BookCardItem;
