@@ -32,7 +32,7 @@ function BookCardItem({ book }) {
 const styles = StyleSheet.create({
   bookCard: {
     flex: 1/2,
-    height: 300,
+    height: 360,
     margin: 20,
     padding: 0
   },
