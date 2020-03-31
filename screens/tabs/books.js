@@ -12,7 +12,8 @@ class BooksTab extends Component {
   }
 
   componentDidMount(){
-      this.props.getBooks();
+    //Load books
+    this.props.getBooks();
   }
 
   render() {
