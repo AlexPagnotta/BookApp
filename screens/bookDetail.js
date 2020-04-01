@@ -16,7 +16,10 @@ class BookDetailScreen extends Component {
   componentDidMount() {
 
     //Load book initial shelf
-    //TODO: Load book initial shelf , getting the book shelf from this.props.book.shelf
+    this.props.setSelectedShelf({
+      "id": 2,
+      "text": "Da Leggere",
+    }); //TODO: DUMMY change with shelf from bookand map it correctly
 
     //Load shelves
     this.props.getShelves();
@@ -76,7 +79,10 @@ export const BookDetail = connect(
     }, 
     onSelectShelfChanged: (selectedShelf) =>{
       dispatch(actions.bookDetail.onSelectShelfChanged(selectedShelf))
-
+    },
+    setSelectedShelf: (selectedShelf) =>{  
+      dispatch(actions.bookDetail.setSelectedShelf(selectedShelf))
     }
+    
   })
 )(BookDetailScreen)
