@@ -14,6 +14,10 @@ class BookDetailScreen extends Component {
   }
 
   componentDidMount() {
+
+    //Load book initial shelf
+    //TODO: Load book initial shelf , getting the book shelf from this.props.book.shelf
+
     //Load shelves
     this.props.getShelves();
   }
@@ -21,7 +25,7 @@ class BookDetailScreen extends Component {
 
   render() {
 
-    const {  loading, error,  shelvesSelect, route, navigation } = this.props
+    const {  loading, error,  shelvesSelect, route, navigation, selectedShelf, onSelectShelfChanged } = this.props
 
     //Get the id of the book from react navigation
     const { book } = route.params;
@@ -37,8 +41,8 @@ class BookDetailScreen extends Component {
         <Select
           data={shelvesSelect}
           //keyExtractor={item => item.shelfId} //TODO: To Implement
-          //selectedOption={selectedOption}
-          //onSelect={setSelectedOption}
+          selectedOption={selectedShelf}
+          onSelect={value => onSelectShelfChanged(value)}
       />
       </Layout>
     )
@@ -61,13 +65,18 @@ export const BookDetail = connect(
   (state: States) => ({
     loading: state.shelves.isLoading,
     error: state.shelves.error,
-    shelvesSelect: state.shelves.shelvesSelect
+    shelvesSelect: state.shelves.shelvesSelect,
+    selectedShelf: state.bookDetail.selectedShelf
   }),
   
   // inject actions to props
   dispatch => ({
     getShelves: () =>{ 
       dispatch(actions.shelves.getShelves())
+    }, 
+    onSelectShelfChanged: (selectedShelf) =>{
+      dispatch(actions.bookDetail.onSelectShelfChanged(selectedShelf))
+
     }
   })
 )(BookDetailScreen)
