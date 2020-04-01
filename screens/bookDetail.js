@@ -10,6 +10,7 @@ class BookDetailScreen extends Component {
 
   constructor() {
     super();
+
   }
 
   componentDidMount() {
@@ -20,12 +21,11 @@ class BookDetailScreen extends Component {
 
   render() {
 
-    const {  loading, error, shelves , route, navigation } = this.props
+    const {  loading, error,  shelvesSelect, route, navigation } = this.props
 
     //Get the id of the book from react navigation
     const { book } = route.params;
 
- 
     return (
       <Layout style={styles.container}>
         <Text category='h4'>BookDetail {book.bookId} </Text>
@@ -35,8 +35,8 @@ class BookDetailScreen extends Component {
           source={{ uri: book.imageUrl }}
         />
         <Select
-          data={shelves}
-          keyExtractor={item => item.shelfId}
+          data={shelvesSelect}
+          //keyExtractor={item => item.shelfId} //TODO: To Implement
           //selectedOption={selectedOption}
           //onSelect={setSelectedOption}
       />
@@ -61,7 +61,7 @@ export const BookDetail = connect(
   (state: States) => ({
     loading: state.shelves.isLoading,
     error: state.shelves.error,
-    shelves: state.shelves.shelves
+    shelvesSelect: state.shelves.shelvesSelect
   }),
   
   // inject actions to props

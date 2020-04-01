@@ -20,10 +20,24 @@ export const getShelves = () => {
 
       var response = await getShelvesPromise;
 
+      //Create shelvesSelect
+      let shelvesSelect =  response.map((shelf, index) => {
+        return {
+           text: shelf.name,
+           id: shelf.shelfId
+        }
+      });
+
+      shelvesSelect.push({
+        text: 'Rimuovi',
+        id: 0
+     })
+
       dispatch({
         type: costants.SHELVES_GET_SHELVES_SUCCESS,
         payload: {
-          shelves: response
+          shelves: response,
+          shelvesSelect: shelvesSelect
         }
       })
       

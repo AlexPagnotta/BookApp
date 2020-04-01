@@ -4,11 +4,14 @@ import { BOOKS_GET_BOOKS, BOOKS_GET_BOOKS_SUCCESS, BOOKS_GET_BOOKS_ERROR } from 
 // exporting type of state for type safe
 export type BooksState = {
   books: [], 
-  isLoading: false,
-  error: ''
+  isLoading: Boolean,
+  error: string
 }
 
 const initialState: BooksState = {
+  books: [], 
+  isLoading: false,
+  error: ''
 }
 
 // handle actions

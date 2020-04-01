@@ -6,11 +6,16 @@ import { SHELVES_GET_SHELVES,
 // exporting type of state for type safe
 export type ShelvesState = {
   shelves: [], 
-  isLoading: false,
-  error: ''
+  shelvesSelect: [], 
+  isLoading: Boolean,
+  error: string
 }
 
 const initialState: ShelvesState = {
+  shelves: [], 
+  shelvesSelect: [], 
+  isLoading: false,
+  error: ''
 }
 
 // handle actions
@@ -26,7 +31,8 @@ export default handleActions(
       const payload = action.payload
       return {
         isLoading: false,
-        shelves: payload.shelves
+        shelves: payload.shelves,
+        shelvesSelect: payload.shelvesSelect
       }
     },
     [SHELVES_GET_SHELVES_ERROR]: (state: ShelvesState = initialState, action): ShelvesState => {
