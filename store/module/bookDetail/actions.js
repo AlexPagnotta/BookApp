@@ -1,21 +1,26 @@
 import * as costants from './constants'
 import axios from 'axios';
+import { books } from '../books'
 
 /**
 * method executed on shelf select changed
 */
-export const onSelectShelfChanged = (selectedShelf: object) => {
+export const onSelectShelfChanged = (book: object, selectedShelf: object) => {
 
   return  (dispatch, getState) => {
 
-    //TODO: Update Book Shelf
-    
-    dispatch({
-      type: costants.BOOK_DETAIL_ON_SELECT_SHELF_CHANGED,
-      payload: {
-        selectedShelf: selectedShelf,
-      }
-    })
+    book.shelfId - selectedShelf.shelfId;
+
+    dispatch(books.actions.updateBook(book)).then(function() {
+
+      dispatch({
+        type: costants.BOOK_DETAIL_ON_SELECT_SHELF_CHANGED,
+        payload: {
+          selectedShelf: selectedShelf,
+        }
+      })
+
+    });     
   }
 }
 
@@ -25,9 +30,6 @@ export const onSelectShelfChanged = (selectedShelf: object) => {
 export const setSelectedShelf = (selectedShelf: object) => {
   
   return  (dispatch, getState) => {
-
-    //TODO: Update Book Shelf
-    console.log(selectedShelf);
     
     dispatch({
       type: costants.BOOK_DETAIL_SET_SELECTED_SHELF,

@@ -13,8 +13,19 @@ function getAll() {
 }
 
 
-const ShelvesService = {
-    getAll
+function update(shelf) {
+
+  var requestFunction = request({
+    url:    API_NAME,
+    method: 'PUT'
+  });
+
+  return requestFunction;
 }
+
+const ShelvesService = {
+    getAll, update
+}
+
 
 export default ShelvesService;

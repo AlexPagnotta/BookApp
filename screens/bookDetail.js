@@ -43,10 +43,9 @@ class BookDetailScreen extends Component {
         />
         <Select
           data={shelvesSelect}
-          //keyExtractor={item => item.shelfId} //TODO: To Implement
           selectedOption={selectedShelf}
-          onSelect={value => onSelectShelfChanged(value)}
-      />
+          onSelect={value => onSelectShelfChanged(book, value)}
+        />
       </Layout>
     )
   }
@@ -77,8 +76,8 @@ export const BookDetail = connect(
     getShelves: () =>{ 
       dispatch(actions.shelves.getShelves())
     }, 
-    onSelectShelfChanged: (selectedShelf) =>{
-      dispatch(actions.bookDetail.onSelectShelfChanged(selectedShelf))
+    onSelectShelfChanged: (book, selectedShelf) =>{
+      dispatch(actions.bookDetail.onSelectShelfChanged(book, selectedShelf))
     },
     setSelectedShelf: (selectedShelf) =>{  
       dispatch(actions.bookDetail.setSelectedShelf(selectedShelf))

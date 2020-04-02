@@ -13,8 +13,21 @@ function getAll() {
 }
 
 
+function update(book) {
+
+  var requestFunction = request({
+    url:    API_NAME,
+    method: 'PUT',
+    data : book      
+  });
+
+  return requestFunction;
+}
+
+
+
 const BooksService = {
-    getAll
+    getAll,update
 }
 
 export default BooksService;

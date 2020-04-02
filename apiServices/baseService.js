@@ -10,7 +10,9 @@ import * as SecureStore from 'expo-secure-store';
   * @param {*} isHeader 
   */
 const request = async function (options, isHeader = true) {
-
+  
+  console.log(options)
+  
   let authToken = null;
 
   if (isHeader) {
@@ -30,7 +32,7 @@ const request = async function (options, isHeader = true) {
 
   const onError = function (error) {
 
-    console.debug('Request Failed:', error.config);
+    console.debug('Request Failed:', error, error.config);
 
     var errorMessage = '';
 

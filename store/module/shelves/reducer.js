@@ -1,7 +1,11 @@
 import { handleActions } from 'redux-actions'
 import { SHELVES_GET_SHELVES,
-   SHELVES_GET_SHELVES_SUCCESS,
-    SHELVES_GET_SHELVES_ERROR } from './constants'
+          SHELVES_GET_SHELVES_SUCCESS,
+          SHELVES_GET_SHELVES_ERROR,
+          SHELVES_UPDATE_SHELF,
+          SHELVES_UPDATE_SHELF_SUCCESS,
+          SHELVES_UPDATE_SHELF_ERROR
+   } from './constants'
 
 // exporting type of state for type safe
 export type ShelvesState = {
@@ -36,6 +40,26 @@ export default handleActions(
       }
     },
     [SHELVES_GET_SHELVES_ERROR]: (state: ShelvesState = initialState, action): ShelvesState => {
+      const payload = action.payload
+      return {
+        isLoading: false,
+        error: payload.error
+      }
+    },
+
+    [SHELVES_UPDATE_SHELF]: (state: ShelvesState = initialState, action): ShelvesState => {
+      const payload = action.payload
+      return {
+        isLoading: true
+      }
+    },
+    [SHELVES_UPDATE_SHELF_SUCCESS]: (state: ShelvesState = initialState, action): ShelvesState => {
+      const payload = action.payload
+      return {
+        isLoading: false
+      }
+    },
+    [SHELVES_UPDATE_SHELF_ERROR]: (state: ShelvesState = initialState, action): ShelvesState => {
       const payload = action.payload
       return {
         isLoading: false,

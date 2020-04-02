@@ -1,5 +1,10 @@
 import { handleActions } from 'redux-actions'
-import { BOOKS_GET_BOOKS, BOOKS_GET_BOOKS_SUCCESS, BOOKS_GET_BOOKS_ERROR } from './constants'
+import { BOOKS_GET_BOOKS, 
+  BOOKS_GET_BOOKS_SUCCESS, 
+  BOOKS_GET_BOOKS_ERROR,
+  BOOKS_UPDATE_BOOK,
+  BOOKS_UPDATE_BOOK_SUCCESS,
+  BOOKS_UPDATE_BOOK_ERROR } from './constants'
 
 // exporting type of state for type safe
 export type BooksState = {
@@ -31,6 +36,25 @@ export default handleActions(
       }
     },
     [BOOKS_GET_BOOKS_ERROR]: (state: BooksState = initialState, action): BooksState => {
+      const payload = action.payload
+      return {
+        isLoading: false,
+        error: payload.error
+      }
+    },
+    [BOOKS_UPDATE_BOOK]: (state: ShelvesState = initialState, action): ShelvesState => {
+      const payload = action.payload
+      return {
+        isLoading: true
+      }
+    },
+    [BOOKS_UPDATE_BOOK_SUCCESS]: (state: ShelvesState = initialState, action): ShelvesState => {
+      const payload = action.payload
+      return {
+        isLoading: false
+      }
+    },
+    [BOOKS_UPDATE_BOOK_ERROR]: (state: ShelvesState = initialState, action): ShelvesState => {
       const payload = action.payload
       return {
         isLoading: false,

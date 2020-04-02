@@ -54,3 +54,39 @@ export const getShelves = () => {
     }
   }
 }
+
+/**
+* Execute the async call that update a shelf
+*/
+export const updateShelf = (shelf) => {
+
+  return async (dispatch, getState) => {
+
+    //Start update shelves Action
+    dispatch({
+      type: costants.SHELVES_UPDATE_SHELF
+    })
+
+    try{
+
+      var updateShelfPromise = ShelvesService.update(shelf);
+
+      var response = await updateShelfPromise;
+
+      dispatch({
+        type: costants.SHELVES_UPDATE_SHELF_SUCCESS
+      })
+      
+    }
+    catch (error) {
+
+      //Error on updateShelf
+      dispatch({
+        type: costants.SHELVES_UPDATE_SHELF_ERROR,
+        payload: {
+          callError: error.errorMessage
+        }
+      })
+    }
+  }
+}
