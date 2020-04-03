@@ -15,6 +15,9 @@ class BookDetailScreen extends Component {
 
   componentDidMount() {
 
+    let book = this.props.route.params.book;
+    this.props.setCurrentBook(book);
+
     //Load book initial shelf
     this.props.setSelectedShelf({
       "id": 2,
@@ -28,13 +31,14 @@ class BookDetailScreen extends Component {
 
   render() {
 
-    const {  loading, error,  shelvesSelect, route, navigation, selectedShelf, onSelectShelfChanged } = this.props
+    const {  loading, error,  shelvesSelect, route, navigation, selectedShelf, onSelectShelfChanged, currentBook } = this.props
 
     //Get the id of the book from react navigation
     const { book } = route.params;
 
     return (
       <Layout style={styles.container}>
+        <Text category='h4'>{selectedShelf.text} </Text>
         <Text category='h4'>BookDetail {book.bookId} </Text>
         <Text category='h4'>{book.title} </Text>
         <Image
@@ -68,7 +72,8 @@ export const BookDetail = connect(
     loading: state.shelves.isLoading,
     error: state.shelves.error,
     shelvesSelect: state.shelves.shelvesSelect,
-    selectedShelf: state.bookDetail.selectedShelf
+    selectedShelf: state.bookDetail.selectedShelf,
+    currentBook: state.bookDetail.currentBook
   }),
   
   // inject actions to props
@@ -81,7 +86,10 @@ export const BookDetail = connect(
     },
     setSelectedShelf: (selectedShelf) =>{  
       dispatch(actions.bookDetail.setSelectedShelf(selectedShelf))
-    }
+    },
+    setCurrentBook: (book) =>{
+      dispatch(actions.bookDetail.setCurrentBook(book))
+    },
     
   })
 )(BookDetailScreen)

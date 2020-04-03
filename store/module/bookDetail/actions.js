@@ -60,3 +60,19 @@ export const setSelectedShelf = (selectedShelf: object) => {
     })
   }
 }
+
+/**
+* Set the current book selected
+*/
+export const setCurrentBook = (book: object) => {
+  
+  return  (dispatch, getState) => {
+    
+    dispatch({
+      type: costants.BOOK_DETAIL_SET_CURRENT_BOOK,
+      payload: {
+        currentBook: book,
+      }
+    })
+  }
+}

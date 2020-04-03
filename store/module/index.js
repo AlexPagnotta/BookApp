@@ -13,7 +13,6 @@ export type States = {
   books: BooksState,
   shelves: ShelvesState,
   bookDetail: BookDetailState
-
 }
 
 /**
@@ -38,4 +37,4 @@ export const actions = {
   bookDetail: bookDetail.actions
 }
 
-export { home, authentication,books, shelves, bookDetail }
+export { home, authentication, books, shelves, bookDetail }
