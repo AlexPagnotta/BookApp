@@ -9,18 +9,39 @@ export const onSelectShelfChanged = (book: object, selectedShelf: object) => {
 
   return  (dispatch, getState) => {
 
-    book.shelfId = selectedShelf.id;
+    //TODO: Manage Create, if the book has been removed or never added
+    //Create book if nthere is no current shelf
+    if(book.shelfId === 0){
 
-    dispatch(books.actions.updateBook(book)).then(function() {
+    }
+    //Remove book if no shelf is selected
+    else if(selectedShelf.id === 0){
+      dispatch(books.actions.removeBook(book.bookId)).then(function() {
 
-      dispatch({
-        type: costants.BOOK_DETAIL_ON_SELECT_SHELF_CHANGED,
-        payload: {
-          selectedShelf: selectedShelf,
-        }
-      })
+        dispatch({
+          type: costants.BOOK_DETAIL_ON_SELECT_SHELF_CHANGED,
+          payload: {
+            selectedShelf: selectedShelf,
+          }
+        })
+      }); 
+    }
+    //Update book with new shelf
+    else{
 
-    });     
+      book.shelfId = selectedShelf.id;
+
+      dispatch(books.actions.updateBook(book)).then(function() {
+  
+        dispatch({
+          type: costants.BOOK_DETAIL_ON_SELECT_SHELF_CHANGED,
+          payload: {
+            selectedShelf: selectedShelf,
+          }
+        })
+      }); 
+    }    
+
   }
 }
 

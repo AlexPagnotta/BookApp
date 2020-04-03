@@ -25,9 +25,19 @@ function update(book) {
 }
 
 
+function remove(bookId) {
+
+  var requestFunction = request({
+    url:  API_NAME + '/' + bookId,
+    method: 'DELETE'   
+  });
+
+  return requestFunction;
+}
+
 
 const BooksService = {
-    getAll,update
+    getAll, update, remove
 }
 
 export default BooksService;

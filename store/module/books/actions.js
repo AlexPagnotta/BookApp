@@ -66,9 +66,45 @@ export const updateBook = (book) => {
     }
     catch (error) {
 
-      //Error on updateShelf
+      //Error on updateBook
       dispatch({
         type: costants.BOOKS_UPDATE_BOOK_ERROR,
+        payload: {
+          callError: error.errorMessage
+        }
+      })
+    }
+  }
+}
+
+/**
+* Execute the async call that remove a book
+*/
+export const removeBook = (bookId) => {
+
+  return async (dispatch, getState) => {
+
+    //Start update book Action
+    dispatch({
+      type: costants.BOOKS_REMOVE_BOOK
+    })
+
+    try{
+
+      var removeBookPromise = BooksService.remove(bookId);
+
+      var response = await removeBookPromise;
+
+      dispatch({
+        type: costants.BOOKS_REMOVE_BOOK_SUCCESS
+      })
+      
+    }
+    catch (error) {
+
+      //Error on removeBook
+      dispatch({
+        type: costants.BOOKS_REMOVE_BOOK_ERROR,
         payload: {
           callError: error.errorMessage
         }
