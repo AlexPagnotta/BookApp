@@ -9,10 +9,11 @@ export const onSelectShelfChanged = (book: object, selectedShelf: object) => {
 
   return  (dispatch, getState) => {
 
+    console.log(book.shelfId)
     //TODO: Manage Create, if the book has been removed or never added
-    //Create book if nthere is no current shelf
+    //Create book if there is no current shelf
     if(book.shelfId === 0){
-
+      dispatch(books.actions.createBook(book));
     }
     //Remove book if no shelf is selected
     else if(selectedShelf.id === 0){

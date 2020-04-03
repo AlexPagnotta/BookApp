@@ -42,6 +42,46 @@ export const getBooks = () => {
 }
 
 /**
+* Execute the async call that create a book
+*/
+export const createBook = (book) => {
+
+  return async (dispatch, getState) => {
+
+    //Start update book Action
+    dispatch({
+      type: costants.BOOKS_CREATE_BOOK,
+      payload: {
+        createdBook: response
+      }
+    })
+
+    try{
+
+      var updateBookPromise = BooksService.update(book);
+
+      var response = await updateBookPromise;
+
+      dispatch({
+        type: costants.BOOKS_CREATE_BOOK_SUCCESS
+      })
+      
+    }
+    catch (error) {
+
+      //Error on updateBook
+      dispatch({
+        type: costants.BOOKS_CREATE_BOOK_ERROR,
+        payload: {
+          callError: error.errorMessage
+        }
+      })
+    }
+  }
+}
+
+
+/**
 * Execute the async call that update a book
 */
 export const updateBook = (book) => {

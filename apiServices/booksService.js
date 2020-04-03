@@ -12,6 +12,16 @@ function getAll() {
   return requestFunction;
 }
 
+function create(book) {
+
+  var requestFunction = request({
+    url:  API_NAME,
+    method: 'POST',
+    data : book      
+  });
+
+  return requestFunction;
+}
 
 function update(book) {
 
@@ -37,7 +47,7 @@ function remove(bookId) {
 
 
 const BooksService = {
-    getAll, update, remove
+    getAll, create, update, remove
 }
 
 export default BooksService;
