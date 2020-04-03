@@ -18,12 +18,6 @@ class BookDetailScreen extends Component {
     let book = this.props.route.params.book;
     this.props.setCurrentBook(book);
 
-    //Load book initial shelf
-    this.props.setSelectedShelf({
-      "id": 2,
-      "text": "Da Leggere",
-    }); //TODO: DUMMY change with shelf from bookand map it correctly
-
     //Load shelves
     this.props.getShelves();
   }
@@ -31,25 +25,21 @@ class BookDetailScreen extends Component {
 
   render() {
 
-    const {  loading, error,  shelvesSelect, route, navigation, selectedShelf, onSelectShelfChanged, currentBook } = this.props
-
-    //Get the id of the book from react navigation
-    const { book } = route.params;
+    const {  loading, error,  shelvesSelect, route, navigation, onSelectShelfChanged, currentBook, shelfSelected } = this.props
 
     return (
       <Layout style={styles.container}>
         <Text category='h4'>{currentBook.title} </Text>
-        <Text category='h4'>{selectedShelf.text} </Text>
-        <Text category='h4'>BookDetail {book.bookId} </Text>
-        <Text category='h4'>{book.title} </Text>
+        <Text category='h4'>BookDetail {currentBook.bookId} </Text>
+        <Text category='h4'>{currentBook.title} </Text>
         <Image
           style={styles.bookImage}
-          source={{ uri: book.imageUrl }}
+          source={{ uri: currentBook.imageUrl }}
         />
         <Select
           data={shelvesSelect}
-          selectedOption={selectedShelf}
-          onSelect={value => onSelectShelfChanged(book, value)}
+          selectedOption={shelfSelected}
+          onSelect={value => onSelectShelfChanged(value.id)}
         />
       </Layout>
     )
@@ -73,8 +63,8 @@ export const BookDetail = connect(
     loading: state.shelves.isLoading,
     error: state.shelves.error,
     shelvesSelect: state.shelves.shelvesSelect,
-    selectedShelf: state.bookDetail.selectedShelf,
-    currentBook: state.bookDetail.currentBook
+    currentBook: state.bookDetail.currentBook,
+    shelfSelected: state.bookDetail.shelfSelected
   }),
   
   // inject actions to props
@@ -82,11 +72,8 @@ export const BookDetail = connect(
     getShelves: () =>{ 
       dispatch(actions.shelves.getShelves())
     }, 
-    onSelectShelfChanged: (book, selectedShelf) =>{
-      dispatch(actions.bookDetail.onSelectShelfChanged(book, selectedShelf))
-    },
-    setSelectedShelf: (selectedShelf) =>{  
-      dispatch(actions.bookDetail.setSelectedShelf(selectedShelf))
+    onSelectShelfChanged: (selectedShelfId) =>{
+      dispatch(actions.bookDetail.onSelectShelfChanged(selectedShelfId))
     },
     setCurrentBook: (book) =>{
       dispatch(actions.bookDetail.setCurrentBook(book))
