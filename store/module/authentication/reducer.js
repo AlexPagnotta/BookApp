@@ -42,6 +42,7 @@ export default handleActions(
   {
     [AUTHENTICATION_LOGIN]: (state: AuthenticationState = initialState, action): AuthenticationState => {
       return {
+        ...state,
         loggedIn: false,
         callError: '',
         modalErrorVisible: false,
@@ -51,6 +52,7 @@ export default handleActions(
     [AUTHENTICATION_LOGIN_ERROR]: (state: AuthenticationState = initialState, action): AuthenticationState => {
       const payload = action.payload
       return {
+        ...state,
         loggedIn: false,
         callError: payload.callError,
         modalErrorVisible: true,
@@ -60,6 +62,7 @@ export default handleActions(
     [AUTHENTICATION_LOGIN_SUCCESS]: (state: AuthenticationState = initialState, action): AuthenticationState => {
       const payload = action.payload
       return {
+        ...state,
         userId: payload.userId,
         userName: payload.userName,
         name: payload.name,
@@ -73,22 +76,26 @@ export default handleActions(
     [AUTHENTICATION_GET_AUTH_TOKEN]: (state: AuthenticationState = initialState, action): AuthenticationState => {
       const payload = action.payload      
       return {
+        ...state,
         authToken: payload.authToken
       }
     },
     [AUTHENTICATION_HIDE_ERROR_MODAL]: (state: AuthenticationState = initialState, action): AuthenticationState => {
       return {
+        ...state,
         modalErrorVisible: false,
         callError: ''
       }
     },
     [AUTHENTICATION_TOGGLE_SECURE_TEXT_ENTRY]: (state: AuthenticationState = initialState, action): AuthenticationState => {
       return {
+        ...state,
         secureTextEntry: !state.secureTextEntry,
       }
     },
     [AUTHENTICATION_LOGOUT]: (state: AuthenticationState = initialState, action): AuthenticationState => {
       return {
+        ...state,
         loggedIn: false,
         modalErrorVisible: false,
         callError: ''

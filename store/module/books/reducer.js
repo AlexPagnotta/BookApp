@@ -34,12 +34,14 @@ export default handleActions(
     [BOOKS_GET_BOOKS]: (state: BooksState = initialState, action): BooksState => {
       const payload = action.payload
       return {
+        ...state,
         isLoading: true
       }
     },
     [BOOKS_GET_BOOKS_SUCCESS]: (state: BooksState = initialState, action): BooksState => {
       const payload = action.payload
       return {
+        ...state,
         isLoading: false,
         books: payload.books
       }
@@ -47,6 +49,7 @@ export default handleActions(
     [BOOKS_GET_BOOKS_ERROR]: (state: BooksState = initialState, action): BooksState => {
       const payload = action.payload
       return {
+        ...state,
         isLoading: false,
         error: payload.error
       }
@@ -55,18 +58,21 @@ export default handleActions(
     [BOOKS_UPDATE_BOOK]: (state: BooksState = initialState, action): BooksState => {
       const payload = action.payload
       return {
+        ...state,
         isLoading: true
       }
     },
     [BOOKS_UPDATE_BOOK_SUCCESS]: (state: BooksState = initialState, action): BooksState => {
       const payload = action.payload
       return {
+        ...state,
         isLoading: false
       }
     },
     [BOOKS_UPDATE_BOOK_ERROR]: (state: BooksState = initialState, action): BooksState => {
       const payload = action.payload
       return {
+        ...state,
         isLoading: false,
         error: payload.error
       }
@@ -75,18 +81,21 @@ export default handleActions(
     [BOOKS_REMOVE_BOOK]: (state: BooksState = initialState, action): BooksState => {
       const payload = action.payload
       return {
+        ...state,
         isLoading: true
       }
     },
     [BOOKS_REMOVE_BOOK_SUCCESS]: (state: BooksState = initialState, action): BooksState => {
       const payload = action.payload
       return {
+        ...state,
         isLoading: false
       }
     },
     [BOOKS_REMOVE_BOOK_ERROR]: (state: BooksState = initialState, action): BooksState => {
       const payload = action.payload
       return {
+        ...state,
         isLoading: false,
         error: payload.error
       }
@@ -95,12 +104,14 @@ export default handleActions(
     [BOOKS_CREATE_BOOK]: (state: BooksState = initialState, action): BooksState => {
       const payload = action.payload
       return {
+        ...state,
         isLoading: true
       }
     },
     [BOOKS_CREATE_BOOK_SUCCESS]: (state: BooksState = initialState, action): BooksState => {
       const payload = action.payload
       return {
+        ...state,
         createdBook: payload.createdBook,
         isLoading: false
       }
@@ -108,6 +119,7 @@ export default handleActions(
     [BOOKS_CREATE_BOOK_ERROR]: (state: BooksState = initialState, action): BooksState => {
       const payload = action.payload
       return {
+        ...state,
         isLoading: false,
         error: payload.error
       }

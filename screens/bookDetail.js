@@ -38,6 +38,7 @@ class BookDetailScreen extends Component {
 
     return (
       <Layout style={styles.container}>
+        <Text category='h4'>{currentBook.title} </Text>
         <Text category='h4'>{selectedShelf.text} </Text>
         <Text category='h4'>BookDetail {book.bookId} </Text>
         <Text category='h4'>{book.title} </Text>

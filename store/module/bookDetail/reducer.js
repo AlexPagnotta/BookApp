@@ -18,18 +18,21 @@ export default handleActions(
     [BOOK_DETAIL_ON_SELECT_SHELF_CHANGED]: (state: BookDetailState = initialState, action): BookDetailState => {
       const payload = action.payload
       return {
+        ...state,
         selectedShelf: payload.selectedShelf
       }
     },
     [BOOK_DETAIL_SET_SELECTED_SHELF]: (state: BookDetailState = initialState, action): BookDetailState => {
       const payload = action.payload
       return {
-        selectedShelf: payload.selectedShelf
+        ...state,
+        selectedShelf: payload.selectedShelf,
       }
     },
     [BOOK_DETAIL_SET_CURRENT_BOOK]: (state: BookDetailState = initialState, action): BookDetailState => {
       const payload = action.payload
       return {
+        ...state,
         currentBook: payload.currentBook
       }
     },

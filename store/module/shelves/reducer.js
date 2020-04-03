@@ -28,12 +28,14 @@ export default handleActions(
     [SHELVES_GET_SHELVES]: (state: ShelvesState = initialState, action): ShelvesState => {
       const payload = action.payload
       return {
+        ...state,
         isLoading: true
       }
     },
     [SHELVES_GET_SHELVES_SUCCESS]: (state: ShelvesState = initialState, action): ShelvesState => {
       const payload = action.payload
       return {
+        ...state,
         isLoading: false,
         shelves: payload.shelves,
         shelvesSelect: payload.shelvesSelect
@@ -42,6 +44,7 @@ export default handleActions(
     [SHELVES_GET_SHELVES_ERROR]: (state: ShelvesState = initialState, action): ShelvesState => {
       const payload = action.payload
       return {
+        ...state,
         isLoading: false,
         error: payload.error
       }
@@ -50,18 +53,21 @@ export default handleActions(
     [SHELVES_UPDATE_SHELF]: (state: ShelvesState = initialState, action): ShelvesState => {
       const payload = action.payload
       return {
+        ...state,
         isLoading: true
       }
     },
     [SHELVES_UPDATE_SHELF_SUCCESS]: (state: ShelvesState = initialState, action): ShelvesState => {
       const payload = action.payload
       return {
+        ...state,
         isLoading: false
       }
     },
     [SHELVES_UPDATE_SHELF_ERROR]: (state: ShelvesState = initialState, action): ShelvesState => {
       const payload = action.payload
       return {
+        ...state,
         isLoading: false,
         error: payload.error
       }
