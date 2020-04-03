@@ -16,7 +16,7 @@ function getAll() {
 function update(book) {
 
   var requestFunction = request({
-    url:    API_NAME,
+    url:  API_NAME + '/' + book.bookId,
     method: 'PUT',
     data : book      
   });

@@ -9,7 +9,7 @@ export const onSelectShelfChanged = (book: object, selectedShelf: object) => {
 
   return  (dispatch, getState) => {
 
-    book.shelfId - selectedShelf.shelfId;
+    book.shelfId = selectedShelf.id;
 
     dispatch(books.actions.updateBook(book)).then(function() {
 

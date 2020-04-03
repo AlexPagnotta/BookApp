@@ -10,8 +10,7 @@ import * as SecureStore from 'expo-secure-store';
   * @param {*} isHeader 
   */
 const request = async function (options, isHeader = true) {
-  
-  console.log(options)
+
   
   let authToken = null;
 
@@ -25,7 +24,6 @@ const request = async function (options, isHeader = true) {
   });
 
   const onSuccess = function (response) {
-
     return response.data;
 
   }
