@@ -50,20 +50,20 @@ export const createBook = (book) => {
 
     //Start update book Action
     dispatch({
-      type: costants.BOOKS_CREATE_BOOK,
-      payload: {
-        createdBook: response
-      }
+      type: costants.BOOKS_CREATE_BOOK
     })
 
     try{
 
-      var updateBookPromise = BooksService.update(book);
+      var createBookPromise = BooksService.create(book);
 
-      var response = await updateBookPromise;
+      var response = await createBookPromise;
 
       dispatch({
-        type: costants.BOOKS_CREATE_BOOK_SUCCESS
+        type: costants.BOOKS_CREATE_BOOK_SUCCESS,
+        payload: {
+          createdBook: response
+        }
       })
       
     }
