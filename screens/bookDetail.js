@@ -15,13 +15,15 @@ class BookDetailScreen extends Component {
 
   componentDidMount() {
 
-    //Load shelves
-    this.props.getShelves();
+    let book = this.props.route.params.book;
 
     //Set current book on state
-    let book = this.props.route.params.book;
-    this.props.setCurrentBook(book);
+    let setCurrentBook = this.props.setCurrentBook;
 
+    //Load shelves
+    this.props.getShelves().then( () => {
+        setCurrentBook(book);
+    });
   }
 
 
@@ -71,8 +73,8 @@ export const BookDetail = connect(
   
   // inject actions to props
   dispatch => ({
-    getShelves: () =>{ 
-      dispatch(actions.shelves.getShelves())
+    getShelves: async () =>{ 
+      await dispatch(actions.shelves.getShelves())
     }, 
     onSelectShelfChanged: (selectedShelfId) =>{
       dispatch(actions.bookDetail.onSelectShelfChanged(selectedShelfId))

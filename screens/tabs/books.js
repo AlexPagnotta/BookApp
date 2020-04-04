@@ -61,8 +61,8 @@ export const Books = connect(
   
   // inject actions to props
   dispatch => ({
-    getBooks: () =>{ 
-      dispatch(actions.books.getBooks())
+    getBooks: async () =>{ 
+      await dispatch(actions.books.getBooks())
     }
   })
 )(BooksTab)
