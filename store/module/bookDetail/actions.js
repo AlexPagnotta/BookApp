@@ -27,10 +27,13 @@ export const onSelectShelfChanged = (selectedShelfId: object) => {
     if(shelfIdOriginal === 0){
       dispatch(books.actions.createBook(book)).then(function() {
 
+        //Get created book
+        let createdBook = getState().books.createdBook;
+
         dispatch({
           type: costants.BOOK_DETAIL_SET_CURRENT_BOOK,
           payload: {
-            currentBook: book,
+            currentBook: createdBook,
             shelfSelected: shelfSelect
           }
         })

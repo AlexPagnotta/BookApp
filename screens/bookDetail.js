@@ -15,11 +15,13 @@ class BookDetailScreen extends Component {
 
   componentDidMount() {
 
+    //Load shelves
+    this.props.getShelves();
+
+    //Set current book on state
     let book = this.props.route.params.book;
     this.props.setCurrentBook(book);
 
-    //Load shelves
-    this.props.getShelves();
   }
 
 
