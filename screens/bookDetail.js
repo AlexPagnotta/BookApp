@@ -76,8 +76,8 @@ export const BookDetail = connect(
     getShelves: async () =>{ 
       await dispatch(actions.shelves.getShelves())
     }, 
-    onSelectShelfChanged: (selectedShelfId) =>{
-      dispatch(actions.bookDetail.onSelectShelfChanged(selectedShelfId))
+    onSelectShelfChanged:async (selectedShelfId) =>{
+      await dispatch(actions.bookDetail.onSelectShelfChanged(selectedShelfId))
     },
     setCurrentBook: (book) =>{
       dispatch(actions.bookDetail.setCurrentBook(book))
