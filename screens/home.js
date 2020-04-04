@@ -83,6 +83,10 @@ class HomeScreen extends Component {
         <Layout style={styles.statusBar}>
           <Text category='h4'>BookApp</Text>
           <Button
+            onPress={() => navigation.navigate("Search")}>
+            Search
+          </Button>
+          <Button
             onPress={() => executeLogout()}>
             Logout
           </Button>
