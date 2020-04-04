@@ -165,10 +165,10 @@ class LoginScreen extends Component {
     
     // inject actions
     dispatch => ({ 
-      executeLogin: (values) => {
+      executeLogin: async (values) => {
 
         if (values.username.length > 0 && values.password.length > 0) {
-          dispatch(actions.authentication.login(values.username, values.password))
+          await dispatch(actions.authentication.login(values.username, values.password))
         }
         else{
           alert('error')

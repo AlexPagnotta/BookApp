@@ -1,6 +1,8 @@
 import { AuthenticationState, authentication } from './authentication'
 import { HomeState, home } from './home'
 import { BooksState, books } from './books'
+import { ShelvesState, shelves } from './shelves'
+import { BookDetailState, bookDetail } from './bookDetail'
 
 /**
  * Root states.
@@ -8,7 +10,9 @@ import { BooksState, books } from './books'
 export type States = {
   home: HomeState,
   authentication: AuthenticationState,
-  books: BooksState
+  books: BooksState,
+  shelves: ShelvesState,
+  bookDetail: BookDetailState
 }
 
 /**
@@ -17,7 +21,9 @@ export type States = {
 export const reducers = {
   home: home.reducer,
   authentication: authentication.reducer,
-  books: books.reducer
+  books: books.reducer,
+  shelves: shelves.reducer,
+  bookDetail: bookDetail.reducer
 }
 
 /**
@@ -26,7 +32,9 @@ export const reducers = {
 export const actions = {
   home: home.actions,
   authentication: authentication.actions,
-  books: books.actions
+  books: books.actions,
+  shelves: shelves.actions,
+  bookDetail: bookDetail.actions
 }
 
-export { home, authentication,books }
+export { home, authentication, books, shelves, bookDetail }

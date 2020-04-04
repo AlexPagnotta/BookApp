@@ -12,7 +12,8 @@ class BooksTab extends Component {
   }
 
   componentDidMount(){
-      this.props.getBooks();
+    //Load books
+    this.props.getBooks();
   }
 
   render() {
@@ -60,8 +61,8 @@ export const Books = connect(
   
   // inject actions to props
   dispatch => ({
-    getBooks: () =>{ 
-      dispatch(actions.books.getBooks())
+    getBooks: async () =>{ 
+      await dispatch(actions.books.getBooks())
     }
   })
 )(BooksTab)

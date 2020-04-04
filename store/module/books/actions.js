@@ -40,3 +40,115 @@ export const getBooks = () => {
     }
   }
 }
+
+/**
+* Execute the async call that create a book
+*/
+export const createBook = (book) => {
+
+  return async (dispatch, getState) => {
+
+    //Start update book Action
+    dispatch({
+      type: costants.BOOKS_CREATE_BOOK
+    })
+
+    try{
+
+      var createBookPromise = BooksService.create(book);
+
+      var response = await createBookPromise;
+
+      dispatch({
+        type: costants.BOOKS_CREATE_BOOK_SUCCESS,
+        payload: {
+          createdBook: response
+        }
+      })
+      
+    }
+    catch (error) {
+
+      //Error on updateBook
+      dispatch({
+        type: costants.BOOKS_CREATE_BOOK_ERROR,
+        payload: {
+          callError: error.errorMessage
+        }
+      })
+    }
+  }
+}
+
+
+/**
+* Execute the async call that update a book
+*/
+export const updateBook = (book) => {
+
+  return async (dispatch, getState) => {
+
+    //Start update book Action
+    dispatch({
+      type: costants.BOOKS_UPDATE_BOOK
+    })
+
+    try{
+
+      var updateBookPromise = BooksService.update(book);
+
+      var response = await updateBookPromise;
+
+      dispatch({
+        type: costants.BOOKS_UPDATE_BOOK_SUCCESS
+      })
+      
+    }
+    catch (error) {
+
+      //Error on updateBook
+      dispatch({
+        type: costants.BOOKS_UPDATE_BOOK_ERROR,
+        payload: {
+          callError: error.errorMessage
+        }
+      })
+    }
+  }
+}
+
+/**
+* Execute the async call that remove a book
+*/
+export const removeBook = (bookId) => {
+
+  return async (dispatch, getState) => {
+
+    //Start update book Action
+    dispatch({
+      type: costants.BOOKS_REMOVE_BOOK
+    })
+
+    try{
+
+      var removeBookPromise = BooksService.remove(bookId);
+
+      var response = await removeBookPromise;
+
+      dispatch({
+        type: costants.BOOKS_REMOVE_BOOK_SUCCESS
+      })
+      
+    }
+    catch (error) {
+
+      //Error on removeBook
+      dispatch({
+        type: costants.BOOKS_REMOVE_BOOK_ERROR,
+        payload: {
+          callError: error.errorMessage
+        }
+      })
+    }
+  }
+}

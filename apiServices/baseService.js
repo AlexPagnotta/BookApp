@@ -11,6 +11,7 @@ import * as SecureStore from 'expo-secure-store';
   */
 const request = async function (options, isHeader = true) {
 
+  
   let authToken = null;
 
   if (isHeader) {
@@ -23,14 +24,13 @@ const request = async function (options, isHeader = true) {
   });
 
   const onSuccess = function (response) {
-
     return response.data;
 
   }
 
   const onError = function (error) {
 
-    console.debug('Request Failed:', error.config);
+    console.debug('Request Failed:', error, error.config);
 
     var errorMessage = '';
 
