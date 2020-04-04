@@ -25,6 +25,7 @@ export const onSelectShelfChanged = (selectedShelfId: object) => {
      
     //Create book if there is no current shelf
     if(shelfIdOriginal === 0){
+      
       dispatch(books.actions.createBook(book)).then(function() {
 
         //Get created book
@@ -43,6 +44,8 @@ export const onSelectShelfChanged = (selectedShelfId: object) => {
     else if(selectedShelfId === 0){
       dispatch(books.actions.removeBook(book.bookId)).then(function() {
 
+        book.bookId = 0;
+
         dispatch({
           type: costants.BOOK_DETAIL_SET_CURRENT_BOOK,
           payload: {
@@ -50,6 +53,7 @@ export const onSelectShelfChanged = (selectedShelfId: object) => {
             shelfSelected: shelfSelect
           }
         })
+
       }); 
     }
     //Update book with new shelf
