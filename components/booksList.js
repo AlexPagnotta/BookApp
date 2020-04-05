@@ -25,7 +25,7 @@ function BooksList({ books, loading }) {
       data={books}
       renderItem={({ item }) => <BookCardItem book={item} />}
       keyExtractor={item => item.bookId}
-      numColumns={3}
+      numColumns={2}
       horizontal={false}
     />
   )
