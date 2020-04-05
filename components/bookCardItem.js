@@ -1,7 +1,6 @@
 import React from 'react'
 import { Card, Text} from '@ui-kitten/components';
 import {StyleSheet, Image} from 'react-native'
-import { BookDetail } from '../screens';
 import { useNavigation } from '@react-navigation/native';
 
 function BookCardItem({ book }) {

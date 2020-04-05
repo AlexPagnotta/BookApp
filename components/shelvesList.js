@@ -1,10 +1,18 @@
 import React, { Component } from 'react'
 import {StyleSheet, ActivityIndicator,FlatList} from 'react-native'
 import { Icon, Layout, Text,Button, Card } from '@ui-kitten/components';
-import BookCardItem from './bookCardItem'
+import ShelfItem from './shelfItem'
 
-function BooksList({ books, loading }) {
+function ShelvesList({ shelves, loading }) {
 
+
+  function Item({ shelf }) {
+    return (
+      <Layout>
+        <Text >{ shelf.name}</Text>
+      </Layout>
+    );
+  }
 
   if(loading){
     return (
@@ -14,10 +22,9 @@ function BooksList({ books, loading }) {
 
   return (
     <FlatList
-      data={books}
-      renderItem={({ item }) => <BookCardItem book={item} />}
-      keyExtractor={item => item.bookId}
-      numColumns={2}
+      data={shelves}
+      renderItem={({ item }) => <ShelfItem shelf={item} />}
+      keyExtractor={item => item.shelfId}
       horizontal={false}
     />
   )
@@ -27,4 +34,4 @@ function BooksList({ books, loading }) {
 const styles = StyleSheet.create({
 })
 
-export default BooksList;
+export default ShelvesList;
