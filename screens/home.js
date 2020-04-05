@@ -5,7 +5,7 @@ import { actions, States } from '../store'
 import { Icon, Tab, Layout, Text,Button, BottomNavigation } from '@ui-kitten/components';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { Books } from './tabs';
+import { Books, Shelves } from './tabs';
 import axios from 'axios';
 
 class HomeScreen extends Component {
@@ -30,13 +30,6 @@ class HomeScreen extends Component {
   render() {
 
     const { executeLogout, name, lastName, authToken, navigation } = this.props
-
-    /*TODO: Move in separate file*/
-    const ShelvesScreen = () => (
-      <Layout style={{ flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-        <Text category='h1'>Shelves</Text>
-      </Layout>
-    );
 
     const SettingsScreen = () => (
       <Layout style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
@@ -93,7 +86,7 @@ class HomeScreen extends Component {
         </Layout>
         <BottomTab.Navigator tabBar={props => <BottomTabBar {...props} />}>
           <BottomTab.Screen name='Books' component={Books}/>
-          <BottomTab.Screen name='Shelves' component={ShelvesScreen}/>
+          <BottomTab.Screen name='Shelves' component={Shelves}/>
           <BottomTab.Screen name='Settings' component={SettingsScreen}/>
         </BottomTab.Navigator>
       </Layout>
