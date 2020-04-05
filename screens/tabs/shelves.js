@@ -49,7 +49,7 @@ export const Shelves = connect(
     loading: state.shelves.isLoading,
     error: state.shelves.error,
     shelves: state.shelves.shelves
-  }),
+  }), 
   
   // inject actions to props
   dispatch => ({

@@ -1,6 +1,7 @@
 import * as costants from './constants'
 import axios from 'axios';
 import { books } from '../books'
+import { shelves } from '../shelves'
 
 /**
 * method executed on shelf select changed
@@ -55,6 +56,8 @@ export const onSelectShelfChanged = (selectedShelfId: object) => {
     })
     
     await dispatch(books.actions.getBooks());
+
+    await dispatch(shelves.actions.getShelves());
 
   }
 }
