@@ -9,7 +9,7 @@ import * as SecureStore from 'expo-secure-store';
   * @param {*} options 
   * @param {*} isHeader 
   */
-const request = async function (options, isHeader = true) {
+const request = async function (options, isHeader = true, isGoogleBooksApi = false) {
 
   
   let authToken = null;
@@ -19,11 +19,12 @@ const request = async function (options, isHeader = true) {
   }
 
   const client = axios.create({
-    baseURL: globalCostants.API_URL,
-    headers: {'Authorization': 'Bearer '+ authToken}
+    baseURL: isGoogleBooksApi ? globalCostants.API_URL_GOOGLE_BOOKS : globalCostants.API_URL,
+    headers: isGoogleBooksApi ? {} : {'Authorization': 'Bearer '+ authToken}  
   });
 
   const onSuccess = function (response) {
+    
     return response.data;
 
   }

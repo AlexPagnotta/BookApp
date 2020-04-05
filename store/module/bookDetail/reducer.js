@@ -18,6 +18,7 @@ export default handleActions(
     [BOOK_DETAIL_SET_CURRENT_BOOK]: (state: BookDetailState = initialState, action): BookDetailState => {
       const payload = action.payload
       return {
+        ...state,
         currentBook: payload.currentBook,
         shelfSelected: payload.shelfSelected
       }
