@@ -19,14 +19,14 @@ class ShelvesTab extends Component {
   render() {
 
     //Props from Redux
-    const { loading, error, shelves } = this.props
+    const { loading, error, shelves, removeShelf } = this.props
 
     return (
       <Layout>       
         <Layout style={styles.headerContainer}>
           <Button> Add Shelf </Button>
         </Layout>      
-        <ShelvesList shelves={shelves} loading={loading} />
+        <ShelvesList shelves={shelves} loading={loading} removeShelf={removeShelf} />
       </Layout>
     )
   }
@@ -55,6 +55,9 @@ export const Shelves = connect(
   dispatch => ({
     getShelves: async () =>{ 
       await dispatch(actions.shelves.getShelves())
+    },
+    removeShelf: async (shelfId) =>{ 
+      await dispatch(actions.shelves.removeShelf(shelfId))
     }
   })
 

@@ -4,7 +4,10 @@ import { SHELVES_GET_SHELVES,
           SHELVES_GET_SHELVES_ERROR,
           SHELVES_UPDATE_SHELF,
           SHELVES_UPDATE_SHELF_SUCCESS,
-          SHELVES_UPDATE_SHELF_ERROR
+          SHELVES_UPDATE_SHELF_ERROR,
+          SHELVES_REMOVE_SHELF,
+          SHELVES_REMOVE_SHELF_SUCCESS,
+          SHELVES_REMOVE_SHELF_ERROR
    } from './constants'
 
 // exporting type of state for type safe
@@ -65,6 +68,31 @@ export default handleActions(
       }
     },
     [SHELVES_UPDATE_SHELF_ERROR]: (state: ShelvesState = initialState, action): ShelvesState => {
+      const payload = action.payload
+      return {
+        ...state,
+        isLoading: false,
+        error: payload.error
+      }
+    },
+
+    [SHELVES_REMOVE_SHELF]: (state: ShelvesState = initialState, action): ShelvesState => {
+      const payload = action.payload
+      return {
+        ...state,
+        isLoading: true
+      }
+    },
+    [SHELVES_REMOVE_SHELF_SUCCESS]: (state: ShelvesState = initialState, action): ShelvesState => {
+      const payload = action.payload
+      
+      return {
+        ...state,
+        isLoading: false,
+        shelves: state.shelves.filter(shelf => shelf.shelfId !== payload.shelfId)
+      }
+    },
+    [SHELVES_REMOVE_SHELF_ERROR]: (state: ShelvesState = initialState, action): ShelvesState => {
       const payload = action.payload
       return {
         ...state,

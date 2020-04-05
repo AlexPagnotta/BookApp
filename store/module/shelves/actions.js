@@ -90,3 +90,41 @@ export const updateShelf = (shelf) => {
     }
   }
 }
+
+/**
+* Execute the async call that remove a shelf
+*/
+export const removeShelf = (shelfId) => {
+
+  return async (dispatch, getState) => {
+
+    dispatch({
+      type: costants.SHELVES_REMOVE_SHELF
+    })
+
+    try{
+
+      var removeShelfPromise = ShelvesService.remove(shelfId);
+
+      var response = await removeShelfPromise;
+
+      dispatch({
+        type: costants.SHELVES_REMOVE_SHELF_SUCCESS,
+        payload: {
+          shelfId: shelfId
+        }
+      })
+      
+    }
+    catch (error) {
+
+      //Error on removeBook
+      dispatch({
+        type: costants.SHELVES_REMOVE_SHELF_ERROR,
+        payload: {
+          callError: error.errorMessage
+        }
+      })
+    }
+  }
+}

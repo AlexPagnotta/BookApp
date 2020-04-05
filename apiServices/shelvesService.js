@@ -23,8 +23,19 @@ function update(shelf) {
   return requestFunction;
 }
 
+function remove(shelfId) {
+
+  var requestFunction = request({
+    url:  API_NAME + '/' + shelfId,
+    method: 'DELETE'   
+  });
+
+  return requestFunction;
+}
+
+
 const ShelvesService = {
-    getAll, update
+    getAll, update, remove
 }
 
 
