@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import { actions, States } from '../store'
 import { Icon, Tab, Layout, Text,Button, Input } from '@ui-kitten/components';
 import { Formik } from 'formik'
+import BooksList from '../components/booksList'
 
 class SearchScreen extends Component {
 
@@ -43,12 +44,7 @@ class SearchScreen extends Component {
               </Fragment> 
               )}
             </Formik>  
-            <FlatList
-              data={foundBooks}
-              renderItem={({ item }) => <Text>{item.volumeInfo.title}</Text>}
-              keyExtractor={item => item.id}
-              horizontal={false}
-            />
+            <BooksList books={foundBooks} loading={isLoading} />
       </Layout>
     )
   }
