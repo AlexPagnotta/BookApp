@@ -1,10 +1,18 @@
-import React from 'react'
-import { Layout, Modal, Button, Text} from '@ui-kitten/components';
+import React, { Component, Fragment } from 'react'
+import { Button, Modal,Input,Layout,Text, Spinner } from '@ui-kitten/components';
 import {StyleSheet} from 'react-native'
+import { Formik } from 'formik'
+import * as Yup from 'yup'
 
 
-function ShelfModal({ shelf, visible,hideModal }) {
+function ShelfModal({ shelf, visible,hideModal, loading }) {
 
+  //Validation Form
+  const validationSchema = Yup.object().shape({
+    name: Yup.string()
+      .label('Name')
+      .required('Name cannot be empty')
+  })
   
   return (
     <Modal
@@ -14,9 +22,42 @@ function ShelfModal({ shelf, visible,hideModal }) {
       <Layout
         level='3'
         style={styles.modalContainer}>
-        <Text category='h4'>{shelf.name}</Text>
-        <Button style={styles.modalButton} onPress={hideModal}>Close</Button>
-        <Button style={styles.modalButton}>Save</Button>
+        <Text category='h4'>{shelf.shelfId === 0 ? 'Add a Shelf' : 'Edit Shelf'}</Text>
+        <Formik 
+          initialValues={{ name: shelf.name}}
+          onSubmit={values => { /*TODO: Save*/ }}
+          validationSchema={validationSchema}>
+          {({ 
+            handleChange, 
+            handleBlur, 
+            values, 
+            handleSubmit, 
+            errors, 
+            touched, 
+            isValid }) => (
+          <Fragment>
+            <Layout style={styles.inputsContainer}>
+              <Input style={styles.input}
+                name='name'
+                label='Name'
+                onChangeText={handleChange('name')}
+                value={values.name}
+                caption={touched.name ? errors.name : ''}
+                onBlur={handleBlur('name')}
+                status={touched.name && errors.name ? 'danger' : ''}
+              />
+            </Layout>
+            <Layout style={styles.buttonsContainer}>
+              <Button style={styles.modalButton}
+                onPress={handleSubmit}
+                disabled={loading || !isValid}>
+                  {loading ? 'Loading...': 'Save'}
+              </Button>   
+              <Button style={styles.modalButton} onPress={hideModal}>Close</Button>
+            </Layout>  
+          </Fragment> 
+          )}
+        </Formik>
       </Layout>
     </Modal>   
   )
@@ -36,7 +77,18 @@ const styles = StyleSheet.create({
   modalButton: {
     marginTop: 24,
     alignSelf: 'flex-end'
-  }
+  },
+  inputsContainer: {
+      flex: 3
+  },
+  
+  buttonsContainer: {
+    flex: 1,
+    flexDirection: 'column-reverse'
+  },
+  input: {
+    marginBottom: 20
+  },
 })
 
 export default ShelfModal;

@@ -30,7 +30,7 @@ class ShelvesTab extends Component {
           </Layout>      
           <ShelvesList shelves={shelves} loading={loading} removeShelf={removeShelf} showModal={showModal} />
         </Layout>
-        <ShelfModal shelf={modalShelf} visible={modalVisible} hideModal={hideModal}></ShelfModal>
+        <ShelfModal shelf={modalShelf} visible={modalVisible} hideModal={hideModal} loading={loading}></ShelfModal>
       </Fragment>
     )
   }
