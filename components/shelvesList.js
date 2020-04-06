@@ -3,7 +3,7 @@ import {StyleSheet, ActivityIndicator,FlatList} from 'react-native'
 import { Icon, Layout, Text,Button, Card } from '@ui-kitten/components';
 import ShelfItem from './shelfItem'
 
-function ShelvesList({ shelves, loading,  removeShelf }) {
+function ShelvesList({ shelves, loading,  removeShelf, showModal }) {
 
 
   function Item({ shelf }) {
@@ -23,7 +23,7 @@ function ShelvesList({ shelves, loading,  removeShelf }) {
   return (
     <FlatList
       data={shelves}
-      renderItem={({ item }) => <ShelfItem shelf={item} removeShelf={removeShelf} />}
+      renderItem={({ item }) => <ShelfItem shelf={item} removeShelf={removeShelf} showModal={showModal} />}
       keyExtractor={item => item.shelfId}
       horizontal={false}
     />

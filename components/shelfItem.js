@@ -4,7 +4,7 @@ import {StyleSheet, Image,FlatList} from 'react-native'
 import { useNavigation } from '@react-navigation/native';
 import BookCardItem from './bookCardItem'
 
-function ShelfItem({ shelf, removeShelf }) {
+function ShelfItem({ shelf, removeShelf, showModal }) {
 
   const navigation = useNavigation();
 
@@ -21,7 +21,7 @@ function ShelfItem({ shelf, removeShelf }) {
     <Layout  style={styles.shelfItemContainer}>
       <Layout style={styles.headerContainer}>
         <Text category='h6'>{shelf.name}</Text>
-        <Button appearance='ghost' status='primary' icon={EditIcon}/>
+        <Button onPress={() => {showModal(shelf);}} appearance='ghost' status='primary' icon={EditIcon}/>
         <Button onPress={() => {removeShelf(shelf.shelfId);}} disabled={shelf.books.length !== 0} style={styles.button} appearance='ghost' status='primary' icon={DeleteIcon}/>
       </Layout>
       <FlatList style={styles.bookList}
