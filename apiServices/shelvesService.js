@@ -12,12 +12,24 @@ function getAll() {
   return requestFunction;
 }
 
+function create(shelf) {
+
+  var requestFunction = request({
+    url:  API_NAME,
+    method: 'POST',
+    data : shelf      
+  });
+
+  return requestFunction;
+}
+
 
 function update(shelf) {
 
   var requestFunction = request({
-    url:    API_NAME,
-    method: 'PUT'
+    url:     API_NAME + '/' + shelf.shelfId,
+    method: 'PUT',    
+    data : shelf   
   });
 
   return requestFunction;
@@ -35,7 +47,7 @@ function remove(shelfId) {
 
 
 const ShelvesService = {
-    getAll, update, remove
+    getAll, create, update, remove
 }
 
 

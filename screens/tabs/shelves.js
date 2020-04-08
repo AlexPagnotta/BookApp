@@ -30,7 +30,7 @@ class ShelvesTab extends Component {
           </Layout>      
           <ShelvesList shelves={shelves} loading={loading} removeShelf={removeShelf} showModal={showModal} />
         </Layout>
-        <ShelfModal shelf={modalShelf} visible={modalVisible} hideModal={hideModal} loading={loading}></ShelfModal>
+        <ShelfModal shelf={modalShelf} visible={modalVisible} hideModal={hideModal} loading={loading} saveShelf={saveShelf}></ShelfModal>
       </Fragment>
     )
   }
@@ -70,6 +70,9 @@ export const Shelves = connect(
     },
     hideModal: () =>{ 
       dispatch(actions.shelfDetail.hideModal())
+    },
+    saveShelf: async (shelf) =>{ 
+      await dispatch(actions.shelfDetail.saveShelf(shelf))
     }
   })
 

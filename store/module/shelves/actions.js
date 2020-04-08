@@ -56,6 +56,45 @@ export const getShelves = () => {
 }
 
 /**
+* Execute the async call that create a shelf
+*/
+export const createShelf = (shelf) => {
+
+  return async (dispatch, getState) => {
+
+    //Start create shelves Action
+    dispatch({
+      type: costants.SHELVES_CREATE_SHELF
+    })
+
+    try{
+
+      var createShelfPromise = ShelvesService.create(shelf);
+
+      var response = await createShelfPromise;
+
+      dispatch({
+        type: costants.SHELVES_CREATE_SHELF_SUCCESS,
+        payload: {       
+          createdShelf: response
+        }
+      })
+      
+    }
+    catch (error) {
+
+      //Error on createShelf
+      dispatch({
+        type: costants.SHELVES_CREATE_SHELF_ERROR,
+        payload: {
+          callError: error.errorMessage
+        }
+      })
+    }
+  }
+}
+
+/**
 * Execute the async call that update a shelf
 */
 export const updateShelf = (shelf) => {
@@ -74,7 +113,10 @@ export const updateShelf = (shelf) => {
       var response = await updateShelfPromise;
 
       dispatch({
-        type: costants.SHELVES_UPDATE_SHELF_SUCCESS
+        type: costants.SHELVES_UPDATE_SHELF_SUCCESS,     
+        payload: {       
+          updatedShelf: shelf
+        }
       })
       
     }

@@ -5,7 +5,7 @@ import { Formik } from 'formik'
 import * as Yup from 'yup'
 
 
-function ShelfModal({ shelf, visible,hideModal, loading }) {
+function ShelfModal({ shelf, visible,hideModal, loading, saveShelf }) {
 
   //Validation Form
   const validationSchema = Yup.object().shape({
@@ -25,7 +25,18 @@ function ShelfModal({ shelf, visible,hideModal, loading }) {
         <Text category='h4'>{shelf.shelfId === 0 ? 'Add a Shelf' : 'Edit Shelf'}</Text>
         <Formik 
           initialValues={{ name: shelf.name}}
-          onSubmit={values => { /*TODO: Save*/ }}
+          onSubmit={values => { 
+
+            //Update name and save shelf
+            saveShelf(
+              {
+                ...shelf,
+                name: values.name
+              }
+            );     
+
+            }
+          }
           validationSchema={validationSchema}>
           {({ 
             handleChange, 

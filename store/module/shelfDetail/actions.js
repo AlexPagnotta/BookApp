@@ -39,6 +39,32 @@ export const hideModal = () => {
   }
 }
 
+/**
+* method that save a shelf
+*/
+export const saveShelf = (shelf) => {
+
+  return async (dispatch, getState) => {
+ 
+    //If no id is present, creates the shelf
+    //Otherwise update it
+    if(shelf.shelfId === 0){
+      await dispatch(shelves.actions.createShelf(shelf));
+    }
+    else
+    {
+      await dispatch(shelves.actions.updateShelf(shelf));
+    }
+
+    dispatch({
+      type: costants.SHELF_DETAIL_HIDE_MODAL
+    })
+    
+  }
+}
+
+
+
 
 
 
