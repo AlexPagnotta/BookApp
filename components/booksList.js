@@ -6,14 +6,6 @@ import BookCardItem from './bookCardItem'
 function BooksList({ books, loading }) {
 
 
-  function Item({ book }) {
-    return (
-      <Layout>
-        <Text >{ book.bookId}</Text>
-      </Layout>
-    );
-  }
-
   if(loading){
     return (
         <ActivityIndicator></ActivityIndicator>
