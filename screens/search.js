@@ -14,37 +14,40 @@ class SearchScreen extends Component {
 
   componentDidMount() {
 
+    //Reset Search
+    this.props.resetSearch();
+    
   }
 
   render() {
 
-    const { foundBooks, isLoading, callError, searchBook} = this.props
+    const { foundBooks, isLoading, callError, searchBook, loadMore} = this.props
     
     
     return (
       <Layout style={styles.container}>
        <Formik 
-              initialValues={{ searchText: '' }}
-              onSubmit={values => {
-                searchBook(values.searchText)
-              }}>
-              {({  values, handleChange,handleSubmit }) => (
-              <Fragment>
-                <Input
-                    name='searchText'
-                    label='Search'
-                    onChangeText={handleChange('searchText')}
-                    value={values.password}
-                />
-                <Button
-                  onPress={handleSubmit}
-                  disabled={isLoading}>
-                    {isLoading ? 'Loading...': 'Search'}
-                </Button>   
-              </Fragment> 
-              )}
-            </Formik>  
-            <BooksList books={foundBooks} loading={isLoading} />
+          initialValues={{ searchText: '' }}
+          onSubmit={values => {
+            searchBook(values.searchText)
+          }}>
+          {({  values, handleChange,handleSubmit }) => (
+          <Fragment>
+            <Input
+                name='searchText'
+                label='Search'
+                onChangeText={handleChange('searchText')}
+                value={values.password}
+            />
+            <Button
+              onPress={handleSubmit}
+              disabled={isLoading}>
+                {isLoading ? 'Loading...': 'Search'}
+            </Button>   
+          </Fragment> 
+          )}
+        </Formik>  
+        <BooksList books={foundBooks} loading={isLoading} loadMore={loadMore} />
       </Layout>
     )
   }
@@ -69,6 +72,13 @@ export const Search = connect(
   dispatch => ({
     searchBook:async (searchText) =>{
       await dispatch(actions.search.searchBook(searchText))
+    },
+    loadMore:async () =>{
+      //await dispatch(actions.search.loadMore())
+      console.log('Test Load More');
+    },
+    resetSearch:() =>{
+      dispatch(actions.search.resetSearch())
     }
   })
 )(SearchScreen)

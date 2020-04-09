@@ -1,5 +1,5 @@
 import { handleActions } from 'redux-actions'
-import {  SEARCH_SEARCH_BOOK, SEARCH_SEARCH_BOOK_SUCCESS, SEARCH_SEARCH_BOOK_ERROR} from './constants'
+import {  SEARCH_SEARCH_BOOK, SEARCH_SEARCH_BOOK_SUCCESS, SEARCH_SEARCH_BOOK_ERROR, SEARCH_RESET_SEARCH} from './constants'
 
 // exporting type of state for type safe
 export type SearchState = {
@@ -40,6 +40,15 @@ export default handleActions(
         callError: payload.callError
       }
     },
+    [SEARCH_RESET_SEARCH]: (state: SearchState = initialState, action): SearchState => {
+      const payload = action.payload
+      return {
+        ...state,
+        isLoading: false,
+        callError: "",
+        foundBooks: [],
+      }
+    }
   },
   initialState
 )

@@ -59,7 +59,19 @@ export const searchBook = (searchText: String) => {
         }
       })
     }
-
   }
 }
+
+
+export const resetSearch = () => {
+  return (dispatch, getState) => {
+
+    //Reset state
+    dispatch({
+      type: costants.SEARCH_RESET_SEARCH
+    })
+  
+  }
+}
+
 
