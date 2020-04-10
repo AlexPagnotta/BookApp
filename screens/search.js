@@ -14,37 +14,41 @@ class SearchScreen extends Component {
 
   componentDidMount() {
 
+    //Reset Search
+    this.props.resetSearch();
+
   }
 
   render() {
 
-    const { foundBooks, isLoading, callError, searchBook} = this.props
+    const { foundBooks, isLoading, callError, searchBook, loadMore, isLoadingMore} = this.props
     
     
     return (
       <Layout style={styles.container}>
        <Formik 
-              initialValues={{ searchText: '' }}
-              onSubmit={values => {
-                searchBook(values.searchText)
-              }}>
-              {({  values, handleChange,handleSubmit }) => (
-              <Fragment>
-                <Input
-                    name='searchText'
-                    label='Search'
-                    onChangeText={handleChange('searchText')}
-                    value={values.password}
-                />
-                <Button
-                  onPress={handleSubmit}
-                  disabled={isLoading}>
-                    {isLoading ? 'Loading...': 'Search'}
-                </Button>   
-              </Fragment> 
-              )}
-            </Formik>  
-            <BooksList books={foundBooks} loading={isLoading} />
+          initialValues={{ searchText: '' }}
+          onSubmit={values => {
+            searchBook(values.searchText)
+          }}>
+          {({  values, handleChange,handleSubmit }) => (
+          <Fragment>
+            <Input
+                name='searchText'
+                label='Search'
+                onChangeText={handleChange('searchText')}
+                value={values.password}
+            />
+            <Button
+              onPress={handleSubmit}
+              disabled={isLoading}>
+                {isLoading ? 'Loading...': 'Search'}
+            </Button>   
+          </Fragment> 
+          )}
+        </Formik>  
+        <BooksList books={foundBooks} loading={isLoading} loadMore={loadMore} />
+        {isLoadingMore && <ActivityIndicator></ActivityIndicator>}
       </Layout>
     )
   }
@@ -62,6 +66,7 @@ export const Search = connect(
   (state: States) => ({
     foundBooks: state.search.foundBooks,
     isLoading: state.search.isLoading,
+    isLoadingMore: state.search.isLoadingMore,
     callError: state.search.callError
   }),
   
@@ -69,6 +74,12 @@ export const Search = connect(
   dispatch => ({
     searchBook:async (searchText) =>{
       await dispatch(actions.search.searchBook(searchText))
+    },
+    loadMore:async () =>{
+      await dispatch(actions.search.loadMoreBooks()) 
+    },
+    resetSearch:() =>{
+      dispatch(actions.search.resetSearch())
     }
   })
 )(SearchScreen)

@@ -70,6 +70,17 @@ export const setCurrentBook = (book: object) => {
   
   return  (dispatch, getState) => {
 
+    //Check if a searched book is already been added
+    //In case get it from state and load it
+    if(book.bookId === 0){
+      var bookFromState = getState().books.books.find(b => {
+        return b.apiBookId === book.apiBookId
+      });
+      
+      if(bookFromState != null) book = bookFromState
+    }
+    
+
     //Get Shelf selected
     var shelvesSelect = getState().shelves.shelvesSelect;
     var shelfSelect = shelvesSelect.find(shelf => {
