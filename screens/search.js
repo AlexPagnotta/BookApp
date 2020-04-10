@@ -21,7 +21,7 @@ class SearchScreen extends Component {
 
   render() {
 
-    const { foundBooks, isLoading, callError, searchBook, loadMore} = this.props
+    const { foundBooks, isLoading, callError, searchBook, loadMore, isLoadingMore} = this.props
     
     
     return (
@@ -48,6 +48,7 @@ class SearchScreen extends Component {
           )}
         </Formik>  
         <BooksList books={foundBooks} loading={isLoading} loadMore={loadMore} />
+        {isLoadingMore && <ActivityIndicator></ActivityIndicator>}
       </Layout>
     )
   }
