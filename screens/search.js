@@ -16,7 +16,7 @@ class SearchScreen extends Component {
 
     //Reset Search
     this.props.resetSearch();
-    
+
   }
 
   render() {
@@ -65,6 +65,7 @@ export const Search = connect(
   (state: States) => ({
     foundBooks: state.search.foundBooks,
     isLoading: state.search.isLoading,
+    isLoadingMore: state.search.isLoadingMore,
     callError: state.search.callError
   }),
   
@@ -74,8 +75,7 @@ export const Search = connect(
       await dispatch(actions.search.searchBook(searchText))
     },
     loadMore:async () =>{
-      //await dispatch(actions.search.loadMore())
-      console.log('Test Load More');
+      await dispatch(actions.search.loadMoreBooks()) 
     },
     resetSearch:() =>{
       dispatch(actions.search.resetSearch())
