@@ -3,7 +3,7 @@ import { AsyncStorage } from 'react-native'
 import * as globalCostants from '../constants/globalConstants'
 import * as RootNavigation from '../rootNavigation/rootNavigation'
 import * as SecureStore from 'expo-secure-store';
-import { actions } from '../store';
+import {store,  actions } from '../store';
 
  /**
   * Request Wrapper with default success/error actions
@@ -45,8 +45,10 @@ const request = async function (options, isHeader = true, isGoogleBooksApi = fal
     //Logout if not authenticated
     else if(response.status === 401){
 
+      console.log(store);
+      console.log(actions.authentication);
       //Execute logout
-      actions.authentication.logout();
+      store.dispatch(actions.authentication.logout());
       
     }
     else{
