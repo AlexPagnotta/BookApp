@@ -22,6 +22,7 @@ export type AuthenticationState = {
   callError: string,
   modaErrorVisible: Boolean,
   isLoading: Boolean,
+  showSplashScreen: Boolean,
   secureTextEntry: Boolean, 
   authToken: string
 }
@@ -37,6 +38,7 @@ const initialState: AuthenticationState = {
   callError: '',
   modalErrorVisible: false,
   isLoading: false,
+  showSplashScreen: false,
   secureTextEntry: true,
   authToken: null
 }
@@ -80,14 +82,14 @@ export default handleActions(
       const payload = action.payload      
       return {
         ...state,
-        isLoading: true
+        showSplashScreen: true
       }
     },
     [AUTHENTICATION_GET_AUTH_TOKEN_SUCCESS]: (state: AuthenticationState = initialState, action): AuthenticationState => {
       const payload = action.payload      
       return {
         ...state,
-        isLoading: false,
+        showSplashScreen: false,
         authToken: payload.authToken
       }
     },
@@ -95,7 +97,7 @@ export default handleActions(
       const payload = action.payload      
       return {
         ...state,
-        isLoading: false,
+        showSplashScreen: false,
         callError: payload.callError
       }
     },
@@ -117,7 +119,8 @@ export default handleActions(
         ...state,
         loggedIn: false,
         modalErrorVisible: false,
-        callError: ''
+        callError: '',
+        authToken: ''
       }
     }
   },

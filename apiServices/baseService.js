@@ -3,6 +3,7 @@ import { AsyncStorage } from 'react-native'
 import * as globalCostants from '../constants/globalConstants'
 import * as RootNavigation from '../rootNavigation/rootNavigation'
 import * as SecureStore from 'expo-secure-store';
+import { actions } from '../store';
 
  /**
   * Request Wrapper with default success/error actions
@@ -15,7 +16,7 @@ const request = async function (options, isHeader = true, isGoogleBooksApi = fal
   let authToken = null;
 
   if (isHeader) {
-    authToken = await SecureStore.getItemAsync(globalCostants.TOKEN_KEY); /// Add header
+    //authToken = await SecureStore.getItemAsync(globalCostants.TOKEN_KEY); /// Add header
   }
 
   const client = axios.create({
@@ -41,9 +42,12 @@ const request = async function (options, isHeader = true, isGoogleBooksApi = fal
     if(response.status === 400){
       errorMessage = response.data.message;
     }
-    //Go to login if not aithenticated
+    //Logout if not authenticated
     else if(response.status === 401){
-      RootNavigation.replace('Login');
+
+      //Execute logout
+      actions.authentication.logout();
+      
     }
     else{
       errorMessage = 'Error while executing Action.';

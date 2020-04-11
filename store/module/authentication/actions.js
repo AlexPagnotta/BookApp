@@ -28,8 +28,6 @@ export const login = (username: string, password: string) => {
       //Save token
       await SecureStore.setItemAsync(globalCostants.TOKEN_KEY, response.token)
 
-      RootNavigation.replace('Home');
-
       dispatch({
         type: costants.AUTHENTICATION_LOGIN_SUCCESS,
         payload: {
@@ -119,8 +117,6 @@ export const logout = () => {
   return async dispatch => {
 
     await SecureStore.setItemAsync(globalCostants.TOKEN_KEY, '')
-
-    RootNavigation.replace('Login');
 
     dispatch({
       type: costants.AUTHENTICATION_LOGOUT,

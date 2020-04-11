@@ -170,9 +170,6 @@ class LoginScreen extends Component {
         if (values.username.length > 0 && values.password.length > 0) {
           await dispatch(actions.authentication.login(values.username, values.password))
         }
-        else{
-          alert('error')
-        } 
       },
       hideErrorModal: () => {
         dispatch(actions.authentication.hideErrorModal())
