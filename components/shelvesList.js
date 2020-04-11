@@ -24,7 +24,7 @@ function ShelvesList({ shelves, loading,  removeShelf, showModal }) {
     <FlatList
       data={shelves}
       renderItem={({ item }) => <ShelfItem shelf={item} removeShelf={removeShelf} showModal={showModal} />}
-      keyExtractor={item => item.shelfId}
+      keyExtractor={item => item.shelfId.toString()}
       horizontal={false}
     />
   )

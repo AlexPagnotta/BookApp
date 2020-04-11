@@ -32,7 +32,7 @@ class HomeScreen extends Component {
     const { executeLogout, name, lastName, authToken, navigation } = this.props
 
     const SettingsScreen = () => (
-      <Layout style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+      <Layout style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'red' }}>
         <Text category='h1'>Settings</Text>
       </Layout>
     );
@@ -60,36 +60,36 @@ class HomeScreen extends Component {
       };
     
       return (
-        <SafeAreaView>
+        
           <BottomNavigation selectedIndex={state.index} onSelect={onTabSelect}>
             <Tab icon={BookIcon} />
             <Tab icon={ShelfIcon} />
             <Tab icon={SettingIcon} />
           </BottomNavigation>
-        </SafeAreaView>
+
       );
     };
-    
-    
+
+
     return (
-      <Layout style={styles.container}>
-        <Layout style={styles.statusBar}>
-          <Text category='h4'>BookApp</Text>
-          <Button
-            onPress={() => navigation.navigate("Search")}>
-            Search
-          </Button>
-          <Button
-            onPress={() => executeLogout()}>
-            Logout
-          </Button>
-        </Layout>
-        <BottomTab.Navigator tabBar={props => <BottomTabBar {...props} />}>
-          <BottomTab.Screen name='Books' component={Books}/>
-          <BottomTab.Screen name='Shelves' component={Shelves}/>
-          <BottomTab.Screen name='Settings' component={SettingsScreen}/>
-        </BottomTab.Navigator>
-      </Layout>
+        <SafeAreaView style={styles.container}>
+          <Layout style={styles.statusBar}>
+            <Text category='h4'>BookApp</Text>
+            <Button
+              onPress={() => navigation.navigate("Search")}>
+              Search
+            </Button>
+            <Button
+              onPress={() => executeLogout()}>
+              Logout
+            </Button>
+          </Layout>
+          <BottomTab.Navigator tabBar={props => <BottomTabBar {...props} />}>
+            <BottomTab.Screen name='Books' component={Books}/>
+            <BottomTab.Screen name='Shelves' component={Shelves}/>
+            <BottomTab.Screen name='Settings' component={SettingsScreen}/>
+          </BottomTab.Navigator>
+        </SafeAreaView>
     )
   }
 }
@@ -107,7 +107,6 @@ const styles = StyleSheet.create({
   },
   homeContainer: {
     flex: 1,
-    backgroundColor: 'red',
     padding: 10
   }
 })
