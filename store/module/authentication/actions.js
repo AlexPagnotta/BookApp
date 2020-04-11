@@ -62,14 +62,33 @@ export const getAuthToken = () => {
 
   return async dispatch => {
 
-    var token = await SecureStore.getItemAsync(globalCostants.TOKEN_KEY)
-
     dispatch({
-      type: costants.AUTHENTICATION_GET_AUTH_TOKEN,
-      payload: {
-        authToken: token
-      }
+      type: costants.AUTHENTICATION_GET_AUTH_TOKEN
     })
+
+    try{
+
+      var token = await SecureStore.getItemAsync(globalCostants.TOKEN_KEY)
+
+      dispatch({
+        type: costants.AUTHENTICATION_GET_AUTH_TOKEN_SUCCESS,
+        payload: {
+          authToken: token
+        }
+      })
+
+    }
+    catch(error){
+
+      dispatch({
+        type: costants.AUTHENTICATION_GET_AUTH_TOKEN_ERROR,
+        payload: {
+          callError: error
+        }
+      })
+
+    }
+    
   }
 
 }

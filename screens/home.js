@@ -29,7 +29,7 @@ class HomeScreen extends Component {
 
   render() {
 
-    const { executeLogout, name, lastName, authToken, navigation } = this.props
+    const { executeLogout, name, lastName, navigation } = this.props
 
     const SettingsScreen = () => (
       <Layout style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'red' }}>
@@ -125,6 +125,8 @@ export const Home = connect(
     executeLogout: () =>{ 
       dispatch(actions.authentication.logout())
     },
-    getAuthToken: () => dispatch(actions.authentication.getAuthToken())
+    getAuthToken: async () => {
+      await dispatch(actions.authentication.getAuthToken())
+    }
   })
 )(HomeScreen)

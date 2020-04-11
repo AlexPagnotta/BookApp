@@ -6,7 +6,10 @@ import {
   AUTHENTICATION_HIDE_ERROR_MODAL,
   AUTHENTICATION_TOGGLE_SECURE_TEXT_ENTRY,
   AUTHENTICATION_LOGOUT, 
-  AUTHENTICATION_GET_AUTH_TOKEN} from './constants'
+  AUTHENTICATION_GET_AUTH_TOKEN,
+  AUTHENTICATION_GET_AUTH_TOKEN_SUCCESS,
+  AUTHENTICATION_GET_AUTH_TOKEN_ERROR
+} from './constants'
 
 /**
  * Define State model
@@ -77,7 +80,23 @@ export default handleActions(
       const payload = action.payload      
       return {
         ...state,
+        isLoading: true
+      }
+    },
+    [AUTHENTICATION_GET_AUTH_TOKEN_SUCCESS]: (state: AuthenticationState = initialState, action): AuthenticationState => {
+      const payload = action.payload      
+      return {
+        ...state,
+        isLoading: false,
         authToken: payload.authToken
+      }
+    },
+    [AUTHENTICATION_GET_AUTH_TOKEN_ERROR]: (state: AuthenticationState = initialState, action): AuthenticationState => {
+      const payload = action.payload      
+      return {
+        ...state,
+        isLoading: false,
+        callError: payload.callError
       }
     },
     [AUTHENTICATION_HIDE_ERROR_MODAL]: (state: AuthenticationState = initialState, action): AuthenticationState => {
