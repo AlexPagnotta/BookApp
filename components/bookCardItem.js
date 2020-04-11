@@ -11,7 +11,7 @@ function BookCardItem({ book }) {
     <React.Fragment>  
       <Image
         style={styles.headerCardImage}
-        source={{ uri: book.imageUrl }}
+        source={book.imageUrl ? { uri: book.imageUrl } : null} 
       />
     </React.Fragment>
   );

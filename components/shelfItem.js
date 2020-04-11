@@ -27,7 +27,7 @@ function ShelfItem({ shelf, removeShelf, showModal }) {
       <FlatList style={styles.bookList}
         data={shelf.books}
         renderItem={({ item }) => <BookCardItem book={item} />}
-        keyExtractor={item => item.bookId}
+        keyExtractor={item => item.bookId.toString()}
         horizontal={true}
       />
     </Layout>

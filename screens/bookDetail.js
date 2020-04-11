@@ -38,7 +38,8 @@ class BookDetailScreen extends Component {
         <Text category='h4'>{currentBook.title} </Text>
         <Image
           style={styles.bookImage}
-          source={{ uri: currentBook.imageUrl }}
+          source={currentBook.imageUrl ? { uri: currentBook.imageUrl } : null}
+          
         />
         <Select
           data={shelvesSelect}

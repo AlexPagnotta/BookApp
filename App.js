@@ -23,7 +23,7 @@ const App = () => {
           <SafeAreaProvider>
             <NavigationContainer ref={navigationRef}>
               <Stack.Navigator initialRouteName="Home">
-                <Stack.Screen name="Home" component={Home} />
+                <Stack.Screen name="Home" component={Home} options={{headerShown: false}} />
                 <Stack.Screen name="Login" component={Login} />
                 <Stack.Screen name="BookDetail" component={BookDetail} />
                 <Stack.Screen name="Search" component={Search} />
