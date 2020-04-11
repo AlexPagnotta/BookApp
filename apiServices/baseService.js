@@ -30,9 +30,12 @@ const request = async function (options, isHeader = true, isGoogleBooksApi = fal
 
   }
 
-  const onError = function (error) {
+  const onError = async function (error) {
 
-    console.debug('Request Failed:', error, error.config);
+    //Get the request
+    const originalRequest = error.config;
+
+    console.debug('Request Failed:', error, originalRequest);
 
     var errorMessage = '';
 
@@ -42,11 +45,18 @@ const request = async function (options, isHeader = true, isGoogleBooksApi = fal
     if(response.status === 400){
       errorMessage = response.data.message;
     }
-    //Logout if not authenticated
+    //Try refresh token and retry call, logout if does not work
     else if(response.status === 401){
 
-      console.log(store);
-      console.log(actions.authentication);
+      //Get refresh token
+      var refreshToken = await SecureStore.getItemAsync(globalCostants.REFRESH_TOKEN_KEY);
+
+      //TODO: Refresh token
+
+      //TODO: Set the refreshed token
+
+      //TODO: Retry call
+
       //Execute logout
       store.dispatch(actions.authentication.logout());
       

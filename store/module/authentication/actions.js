@@ -27,6 +27,7 @@ export const login = (username: string, password: string) => {
     
       //Save token
       await SecureStore.setItemAsync(globalCostants.TOKEN_KEY, response.token)
+      await SecureStore.setItemAsync(globalCostants.REFRESH_TOKEN_KEY, response.refreshToken)
 
       dispatch({
         type: costants.AUTHENTICATION_LOGIN_SUCCESS,
@@ -54,7 +55,7 @@ export const login = (username: string, password: string) => {
 }
 
 /**
-* Hide error modal method
+* Get the auth token
 */
 export const getAuthToken = () => {
 
@@ -80,6 +81,46 @@ export const getAuthToken = () => {
 
       dispatch({
         type: costants.AUTHENTICATION_GET_AUTH_TOKEN_ERROR,
+        payload: {
+          callError: error
+        }
+      })
+
+    }
+    
+  }
+
+}
+
+
+
+/**
+* get the rfresh token
+*/
+export const getRefreshToken = () => {
+
+  return async dispatch => {
+
+    dispatch({
+      type: costants.AUTHENTICATION_GET_REFRESH_TOKEN
+    })
+
+    try{
+
+      var token = await SecureStore.getItemAsync(globalCostants.REFRESH_TOKEN_KEY)
+
+      dispatch({
+        type: costants.AUTHENTICATION_GET_REFRESH_TOKEN_SUCCESS,
+        payload: {
+          refreshToken: token
+        }
+      })
+
+    }
+    catch(error){
+
+      dispatch({
+        type: costants.AUTHENTICATION_GET_REFRESH_TOKEN_ERROR,
         payload: {
           callError: error
         }
@@ -117,9 +158,10 @@ export const logout = () => {
   return async dispatch => {
 
     await SecureStore.setItemAsync(globalCostants.TOKEN_KEY, '')
+    await SecureStore.setItemAsync(globalCostants.REFRESH_TOKEN_KEY, '')
 
     dispatch({
-      type: costants.AUTHENTICATION_LOGOUT,
+      type: costants.AUTHENTICATION_LOGOUT
     })
   }
 }
