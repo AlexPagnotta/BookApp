@@ -24,7 +24,7 @@ export const login = (username: string, password: string) => {
       var loginPromise = AuthenticationService.login(username, password);
 
       var response = await loginPromise;
-    
+
       //Save token
       await SecureStore.setItemAsync(globalCostants.TOKEN_KEY, response.token)
       await SecureStore.setItemAsync(globalCostants.REFRESH_TOKEN_KEY, response.refreshToken)
