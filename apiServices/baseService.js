@@ -104,8 +104,6 @@ const request = async function (options, isHeader = true, isGoogleBooksApi = fal
     } 
     else{
       errorMessage = 'Error while executing Action.';
-
-
     }
 
     //Build error object
@@ -114,6 +112,7 @@ const request = async function (options, isHeader = true, isGoogleBooksApi = fal
     }
 
     return Promise.reject(error);
+    
   });
 
   return client(options);

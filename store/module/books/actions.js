@@ -30,8 +30,6 @@ export const getBooks = () => {
     }
     catch (error) {
 
-      console.log("BooksError" + error);
-
       //Error on getBooks
       dispatch({
         type: costants.BOOKS_GET_BOOKS_ERROR,
