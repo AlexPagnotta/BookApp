@@ -75,7 +75,7 @@ export const Search = connect(
     searchBook:async (searchText) =>{
       await dispatch(actions.search.searchBook(searchText))
     },
-    loadMore:async () =>{
+    loadMore: async () =>{
       await dispatch(actions.search.loadMoreBooks()) 
     },
     resetSearch:() =>{

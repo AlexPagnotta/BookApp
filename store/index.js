@@ -21,4 +21,6 @@ const createStore = (data: Object = {}) => {
   return _createStore(combineReducers(reducers), data, middleware)
 }
 
-export { createStore, actions }
+const store = createStore();
+
+export { store, createStore, actions }

@@ -16,20 +16,11 @@ class HomeScreen extends Component {
 
   componentDidMount() {
 
-    //Get the token 
-    this.props.getAuthToken().then(() => {
-
-      //If token is not present go to login
-      if(this.props.authToken == null || this.props.authToken === ''){
-        this.props.navigation.replace('Login');
-      }
-    })
-
   }
 
   render() {
 
-    const { executeLogout, name, lastName, authToken, navigation } = this.props
+    const { executeLogout, name, lastName, navigation } = this.props
 
     const SettingsScreen = () => (
       <Layout style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'red' }}>
@@ -116,15 +107,13 @@ export const Home = connect(
   // inject states to props
   (state: States) => ({
     name: state.authentication.name,
-    lastName: state.authentication.lastName,
-    authToken: state.authentication.authToken
+    lastName: state.authentication.lastName
   }),
   
   // inject actions to props
   dispatch => ({
     executeLogout: () =>{ 
       dispatch(actions.authentication.logout())
-    },
-    getAuthToken: () => dispatch(actions.authentication.getAuthToken())
+    }
   })
 )(HomeScreen)

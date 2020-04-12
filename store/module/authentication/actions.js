@@ -24,11 +24,10 @@ export const login = (username: string, password: string) => {
       var loginPromise = AuthenticationService.login(username, password);
 
       var response = await loginPromise;
-    
+
       //Save token
       await SecureStore.setItemAsync(globalCostants.TOKEN_KEY, response.token)
-
-      RootNavigation.replace('Home');
+      await SecureStore.setItemAsync(globalCostants.REFRESH_TOKEN_KEY, response.refreshToken)
 
       dispatch({
         type: costants.AUTHENTICATION_LOGIN_SUCCESS,
@@ -56,20 +55,79 @@ export const login = (username: string, password: string) => {
 }
 
 /**
-* Hide error modal method
+* Get the auth token
 */
 export const getAuthToken = () => {
 
   return async dispatch => {
 
-    var token = await SecureStore.getItemAsync(globalCostants.TOKEN_KEY)
+    dispatch({
+      type: costants.AUTHENTICATION_GET_AUTH_TOKEN
+    })
+
+    try{
+
+      var token = await SecureStore.getItemAsync(globalCostants.TOKEN_KEY)
+
+      dispatch({
+        type: costants.AUTHENTICATION_GET_AUTH_TOKEN_SUCCESS,
+        payload: {
+          authToken: token
+        }
+      })
+
+    }
+    catch(error){
+
+      dispatch({
+        type: costants.AUTHENTICATION_GET_AUTH_TOKEN_ERROR,
+        payload: {
+          callError: error
+        }
+      })
+
+    }
+    
+  }
+
+}
+
+
+
+/**
+* get the rfresh token
+*/
+export const getRefreshToken = () => {
+
+  return async dispatch => {
 
     dispatch({
-      type: costants.AUTHENTICATION_GET_AUTH_TOKEN,
-      payload: {
-        authToken: token
-      }
+      type: costants.AUTHENTICATION_GET_REFRESH_TOKEN
     })
+
+    try{
+
+      var token = await SecureStore.getItemAsync(globalCostants.REFRESH_TOKEN_KEY)
+
+      dispatch({
+        type: costants.AUTHENTICATION_GET_REFRESH_TOKEN_SUCCESS,
+        payload: {
+          refreshToken: token
+        }
+      })
+
+    }
+    catch(error){
+
+      dispatch({
+        type: costants.AUTHENTICATION_GET_REFRESH_TOKEN_ERROR,
+        payload: {
+          callError: error
+        }
+      })
+
+    }
+    
   }
 
 }
@@ -100,11 +158,10 @@ export const logout = () => {
   return async dispatch => {
 
     await SecureStore.setItemAsync(globalCostants.TOKEN_KEY, '')
-
-    RootNavigation.replace('Login');
+    await SecureStore.setItemAsync(globalCostants.REFRESH_TOKEN_KEY, '')
 
     dispatch({
-      type: costants.AUTHENTICATION_LOGOUT,
+      type: costants.AUTHENTICATION_LOGOUT
     })
   }
 }
