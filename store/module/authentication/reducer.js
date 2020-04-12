@@ -6,9 +6,9 @@ import {
   AUTHENTICATION_HIDE_ERROR_MODAL,
   AUTHENTICATION_TOGGLE_SECURE_TEXT_ENTRY,
   AUTHENTICATION_LOGOUT, 
-  AUTHENTICATION_GET_AUTH_TOKEN,
-  AUTHENTICATION_GET_AUTH_TOKEN_SUCCESS,
-  AUTHENTICATION_GET_AUTH_TOKEN_ERROR
+  AUTHENTICATION_CHECK_IS_LOGGED,
+  AUTHENTICATION_CHECK_IS_LOGGED_SUCCESS,
+  AUTHENTICATION_CHECK_IS_LOGGED_ERROR
 } from './constants'
 
 /**
@@ -40,7 +40,7 @@ const initialState: AuthenticationState = {
   isLoading: false,
   showSplashScreen: false,
   secureTextEntry: true,
-  authToken: '',
+  isLogged: '',
 }
 
 export default handleActions(
@@ -78,22 +78,22 @@ export default handleActions(
         isLoading: false
       }
     },
-    [AUTHENTICATION_GET_AUTH_TOKEN]: (state: AuthenticationState = initialState, action): AuthenticationState => {
+    [AUTHENTICATION_CHECK_IS_LOGGED]: (state: AuthenticationState = initialState, action): AuthenticationState => {
       const payload = action.payload      
       return {
         ...state,
         showSplashScreen: true
       }
     },
-    [AUTHENTICATION_GET_AUTH_TOKEN_SUCCESS]: (state: AuthenticationState = initialState, action): AuthenticationState => {
+    [AUTHENTICATION_CHECK_IS_LOGGED_SUCCESS]: (state: AuthenticationState = initialState, action): AuthenticationState => {
       const payload = action.payload      
       return {
         ...state,
         showSplashScreen: false,
-        authToken: payload.authToken
+        isLogged: payload.isLogged
       }
     },
-    [AUTHENTICATION_GET_AUTH_TOKEN_ERROR]: (state: AuthenticationState = initialState, action): AuthenticationState => {
+    [AUTHENTICATION_CHECK_IS_LOGGED_ERROR]: (state: AuthenticationState = initialState, action): AuthenticationState => {
       const payload = action.payload      
       return {
         ...state,

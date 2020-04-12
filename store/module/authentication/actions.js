@@ -55,14 +55,14 @@ export const login = (username: string, password: string) => {
 }
 
 /**
-* Get the auth token
+* Method that check if a token is present
 */
-export const getAuthToken = () => {
+export const checkIsLogged = () => {
 
   return async dispatch => {
 
     dispatch({
-      type: costants.AUTHENTICATION_GET_AUTH_TOKEN
+      type: costants.AUTHENTICATION_CHECK_IS_LOGGED
     })
 
     try{
@@ -70,9 +70,9 @@ export const getAuthToken = () => {
       var token = await SecureStore.getItemAsync(globalCostants.TOKEN_KEY)
 
       dispatch({
-        type: costants.AUTHENTICATION_GET_AUTH_TOKEN_SUCCESS,
+        type: costants.AUTHENTICATION_CHECK_IS_LOGGED_SUCCESS,
         payload: {
-          authToken: token
+          isLogged: token != null && token !== ''
         }
       })
 
@@ -80,16 +80,13 @@ export const getAuthToken = () => {
     catch(error){
 
       dispatch({
-        type: costants.AUTHENTICATION_GET_AUTH_TOKEN_ERROR,
+        type: costants.AUTHENTICATION_CHECK_IS_LOGGED_ERROR,
         payload: {
           callError: error
         }
       })
-
-    }
-    
+    }    
   }
-
 }
 
 
