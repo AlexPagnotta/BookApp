@@ -17,8 +17,6 @@ const request = async function (options, isHeader = true, isGoogleBooksApi = fal
 
   if (isHeader) {
     //authToken = await SecureStore.getItemAsync(globalCostants.TOKEN_KEY); /// Add header
-    var ot = await SecureStore.getItemAsync(globalCostants.TOKEN_KEY); //TODO: Remove
-    console.log('Old TOKEN' + ot)
   }
 
   const client = axios.create({
@@ -29,9 +27,11 @@ const request = async function (options, isHeader = true, isGoogleBooksApi = fal
   //Interceptors to handle success and errors
   client.interceptors.response.use(  (response) => {
 
+    console.debug('Call Success: ' + response.config.url);
+
     return response.data;
 
-  }, async (error) => {
+  }, (error) => {
 
     //Get the request
     const originalRequest = error.config;
@@ -44,7 +44,10 @@ const request = async function (options, isHeader = true, isGoogleBooksApi = fal
 
     //Reeturn message if BadRequest
     if(response.status === 400){
+
       errorMessage = response.data.message;
+
+      
     }
     //Try refresh token and retry call, logout if does not work
     else if(response.status === 401){
@@ -60,23 +63,37 @@ const request = async function (options, isHeader = true, isGoogleBooksApi = fal
       originalRequest._retry = true;
 
       //Get refresh token
-      var refreshToken = await SecureStore.getItemAsync(globalCostants.REFRESH_TOKEN_KEY);
-      console.log('Refresh TOKEN' + refreshToken)
+      return SecureStore.getItemAsync(globalCostants.REFRESH_TOKEN_KEY).then(refreshToken => {
 
-      //Refresh token
-      return client.post('refreshToken/' + refreshToken).then(refreshResponse => {
+        console.debug('Get Refresh Token: ' + refreshToken);
+
+        return client.post('refreshToken/' + refreshToken);
+
+      })
+      .then(refreshResponse => {
+
+        console.debug('Updated Token: ' + refreshResponse.token);
 
         //Update token on storage
-        SecureStore.setItemAsync(globalCostants.TOKEN_KEY,refreshResponse.token).then( () => {
+        return SecureStore.setItemAsync(globalCostants.TOKEN_KEY,refreshResponse.token);
 
-          // Change Authorization header
-          originalRequest.headers['Authorization'] = 'Bearer ' + refreshResponse.token;
-  
-          console.log('NEW TOKEN' + refreshResponse.token)
+      })
+      .then( () => {
 
-          // Return originalRequest object with Axios.
-          return client(originalRequest); 
-        });
+        console.debug('Get new Token from Storage');
+
+        return SecureStore.getItemAsync(globalCostants.TOKEN_KEY);
+      })   
+      .then( (newToken) => {
+
+
+        // Change Authorization header
+        originalRequest.headers['Authorization'] = 'Bearer ' + newToken;
+
+        console.debug('Set token on call: ' + originalRequest.headers['Authorization']);
+
+        // Return originalRequest object with Axios.
+        return client(originalRequest); 
 
       }).catch(error => {
         
@@ -84,10 +101,11 @@ const request = async function (options, isHeader = true, isGoogleBooksApi = fal
         store.dispatch(actions.authentication.logout());
 
       });
-    }
-    
+    } 
     else{
       errorMessage = 'Error while executing Action.';
+
+
     }
 
     //Build error object
@@ -96,7 +114,6 @@ const request = async function (options, isHeader = true, isGoogleBooksApi = fal
     }
 
     return Promise.reject(error);
-    
   });
 
   return client(options);
