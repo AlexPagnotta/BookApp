@@ -6,12 +6,9 @@ import {
   AUTHENTICATION_HIDE_ERROR_MODAL,
   AUTHENTICATION_TOGGLE_SECURE_TEXT_ENTRY,
   AUTHENTICATION_LOGOUT, 
-  AUTHENTICATION_GET_AUTH_TOKEN,
-  AUTHENTICATION_GET_AUTH_TOKEN_SUCCESS,
-  AUTHENTICATION_GET_AUTH_TOKEN_ERROR,
-  AUTHENTICATION_GET_AUTH_REFRESH_TOKEN,
-  AUTHENTICATION_GET_AUTH_REFRESH_TOKEN_SUCCESS,
-  AUTHENTICATION_GET_AUTH_REFRESH_TOKEN_ERROR
+  AUTHENTICATION_CHECK_IS_LOGGED,
+  AUTHENTICATION_CHECK_IS_LOGGED_SUCCESS,
+  AUTHENTICATION_CHECK_IS_LOGGED_ERROR
 } from './constants'
 
 /**
@@ -27,8 +24,7 @@ export type AuthenticationState = {
   isLoading: Boolean,
   showSplashScreen: Boolean,
   secureTextEntry: Boolean, 
-  authToken: string,
-  refreshToken: string,
+  authToken: string
 }
 
 /** 
@@ -44,8 +40,7 @@ const initialState: AuthenticationState = {
   isLoading: false,
   showSplashScreen: false,
   secureTextEntry: true,
-  authToken: '',
-  refreshToken: ''
+  isLogged: '',
 }
 
 export default handleActions(
@@ -83,22 +78,22 @@ export default handleActions(
         isLoading: false
       }
     },
-    [AUTHENTICATION_GET_AUTH_TOKEN]: (state: AuthenticationState = initialState, action): AuthenticationState => {
+    [AUTHENTICATION_CHECK_IS_LOGGED]: (state: AuthenticationState = initialState, action): AuthenticationState => {
       const payload = action.payload      
       return {
         ...state,
         showSplashScreen: true
       }
     },
-    [AUTHENTICATION_GET_AUTH_TOKEN_SUCCESS]: (state: AuthenticationState = initialState, action): AuthenticationState => {
+    [AUTHENTICATION_CHECK_IS_LOGGED_SUCCESS]: (state: AuthenticationState = initialState, action): AuthenticationState => {
       const payload = action.payload      
       return {
         ...state,
         showSplashScreen: false,
-        authToken: payload.authToken
+        isLogged: payload.isLogged
       }
     },
-    [AUTHENTICATION_GET_AUTH_TOKEN_ERROR]: (state: AuthenticationState = initialState, action): AuthenticationState => {
+    [AUTHENTICATION_CHECK_IS_LOGGED_ERROR]: (state: AuthenticationState = initialState, action): AuthenticationState => {
       const payload = action.payload      
       return {
         ...state,
@@ -107,26 +102,6 @@ export default handleActions(
       }
     },
 
-    [AUTHENTICATION_GET_AUTH_REFRESH_TOKEN]: (state: AuthenticationState = initialState, action): AuthenticationState => {
-      const payload = action.payload      
-      return {
-        ...state,
-      }
-    },
-    [AUTHENTICATION_GET_AUTH_REFRESH_TOKEN_SUCCESS]: (state: AuthenticationState = initialState, action): AuthenticationState => {
-      const payload = action.payload      
-      return {
-        ...state,
-        refreshToken: payload.refreshToken
-      }
-    },
-    [AUTHENTICATION_GET_AUTH_REFRESH_TOKEN_ERROR]: (state: AuthenticationState = initialState, action): AuthenticationState => {
-      const payload = action.payload      
-      return {
-        ...state,
-        callError: payload.callError
-      }
-    },
     [AUTHENTICATION_HIDE_ERROR_MODAL]: (state: AuthenticationState = initialState, action): AuthenticationState => {
       return {
         ...state,

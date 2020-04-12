@@ -18,14 +18,14 @@ class NavigatorHomeScreen extends Component {
 
   componentDidMount() {
 
-    //Get the token 
-    this.props.getAuthToken();
+    //Check if the user is already logged
+    this.props.checkIsLogged();
 
   }
 
   render() {
 
-    const { authToken, showSplashScreen } = this.props
+    const { isLogged, showSplashScreen } = this.props
 
     if(showSplashScreen){
       return <Splash />;
@@ -33,7 +33,7 @@ class NavigatorHomeScreen extends Component {
 
     return (
       <Stack.Navigator initialRouteName='Home'>
-        {authToken == null || authToken == ''  ? (
+        {!isLogged  ? (
           <Stack.Screen name="Login" component={Login} />
         ): (
           <>
@@ -52,13 +52,13 @@ export const NavigatorHome = connect(
   // inject states to props
   (state: States) => ({
     showSplashScreen: state.authentication.showSplashScreen,
-    authToken: state.authentication.authToken
+    isLogged: state.authentication.isLogged
   }),
   
   // inject actions to props
   dispatch => ({
-    getAuthToken: async () => {
-      await dispatch(actions.authentication.getAuthToken())
+    checkIsLogged: async () => {
+      await dispatch(actions.authentication.checkIsLogged())
     }
   })
 )(NavigatorHomeScreen)

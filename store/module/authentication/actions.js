@@ -55,14 +55,14 @@ export const login = (username: string, password: string) => {
 }
 
 /**
-* Get the auth token
+* Method that check if a token is present
 */
-export const getAuthToken = () => {
+export const checkIsLogged = () => {
 
   return async dispatch => {
 
     dispatch({
-      type: costants.AUTHENTICATION_GET_AUTH_TOKEN
+      type: costants.AUTHENTICATION_CHECK_IS_LOGGED
     })
 
     try{
@@ -70,9 +70,9 @@ export const getAuthToken = () => {
       var token = await SecureStore.getItemAsync(globalCostants.TOKEN_KEY)
 
       dispatch({
-        type: costants.AUTHENTICATION_GET_AUTH_TOKEN_SUCCESS,
+        type: costants.AUTHENTICATION_CHECK_IS_LOGGED_SUCCESS,
         payload: {
-          authToken: token
+          isLogged: token != null && token !== ''
         }
       })
 
@@ -80,57 +80,15 @@ export const getAuthToken = () => {
     catch(error){
 
       dispatch({
-        type: costants.AUTHENTICATION_GET_AUTH_TOKEN_ERROR,
+        type: costants.AUTHENTICATION_CHECK_IS_LOGGED_ERROR,
         payload: {
           callError: error
         }
       })
-
-    }
-    
+    }    
   }
-
 }
 
-
-
-/**
-* get the rfresh token
-*/
-export const getRefreshToken = () => {
-
-  return async dispatch => {
-
-    dispatch({
-      type: costants.AUTHENTICATION_GET_REFRESH_TOKEN
-    })
-
-    try{
-
-      var token = await SecureStore.getItemAsync(globalCostants.REFRESH_TOKEN_KEY)
-
-      dispatch({
-        type: costants.AUTHENTICATION_GET_REFRESH_TOKEN_SUCCESS,
-        payload: {
-          refreshToken: token
-        }
-      })
-
-    }
-    catch(error){
-
-      dispatch({
-        type: costants.AUTHENTICATION_GET_REFRESH_TOKEN_ERROR,
-        payload: {
-          callError: error
-        }
-      })
-
-    }
-    
-  }
-
-}
 
 /**
 * Hide error modal method
