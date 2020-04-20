@@ -34,7 +34,7 @@ class NavigatorHomeScreen extends Component {
     return (
       <Stack.Navigator initialRouteName='Home'>
         {!isLogged  ? (
-          <Stack.Screen name="Login" component={Login} />
+          <Stack.Screen name="Login" component={Login} options={{headerShown: false}}/>
         ): (
           <>
             <Stack.Screen name="BookDetail" component={BookDetail} />
