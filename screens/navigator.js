@@ -7,7 +7,6 @@ import { Login } from './login'
 import { BookDetail } from './bookDetail'
 import { Search } from './search'
 import { Splash } from './splash'
-
 const Stack = createStackNavigator();
 
 class NavigatorHomeScreen extends Component {
@@ -20,12 +19,12 @@ class NavigatorHomeScreen extends Component {
 
     //Check if the user is already logged
     this.props.checkIsLogged();
-
   }
 
   render() {
 
     const { isLogged, showSplashScreen } = this.props
+
 
     if(showSplashScreen){
       return <Splash />;
