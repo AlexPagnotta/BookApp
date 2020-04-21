@@ -24,7 +24,7 @@ export type AuthenticationState = {
   isLoading: Boolean,
   showSplashScreen: Boolean,
   secureTextEntry: Boolean, 
-  authToken: string
+  isLogged: Boolean
 }
 
 /** 
@@ -40,7 +40,7 @@ const initialState: AuthenticationState = {
   isLoading: false,
   showSplashScreen: false,
   secureTextEntry: true,
-  isLogged: '',
+  isLogged: false
 }
 
 export default handleActions(
@@ -48,7 +48,7 @@ export default handleActions(
     [AUTHENTICATION_LOGIN]: (state: AuthenticationState = initialState, action): AuthenticationState => {
       return {
         ...state,
-        loggedIn: false,
+        isLogged: false,
         callError: '',
         modalErrorVisible: false,
         isLoading: true
@@ -58,7 +58,7 @@ export default handleActions(
       const payload = action.payload
       return {
         ...state,
-        loggedIn: false,
+        isLogged: false,
         callError: payload.callError,
         modalErrorVisible: true,
         isLoading: false
@@ -72,10 +72,10 @@ export default handleActions(
         userName: payload.userName,
         name: payload.name,
         lastName: payload.lastName,
-        authToken: payload.authToken,
         callError: '',
         modalErrorVisible: false,
-        isLoading: false
+        isLoading: false,
+        isLogged: true,
       }
     },
     [AUTHENTICATION_CHECK_IS_LOGGED]: (state: AuthenticationState = initialState, action): AuthenticationState => {
@@ -118,7 +118,7 @@ export default handleActions(
     [AUTHENTICATION_LOGOUT]: (state: AuthenticationState = initialState, action): AuthenticationState => {
       return {
         ...state,
-        loggedIn: false,
+        isLogged: false,
         modalErrorVisible: false,
         callError: '',
         authToken: ''
