@@ -60,6 +60,7 @@ class LoginScreen extends Component {
                   <Input style={styles.input}
                     name='username'
                     placeholder='Username'
+                    size='large'
                     onChangeText={handleChange('username')}
                     value={values.username}
                     caption={touched.username ? errors.username : ''}
@@ -70,6 +71,7 @@ class LoginScreen extends Component {
                     icon={passwordEyeIcon}
                     name='password'
                     placeholder='Password'
+                    size='large'
                     secureTextEntry={secureTextEntry}
                     onIconPress={toggleSecureTextEntry}
                     onChangeText={handleChange('password')}
@@ -82,6 +84,7 @@ class LoginScreen extends Component {
                 <Layout style={styles.buttonsContainer}>
                   <Button
                     onPress={handleSubmit}
+                    size='large'
                     disabled={loading || !isValid}>
                       {loading ? 'Loading...': 'Login'}
                   </Button>     
