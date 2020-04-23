@@ -7,6 +7,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Books, Shelves } from './tabs';
 import axios from 'axios';
+import CircularButton from '../components/circularButton';
 
 class HomeScreen extends Component {
 
@@ -21,7 +22,7 @@ class HomeScreen extends Component {
   render() {
 
     const { executeLogout, name, lastName, navigation } = this.props
-
+    
     const SettingsScreen = () => (
       <Layout style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'red' }}>
         <Text category='h1'>Settings</Text>
@@ -39,6 +40,8 @@ class HomeScreen extends Component {
     const SettingIcon = (style) => (
       <Icon {...style} name='settings-outline'/>
     );
+
+  
 
     //Bottom Tab Bar methods
 
@@ -65,15 +68,19 @@ class HomeScreen extends Component {
     return (
         <SafeAreaView style={styles.container}>
           <Layout style={styles.statusBar}>
-            <Text category='h4'>BookApp</Text>
-            <Button
-              onPress={() => navigation.navigate("Search")}>
-              Search
-            </Button>
-            <Button
-              onPress={() => executeLogout()}>
-              Logout
-            </Button>
+            <Text category='h5'>BookApp</Text>
+            <Layout style={styles.buttonsContainer}>
+              <CircularButton  style={styles.statusBarButton}
+                customStyle={styles.statusBarButton}
+                onPress={() => navigation.navigate("Search")}        
+                iconName={'search-outline'}>     
+              </CircularButton>
+              <CircularButton  
+                customStyle={styles.statusBarButton}
+                onPress={() => executeLogout()}        
+                iconName={'person-outline'}>     
+              </CircularButton>
+            </Layout>
           </Layout>
           <BottomTab.Navigator tabBar={props => <BottomTabBar {...props} />}>
             <BottomTab.Screen name='Books' component={Books}/>
@@ -87,14 +94,22 @@ class HomeScreen extends Component {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    flex: 1
   },
   statusBar: {
-    height: 70,
+    height: 72,
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    padding: 10
+    paddingRight: 30,
+    paddingLeft: 30
+  },
+  buttonsContainer:{
+    display: 'flex',
+    flexDirection:'row'
+  },
+  statusBarButton:{
+    marginLeft: 20
   },
   homeContainer: {
     flex: 1,

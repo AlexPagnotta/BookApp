@@ -5,7 +5,7 @@ import { ApplicationProvider, IconRegistry, Layout, Text } from '@ui-kitten/comp
 import * as eva from '@eva-design/eva';
 import { EvaIconsPack } from '@ui-kitten/eva-icons';
 import 'react-native-gesture-handler';
-import { NavigationContainer } from '@react-navigation/native';
+import { NavigationContainer, DefaultTheme } from '@react-navigation/native';
 import { navigationRef } from './rootNavigation/rootNavigation';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { NavigatorHome } from './screens';
@@ -19,6 +19,24 @@ const loadFonts = () => {
     'Montserrat-Medium': require('./assets/Montserrat-Medium.ttf')
   });
 };
+
+//React Navigation themes, defines app background color
+const ReactNavigationLightTheme = {
+  dark: false,
+  colors: {
+    ...DefaultTheme.colors,
+    background: '#FFFFFF'
+  },
+};
+
+const ReactNavigationDarkTheme = {
+  dark: true,
+  colors: {
+    ...DefaultTheme.colors,
+    background: '#303030'
+  },
+};
+
 
 const App = () => {
 
@@ -41,7 +59,7 @@ const App = () => {
         theme={{ ...eva.light,  ...lightTheme}}
         customMapping={mapping}>
           <SafeAreaProvider>
-            <NavigationContainer ref={navigationRef}>
+            <NavigationContainer ref={navigationRef} theme={ReactNavigationLightTheme}>
               <NavigatorHome></NavigatorHome>
             </NavigationContainer>    
           </SafeAreaProvider> 
