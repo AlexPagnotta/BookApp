@@ -14,12 +14,13 @@ function BooksList({ books, loading, loadMore }) {
   }
 
   return (
-      <FlatList
-        style={[
-        styles.bookList, 
+    <Layout style={[
+        styles.mainContainer, 
         {
           backgroundColor: theme['color-primary-200']
-        }]}
+        }]}>
+      <FlatList
+        style={styles.bookList}
         data={books}
         renderItem={({ item }) => <BookCardItem book={item} />}
         keyExtractor={item => item.bookId === 0 ? item.apiBookId : item.bookId}
@@ -31,17 +32,23 @@ function BooksList({ books, loading, loadMore }) {
             loadMore();
           }
         }}    
-      />  
+      /> 
+    </Layout>
+       
   )
   
 }
 
 const styles = StyleSheet.create({
+  mainContainer: {
+    flex: 1,
+    alignItems: "center",
+    width: '100%'
+  },
   bookList: {
     paddingTop: 40,
-    paddingRight: 30,
-    paddingLeft: 30,
-    paddingBottom: 40
+    paddingBottom: 40,
+    flex: 1
   },
 })
 
