@@ -1,8 +1,10 @@
 import React, { Component } from 'react'
-import {StyleSheet} from 'react-native'
+import {StyleSheet, ScrollView } from 'react-native'
 import { connect } from 'react-redux'
 import { actions, States } from '../../store'
 import BooksList from '../../components/booksList'
+import { Layout, Text } from '@ui-kitten/components'
+import { withStyles } from '@ui-kitten/components';
 
 class BooksTab extends Component {
 
@@ -21,12 +23,45 @@ class BooksTab extends Component {
     const { loading, error, books } = this.props
 
     return (
-      <BooksList books={books} loading={loading} />
+      <ScrollView>
+        <Layout style={styles.mainContainer}>
+          <Layout style={styles.lastAddedContainer}>
+            <Text style={styles.title} category="h2">Hello, XXXXX</Text>
+            <Text style={styles.subTitle}>These are the last book you added</Text>
+            <BooksList books={books} loading={loading} />         
+          </Layout>
+          <Layout style={styles.libraryContainer}>
+            <Text style={styles.title} category="h2">Your Library</Text>
+            <Text style={styles.subTitle}>Here you can find all your books</Text>
+            <BooksList books={books} loading={loading} />
+          </Layout>
+        </Layout>
+      </ScrollView>
     )
   }
 }
 
+
 const styles = StyleSheet.create({
+  mainContainer: {
+    flex: 1,
+  },
+  lastAddedContainer: {
+    paddingTop: 50
+  },
+  libraryContainer: {
+    paddingTop: 30
+  },
+  title: {
+    paddingRight: 30,
+    paddingLeft: 30
+  },
+  subTitle: {
+    paddingTop: 10,
+    paddingRight: 30,
+    paddingLeft: 30,
+    paddingBottom: 30
+  }
 })
 
 export const Books = connect(

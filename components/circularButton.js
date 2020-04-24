@@ -15,8 +15,7 @@ function CircularButton({onPress, iconName, customStyle}) {
       styles.button, 
       {
         backgroundColor: theme['color-primary-200'],
-        borderColor: theme['color-primary-200'], 
-        fill: 'red'
+        borderColor: theme['color-primary-200']
       }, 
       customStyle]}
       onPress={onPress}
@@ -29,8 +28,7 @@ const styles = StyleSheet.create({
   button: {
     borderRadius: 100,
     width: 43,
-    height: 43,
-    backgroundColor: 'red',
+    height: 43
   }
 })
 

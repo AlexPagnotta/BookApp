@@ -23,16 +23,15 @@ function BookCardItem({ book }) {
             book: book,
           })
         }>
-        <Text>{book.title}</Text>
     </Card>
   )
 }
 
 const styles = StyleSheet.create({
   bookCard: {
-    flex: 1/2,
-    height: 360,
-    margin: 20,
+    flex: 1/3,
+    height: 190,
+    margin: 10,
     padding: 0
   },
   headerCardImage: {

@@ -82,7 +82,8 @@ class HomeScreen extends Component {
               </CircularButton>
             </Layout>
           </Layout>
-          <BottomTab.Navigator tabBar={props => <BottomTabBar {...props} />}>
+          <BottomTab.Navigator 
+            tabBar={props => <BottomTabBar {...props} />}>
             <BottomTab.Screen name='Books' component={Books}/>
             <BottomTab.Screen name='Shelves' component={Shelves}/>
             <BottomTab.Screen name='Settings' component={SettingsScreen}/>
