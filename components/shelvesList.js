@@ -5,15 +5,6 @@ import ShelfItem from './shelfItem'
 
 function ShelvesList({ shelves, loading,  removeShelf, showModal }) {
 
-
-  function Item({ shelf }) {
-    return (
-      <Layout>
-        <Text >{ shelf.name}</Text>
-      </Layout>
-    );
-  }
-
   if(loading){
     return (
         <ActivityIndicator></ActivityIndicator>
