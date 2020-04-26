@@ -1,13 +1,21 @@
 import React, { Component } from 'react'
 import {StyleSheet, ActivityIndicator,FlatList} from 'react-native'
-import { Icon, Layout, Text,Button, Card } from '@ui-kitten/components';
+import { Icon, Layout, Text,Button, Card ,  useTheme } from '@ui-kitten/components';
 import ShelfItem from './shelfItem'
 
 function ShelvesList({ shelves, loading,  removeShelf, showModal }) {
 
+  const theme = useTheme();
+
   if(loading){
     return (
-        <ActivityIndicator></ActivityIndicator>
+      <Layout style={[
+        styles.spinnerContainer, 
+        {
+          backgroundColor: theme['color-primary-200']
+        }]}>
+        <Spinner size='giant'></Spinner>
+      </Layout>
     )
   }
 
@@ -23,6 +31,12 @@ function ShelvesList({ shelves, loading,  removeShelf, showModal }) {
 }
 
 const styles = StyleSheet.create({
+  spinnerContainer: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: 'center',
+    width: '100%'
+  }
 })
 
 export default ShelvesList;

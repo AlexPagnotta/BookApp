@@ -1,6 +1,6 @@
 import React, { Component} from 'react'
-import {StyleSheet, ActivityIndicator,FlatList, View} from 'react-native'
-import { Icon, Layout, Text,Button, Card,  useTheme } from '@ui-kitten/components';
+import {StyleSheet,FlatList, View} from 'react-native'
+import { Icon, Layout, Text,Button, Card, Spinner,  useTheme } from '@ui-kitten/components';
 import BookCardItem from './bookCardItem'
 
 function BooksList({ books, loading, loadMore }) {
@@ -9,7 +9,13 @@ function BooksList({ books, loading, loadMore }) {
 
   if(loading){
     return (
-        <ActivityIndicator></ActivityIndicator>
+      <Layout style={[
+        styles.spinnerContainer, 
+        {
+          backgroundColor: theme['color-primary-200']
+        }]}>
+        <Spinner size='giant'></Spinner>
+      </Layout>
     )
   }
 
@@ -40,6 +46,12 @@ function BooksList({ books, loading, loadMore }) {
 }
 
 const styles = StyleSheet.create({
+  spinnerContainer: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: 'center',
+    width: '100%'
+  },
   mainContainer: {
     flex: 1,
     alignItems: "center",

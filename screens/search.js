@@ -1,10 +1,12 @@
 import React, { Component,Fragment } from 'react'
-import {StyleSheet, ActivityIndicator,FlatList} from 'react-native'
+import {StyleSheet,FlatList} from 'react-native'
 import { connect } from 'react-redux'
 import { actions, States } from '../store'
-import { Icon, Tab, Layout, Text,Button, Input } from '@ui-kitten/components';
+import { Icon, Tab, Layout, Text,Button, Input, Spinner } from '@ui-kitten/components';
 import { Formik } from 'formik'
 import BooksList from '../components/booksList'
+import { SafeAreaView } from 'react-native-safe-area-context';
+import CircularButton from '../components/circularButton';
 
 class SearchScreen extends Component {
 
@@ -21,12 +23,17 @@ class SearchScreen extends Component {
 
   render() {
 
-    const { foundBooks, isLoading, callError, searchBook, loadMore, isLoadingMore} = this.props
+    const { foundBooks, isLoading, callError, searchBook, loadMore, isLoadingMore,navigation} = this.props
     
-    
+
     return (
-      <Layout style={styles.container}>
-       <Formik 
+      <SafeAreaView style={styles.container}>
+      <Layout style={styles.statusBar}>
+        <CircularButton
+          onPress={() => navigation.goBack()}        
+          iconName={'arrow-ios-back-outline'}>     
+        </CircularButton>
+        <Formik 
           initialValues={{ searchText: '' }}
           onSubmit={values => {
             searchBook(values.searchText)
@@ -34,22 +41,23 @@ class SearchScreen extends Component {
           {({  values, handleChange,handleSubmit }) => (
           <Fragment>
             <Input
+                style={styles.searchInput}
                 name='searchText'
-                label='Search'
+                placeholder='Search...'
+                size='medium'
                 onChangeText={handleChange('searchText')}
                 value={values.password}
             />
-            <Button
-              onPress={handleSubmit}
-              disabled={isLoading}>
-                {isLoading ? 'Loading...': 'Search'}
-            </Button>   
+            <CircularButton
+              onPress={handleSubmit}        
+              iconName={'search-outline'}>     
+            </CircularButton> 
           </Fragment> 
           )}
-        </Formik>  
-        <BooksList books={foundBooks} loading={isLoading} loadMore={loadMore} />
-        {isLoadingMore && <ActivityIndicator></ActivityIndicator>}
-      </Layout>
+        </Formik> 
+      </Layout> 
+        <BooksList books={foundBooks} loading={isLoading} loadMore={loadMore} />     
+      </SafeAreaView>
     )
   }
 }
@@ -57,6 +65,19 @@ class SearchScreen extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+  },
+  statusBar: {
+    height: 72,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    paddingRight: 30,
+    paddingLeft: 30
+  },
+  searchInput:{
+    flex: 1,
+    marginRight: 20,
+    marginLeft: 20,
   }
 })
 
