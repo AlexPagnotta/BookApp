@@ -26,7 +26,7 @@ class BooksTab extends Component {
         <Layout style={styles.mainContainer}>          
           <Layout style={styles.libraryContainer}>
             <Text style={styles.title} category="h2">Your Library</Text>
-            <Text style={styles.subTitle}>Here you can find all your books</Text>
+            <Text style={styles.subTitle} category="s1">Here you can find all your books</Text>
             <BooksList books={books} loading={loading} />
           </Layout>
         </Layout>

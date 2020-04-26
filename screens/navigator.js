@@ -36,7 +36,7 @@ class NavigatorHomeScreen extends Component {
           <Stack.Screen name="Login" component={Login} options={{headerShown: false}}/>
         ): (
           <>
-            <Stack.Screen name="BookDetail" component={BookDetail} />
+            <Stack.Screen name="BookDetail" component={BookDetail} options={{headerShown: false}}/>
             <Stack.Screen name="Search" component={Search} options={{headerShown: false}}/>
             <Stack.Screen name="Home" component={Home} options={{headerShown: false}} />
           </>
