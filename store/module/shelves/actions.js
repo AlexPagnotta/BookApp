@@ -28,8 +28,8 @@ export const getShelves = () => {
         }
       });
 
-      shelvesSelect.push({
-        text: 'Rimuovi',
+      shelvesSelect.unshift({
+        text: 'No Shelf Selected',
         id: 0
      })
 

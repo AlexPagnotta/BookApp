@@ -15,12 +15,12 @@ class BookDetailScreen extends Component {
 
   async componentDidMount() {
 
-    await this.props.getShelves();
-
     let book = this.props.route.params.book;
-
+  
     //Set current book on state
     let setCurrentBook = this.props.setCurrentBook;
+
+    await this.props.getShelves();
 
     setCurrentBook(book);
   }
@@ -57,8 +57,8 @@ class BookDetailScreen extends Component {
             </Layout>          
           </Layout>
           <Layout style={styles.bookDetailContainer}>
-            <Text style={styles.text} category='h3'>{currentBook.title} </Text>
-            <Text style={styles.textSub} category='h6'>{currentBook.authors[0] } </Text>
+            <Text style={styles.text} category='h2'>{currentBook.title} </Text>
+            <Text style={styles.textSub} category='h6'>{currentBook.authors == null || currentBook.authors.length == 0 ? 'No Author' : currentBook.authors[0] } </Text>
             <Text style={styles.textSub} category='h6'>{currentBook.publisher } </Text>
             <Text style={styles.textSub} category='h6'>{currentBook.pageCount } Pages </Text>
             <Select
