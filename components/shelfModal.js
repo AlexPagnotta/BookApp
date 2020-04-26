@@ -1,11 +1,13 @@
 import React, { Component, Fragment } from 'react'
-import { Button, Modal,Input,Layout,Text, Spinner } from '@ui-kitten/components';
+import { Button, Modal,Input,Layout,Text, Spinner, useTheme } from '@ui-kitten/components';
 import {StyleSheet} from 'react-native'
 import { Formik } from 'formik'
 import * as Yup from 'yup'
 
 
 function ShelfModal({ shelf, visible,hideModal, loading, saveShelf }) {
+
+  const theme = useTheme();
 
   //Validation Form
   const validationSchema = Yup.object().shape({
@@ -21,7 +23,10 @@ function ShelfModal({ shelf, visible,hideModal, loading, saveShelf }) {
       visible={visible}>
       <Layout
         level='3'
-        style={styles.modalContainer}>
+        style={[styles.modalContainer,
+        {
+          backgroundColor: theme['color-primary-100']
+        }]}>
         <Text category='h4'>{shelf.shelfId === 0 ? 'Add a Shelf' : 'Edit Shelf'}</Text>
         <Formik 
           initialValues={{ name: shelf.name}}
@@ -46,7 +51,7 @@ function ShelfModal({ shelf, visible,hideModal, loading, saveShelf }) {
             errors, 
             touched, 
             isValid }) => (
-          <Fragment>
+          <Fragment >
             <Layout style={styles.inputsContainer}>
               <Input style={styles.input}
                 name='name'
@@ -58,13 +63,13 @@ function ShelfModal({ shelf, visible,hideModal, loading, saveShelf }) {
                 status={touched.name && errors.name ? 'danger' : ''}
               />
             </Layout>
-            <Layout style={styles.buttonsContainer}>
+            <Layout style={styles.buttonsContainer}>             
+              <Button style={styles.modalButton} onPress={hideModal}>Close</Button>
               <Button style={styles.modalButton}
                 onPress={handleSubmit}
                 disabled={loading || !isValid}>
                   {loading ? 'Loading...': 'Save'}
               </Button>   
-              <Button style={styles.modalButton} onPress={hideModal}>Close</Button>
             </Layout>  
           </Fragment> 
           )}
@@ -77,25 +82,23 @@ function ShelfModal({ shelf, visible,hideModal, loading, saveShelf }) {
 const styles = StyleSheet.create({
   modalContainer: {
     justifyContent: 'center',
-    alignItems: 'flex-start',
-    padding: 24,
+    padding: 30,
     margin: 0,
-    borderRadius: 5
+    borderRadius: 8
   },
   modalBackdrop: {
     backgroundColor: 'rgba(0, 0, 0, 0.5)',
   },
   modalButton: {
-    marginTop: 24,
-    alignSelf: 'flex-end'
+    marginLeft: 20
   },
   inputsContainer: {
-      flex: 3
-  },
-  
+    marginTop: 40,
+    marginBottom: 40
+  }, 
   buttonsContainer: {
-    flex: 1,
-    flexDirection: 'column-reverse'
+    flexDirection: 'row',
+    justifyContent: 'space-between'
   },
   input: {
     marginBottom: 20

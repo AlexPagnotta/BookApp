@@ -2,12 +2,12 @@ import React from 'react'
 import { Icon, Button, useTheme } from '@ui-kitten/components';
 import {StyleSheet} from 'react-native'
 
-function CircularButton({onPress, iconName, customStyle}) {
+function CircularButton({onPress, iconName, disabled, customStyle}) {
 
   const theme = useTheme();
 
   const ButtonIcon = (style) => (
-    <Icon {...style} name={iconName} fill={theme['color-primary-500']} />
+    <Icon {...style} name={iconName} fill={!disabled ? theme['color-primary-500'] : theme['color-primary-300']} />
   );
 
   return (
@@ -19,7 +19,8 @@ function CircularButton({onPress, iconName, customStyle}) {
       }, 
       customStyle]}
       onPress={onPress}
-      icon={ButtonIcon}>
+      icon={ButtonIcon}
+      disabled = {disabled}>
     </Button>
   )
 }

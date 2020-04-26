@@ -27,8 +27,7 @@ class ShelvesTab extends Component {
       <Fragment>
         <Layout style={styles.mainContainer}>       
           <Layout style={styles.headerContainer}>
-            <CircularButton  style={styles.statusBarButton}
-              customStyle={styles.statusBarButton}
+            <CircularButton 
               onPress={() => {showModal()}}        
               iconName={'plus-outline'}>     
             </CircularButton>

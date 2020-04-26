@@ -70,7 +70,7 @@ class HomeScreen extends Component {
           <Layout style={styles.statusBar}>
             <Text category='h5'>BookApp</Text>
             <Layout style={styles.buttonsContainer}>
-              <CircularButton  style={styles.statusBarButton}
+              <CircularButton
                 customStyle={styles.statusBarButton}
                 onPress={() => navigation.navigate("Search")}        
                 iconName={'search-outline'}>     

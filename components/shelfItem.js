@@ -1,8 +1,9 @@
 import React from 'react'
-import { Card, Text, Layout, Icon, Button,  useTheme } from '@ui-kitten/components';
+import { Card, Text, Layout, Icon, Button,  useTheme, OverflowMenu, MenuItem } from '@ui-kitten/components';
 import {StyleSheet, Image,FlatList} from 'react-native'
 import { useNavigation } from '@react-navigation/native';
 import BookCardItem from './bookCardItem'
+import CircularButton from './circularButton';
 
 function ShelfItem({ shelf, removeShelf, showModal }) {
 
@@ -19,12 +20,29 @@ function ShelfItem({ shelf, removeShelf, showModal }) {
   );
 
   
+  const renderToggleButton = () => (
+    <Button >
+      TOGGLE MENU
+    </Button>
+  );
+
   return (
     <Layout style={styles.shelfItemContainer}>
       <Layout style={styles.headerContainer}>
         <Text category='h6'>{shelf.name}</Text>
-        <Button onPress={() => {showModal(shelf);}} appearance='ghost' status='primary' icon={EditIcon}/>
-        <Button onPress={() => {removeShelf(shelf.shelfId);}} disabled={shelf.books.length !== 0} style={styles.button} appearance='ghost' status='primary' icon={DeleteIcon}/>
+        <Layout style={styles.buttonsContainer}>
+          <CircularButton 
+            customStyle={styles.button}
+            onPress={() => {showModal(shelf)}}        
+            iconName={'edit-outline'}>     
+          </CircularButton>
+          <CircularButton 
+            style={styles.button}
+            onPress={() => {removeShelf(shelf.shelfId)}}        
+            iconName={'trash-outline'}
+            disabled={shelf.books.length !== 0}>     
+          </CircularButton>
+        </Layout>      
       </Layout>
       <FlatList
         style={[
@@ -49,13 +67,22 @@ const styles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
+    justifyContent: 'space-between',
     height: 72,
-    paddingLeft: 30
+    paddingLeft: 30,
+    paddingRight: 30
+  },
+  buttonsContainer: {
+    display: 'flex', 
+    flexWrap: 'wrap',
+    alignItems: "center",
+    justifyContent: "center"
   },
   button: {
-    borderRadius: 100
+    marginRight: 20
   },
   bookList: {
+    minHeight: 300,
     padding: 20,
     paddingLeft: 20
   },
