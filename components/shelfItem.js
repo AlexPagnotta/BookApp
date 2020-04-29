@@ -26,6 +26,10 @@ function ShelfItem({ shelf, removeShelf, showModal }) {
     </Button>
   );
 
+  const listPaddingLayout = () => (
+    <Layout style={{ width: 20 }} ></Layout>
+  );
+
   return (
     <Layout style={styles.shelfItemContainer}>
       <Layout style={styles.headerContainer}>
@@ -45,6 +49,8 @@ function ShelfItem({ shelf, removeShelf, showModal }) {
         </Layout>      
       </Layout>
       <FlatList
+        ListHeaderComponent= {listPaddingLayout}
+        ListFooterComponent = {listPaddingLayout}
         style={[
           styles.bookList, 
           {
@@ -52,7 +58,7 @@ function ShelfItem({ shelf, removeShelf, showModal }) {
           }
         ]}
         data={shelf.books}
-        renderItem={({ item }) => <BookCardItem book={item} />}
+        renderItem={({ item }) => <BookCardItem book={item} horizontalList={true} />}
         keyExtractor={item => item.bookId.toString()}
         horizontal={true}
       />
@@ -82,9 +88,9 @@ const styles = StyleSheet.create({
     marginRight: 20
   },
   bookList: {
-    minHeight: 300,
-    padding: 20,
-    paddingLeft: 20
+    paddingTop: 30,
+    paddingBottom: 30,
+    minHeight: 250
   },
 })
 

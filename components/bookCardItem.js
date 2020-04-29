@@ -3,13 +3,16 @@ import { Card, Text, Layout} from '@ui-kitten/components';
 import {StyleSheet, Image, TouchableOpacity} from 'react-native'
 import { useNavigation } from '@react-navigation/native';
 
-function BookCardItem({ book }) {
+function BookCardItem({ book, horizontalList }) {
 
   const navigation = useNavigation();
   
   return (
     <TouchableOpacity
-    style={styles.bookCard}
+    style={[
+      horizontalList ? { width: 110 } : { flex: 1/3 },
+      styles.bookCard
+      ]}
     onPress={() =>
         navigation.navigate('BookDetail', {
           book: book
@@ -26,7 +29,6 @@ function BookCardItem({ book }) {
 
 const styles = StyleSheet.create({
   bookCard: {
-    width: 110,
     height: 190,
     margin: 10,
     marginBottom: 20,
