@@ -3,7 +3,7 @@ import {StyleSheet,FlatList, View} from 'react-native'
 import { Icon, Layout, Text,Button, Card, Spinner,  useTheme } from '@ui-kitten/components';
 import BookCardItem from './bookCardItem'
 
-function BooksList({ books, loading, loadMore, header }) {
+function BooksList({ books, loading, loadMore }) {
 
   const theme = useTheme();
 
@@ -26,7 +26,6 @@ function BooksList({ books, loading, loadMore, header }) {
           backgroundColor: theme['color-primary-200']
         }]}>
       <FlatList
-        ListHeaderComponent={header}
         style={styles.bookList}
         data={books}
         renderItem={({ item }) => <BookCardItem book={item} />}
@@ -60,7 +59,9 @@ const styles = StyleSheet.create({
   },
   bookList: {
     flex: 1,
-    width: '100%'
+    width: '100%',
+    paddingRight: 10,
+    paddingLeft: 10
   }
 })
 

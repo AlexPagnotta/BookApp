@@ -10,7 +10,7 @@ function BookCardItem({ book, horizontalList }) {
   return (
     <TouchableOpacity
     style={[
-      horizontalList ? { width: 110 } : { flex: 1/3 },
+      horizontalList ? { width: 110,  height: 190 } : { flex: 1/3, height: 150 },
       styles.bookCard
       ]}
     onPress={() =>
@@ -29,7 +29,6 @@ function BookCardItem({ book, horizontalList }) {
 
 const styles = StyleSheet.create({
   bookCard: {
-    height: 190,
     margin: 10,
     marginBottom: 20,
     marginTop: 20,

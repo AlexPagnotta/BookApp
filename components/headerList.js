@@ -12,8 +12,8 @@ function HeaderList({title, subtitle}) {
       {
         backgroundColor: theme['color-primary-100']
       }]}>
-      <Text style={styles.title} category="h2">Your Library</Text>
-      <Text style={styles.subTitle} category="s1">Here you can find all your books</Text>
+      <Text style={styles.title} category="h2">{title}</Text>
+      <Text style={styles.subTitle} category="s1">{subtitle}</Text>
     </Layout>
   )
 }
