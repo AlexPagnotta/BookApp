@@ -79,6 +79,7 @@ class LoginScreen extends Component {
                     caption={touched.password ? errors.password : ''}
                     onBlur={handleBlur('password')}
                     status={touched.password && errors.password ? 'danger' : ''}
+                    onEndEditing = {handleSubmit}  
                   />
                 </Layout>
                 <Layout style={styles.buttonsContainer}>

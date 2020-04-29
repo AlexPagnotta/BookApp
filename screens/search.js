@@ -47,6 +47,7 @@ class SearchScreen extends Component {
                 size='medium'
                 onChangeText={handleChange('searchText')}
                 value={values.password}
+                onEndEditing = {handleSubmit}
             />
             <CircularButton
               onPress={handleSubmit}        
