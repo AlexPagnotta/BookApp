@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
-import {StyleSheet, ScrollView } from 'react-native'
+import {StyleSheet } from 'react-native'
 import { connect } from 'react-redux'
 import { actions, States } from '../../store'
 import BooksList from '../../components/booksList'
+import HeaderList from '../../components/headerList'
 import { Layout, Text } from '@ui-kitten/components'
-import { withStyles } from '@ui-kitten/components';
 
 class BooksTab extends Component {
 
@@ -24,10 +24,8 @@ class BooksTab extends Component {
 
     return (
         <Layout style={styles.mainContainer}>          
-          <Layout style={styles.libraryContainer}>
-            <Text style={styles.title} category="h2">Your Library</Text>
-            <Text style={styles.subTitle} category="s1">Here you can find all your books</Text>
-            <BooksList books={books} loading={loading} />
+          <Layout style={styles.libraryContainer}>     
+            <BooksList books={books} loading={loading} header={<HeaderList title='555' subtitle='333'></HeaderList>}/>
           </Layout>
         </Layout>
     )
@@ -40,18 +38,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   libraryContainer: {
-    paddingTop: 30,
     flex:1
-  },
-  title: {
-    paddingRight: 30,
-    paddingLeft: 30
-  },
-  subTitle: {
-    paddingTop: 10,
-    paddingRight: 30,
-    paddingLeft: 30,
-    paddingBottom: 30
   }
 })
 
