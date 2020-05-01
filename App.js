@@ -40,6 +40,8 @@ const ReactNavigationDarkTheme = {
 
 const App = () => {
 
+  console.disableYellowBox = true;
+  
   const[fontsLoaded, setFontsLoaded] = useState(false);
 
   if(!fontsLoaded){
