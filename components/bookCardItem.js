@@ -10,7 +10,7 @@ function BookCardItem({ book, horizontalList }) {
   return (
     <TouchableOpacity
     style={[
-      horizontalList ? { width: 110,  height: 190 } : { flex: 1/3, height: 150 },
+      horizontalList ? { width: 110,  height: 190 } : { flex: 1/3, height: 190 },
       styles.bookCard
       ]}
     onPress={() =>
