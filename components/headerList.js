@@ -8,7 +8,6 @@ function HeaderList({title, subtitle}) {
 
   return (
     <Layout style={[
-      styles.button, 
       {
         backgroundColor: theme['color-primary-100']
       }]}>

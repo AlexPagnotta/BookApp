@@ -107,7 +107,7 @@ const styles = StyleSheet.create({
   bookImageHeader: {
     width: '100%',
     height: 300,
-    backgroundColor: 'rgba(120,100,190,0.5)',
+    backgroundColor: 'rgba(0,0,0,0.2)',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center'
@@ -123,7 +123,7 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.3,
     shadowRadius: 2,
     elevation: 3,
-    backgroundColor: 'rgba(0,0,0,0)'
+    backgroundColor: 'rgba(0,0,0,0.0)'
   },
   bookImage:{
     flex: 1,
@@ -150,7 +150,7 @@ const styles = StyleSheet.create({
     width: '100%',
   },
   categoryPill:{
-    backgroundColor: 'rgba(120,100,190,0.5)',
+    backgroundColor: 'rgba(0,0,0,0.2)',
     padding: 15,
     borderRadius: 50,
     marginTop: 20

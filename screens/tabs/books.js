@@ -24,12 +24,12 @@ class BooksTab extends Component {
     const { loading, error, books } = this.props
 
     return (
-        <ScrollView style={styles.mainContainer}>          
-          <Layout style={styles.libraryContainer}>     
-            <HeaderList title='Your Library' subtitle='Here you can find all your books'></HeaderList>
-            <BooksList style={styles.booksList} books={books} loading={loading}/>
-          </Layout>
-        </ScrollView>
+      <ScrollView contentContainerStyle={{flexGrow: 1}}>          
+        <Layout style={styles.libraryContainer}>     
+          <HeaderList title='Your Library' subtitle='Here you can find all your books'></HeaderList>
+          <BooksList  books={books} loading={loading}/>
+        </Layout>
+      </ScrollView>
     )
   }
 }
@@ -40,9 +40,6 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   libraryContainer: {
-    flex:1
-  },
-  booksList: {
     flex:1
   }
 })
