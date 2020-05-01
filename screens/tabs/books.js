@@ -1,8 +1,11 @@
 import React, { Component } from 'react'
-import {StyleSheet} from 'react-native'
+import {StyleSheet } from 'react-native'
 import { connect } from 'react-redux'
 import { actions, States } from '../../store'
 import BooksList from '../../components/booksList'
+import HeaderList from '../../components/headerList'
+import { Layout, Text } from '@ui-kitten/components'
+import { ScrollView } from 'react-native-gesture-handler'
 
 class BooksTab extends Component {
 
@@ -21,12 +24,24 @@ class BooksTab extends Component {
     const { loading, error, books } = this.props
 
     return (
-      <BooksList books={books} loading={loading} />
+      <ScrollView contentContainerStyle={{flexGrow: 1}}>          
+        <Layout style={styles.libraryContainer}>     
+          <HeaderList title='Your Library' subtitle='Here you can find all your books'></HeaderList>
+          <BooksList  books={books} loading={loading}/>
+        </Layout>
+      </ScrollView>
     )
   }
 }
 
+
 const styles = StyleSheet.create({
+  mainContainer: {
+    flex: 1,
+  },
+  libraryContainer: {
+    flex:1
+  }
 })
 
 export const Books = connect(

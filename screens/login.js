@@ -1,7 +1,5 @@
 import React, { Component, Fragment } from 'react'
-import {
-  StyleSheet, ActivityIndicator, TouchableWithoutFeedback, Keyboard
-} from 'react-native'
+import {StyleSheet, ActivityIndicator, TouchableWithoutFeedback, Keyboard} from 'react-native'
 import { connect } from 'react-redux'
 import { actions, States } from '../store'
 import { Button, Input,Layout,Text ,Icon, Modal, Spinner } from '@ui-kitten/components';
@@ -12,7 +10,6 @@ class LoginScreen extends Component {
 
     constructor(props) {
       super(props)
-
     }
   
     render() {
@@ -41,10 +38,10 @@ class LoginScreen extends Component {
         <TouchableWithoutFeedback 
           onPress={ () => { Keyboard.dismiss() }}
           accessible={false}>
-          <Layout 
-            style={styles.container}>
+          <Layout style={styles.mainContainer}>
             <Layout style={styles.logoContainer}>
               <Text category='h1'>BookApp</Text>
+              <Text category='h4'>Welcome back</Text>
             </Layout>
             <Formik 
               initialValues={{ username: '', password: '' }}
@@ -62,7 +59,8 @@ class LoginScreen extends Component {
                 <Layout style={styles.inputsContainer}>
                   <Input style={styles.input}
                     name='username'
-                    label='Username'
+                    placeholder='Username'
+                    size='large'
                     onChangeText={handleChange('username')}
                     value={values.username}
                     caption={touched.username ? errors.username : ''}
@@ -72,7 +70,8 @@ class LoginScreen extends Component {
                   <Input
                     icon={passwordEyeIcon}
                     name='password'
-                    label='Password'
+                    placeholder='Password'
+                    size='large'
                     secureTextEntry={secureTextEntry}
                     onIconPress={toggleSecureTextEntry}
                     onChangeText={handleChange('password')}
@@ -80,11 +79,13 @@ class LoginScreen extends Component {
                     caption={touched.password ? errors.password : ''}
                     onBlur={handleBlur('password')}
                     status={touched.password && errors.password ? 'danger' : ''}
+                    onEndEditing = {handleSubmit}  
                   />
                 </Layout>
                 <Layout style={styles.buttonsContainer}>
-                  <Button style={styles.button}
+                  <Button
                     onPress={handleSubmit}
+                    size='large'
                     disabled={loading || !isValid}>
                       {loading ? 'Loading...': 'Login'}
                   </Button>     
@@ -111,26 +112,27 @@ class LoginScreen extends Component {
   }
   
   const styles = StyleSheet.create({
-    container: {
+    mainContainer: {
       flex: 1,
-      padding: 32
+      paddingRight: 50,
+      paddingLeft: 50,
+      paddingTop: 80,
+      paddingBottom: 80
     },
     logoContainer: {
-      flex: 1,
-      alignItems: 'center',
+      flex:2,   
       justifyContent: 'center'
     },
     inputsContainer: {
-      flex: 3
+      flex: 3,
+      paddingTop: 30
     },
     buttonsContainer: {
       flex: 1,
       flexDirection: 'column-reverse'
     },
     input: {
-      marginBottom: 20
-    },
-    button: {
+      marginBottom: 60
     },
     modalContainer: {
       justifyContent: 'center',

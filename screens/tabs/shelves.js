@@ -5,6 +5,7 @@ import { actions, States } from '../../store'
 import { Layout, Text, Button } from '@ui-kitten/components'
 import ShelvesList from '../../components/shelvesList'
 import ShelfModal from '../../components/shelfModal'
+import CircularButton from '../../components/circularButton';
 
 class ShelvesTab extends Component {
 
@@ -24,9 +25,12 @@ class ShelvesTab extends Component {
 
     return (
       <Fragment>
-        <Layout>       
+        <Layout style={styles.mainContainer}>       
           <Layout style={styles.headerContainer}>
-            <Button onPress={() => {showModal()}}> Add Shelf </Button>
+            <CircularButton 
+              onPress={() => {showModal()}}        
+              iconName={'plus-outline'}>     
+            </CircularButton>
           </Layout>      
           <ShelvesList shelves={shelves} loading={loading} removeShelf={removeShelf} showModal={showModal} />
         </Layout>
@@ -37,12 +41,15 @@ class ShelvesTab extends Component {
 }
 
 const styles = StyleSheet.create({
+  mainContainer: {
+    flex:1
+  },
   headerContainer: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    alignItems: 'center',
-    justifyContent: 'flex-end',
-    margin: 10
+    display: 'flex',
+    alignItems: 'flex-end',
+    justifyContent: 'center',
+    height: 72,
+    marginRight: 30
   }
 })
 

@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
-import {StyleSheet, Image} from 'react-native'
+import {StyleSheet, Image, ScrollView, FlatList } from 'react-native'
 import { connect } from 'react-redux'
 import { actions, States } from '../store'
-import { Layout, Text,Button, Select } from '@ui-kitten/components';
-
-
+import { Layout, Text,Button, Select, Spinner } from '@ui-kitten/components';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import CircularButton from '../components/circularButton';
 
 class BookDetailScreen extends Component {
 
@@ -13,17 +13,16 @@ class BookDetailScreen extends Component {
 
   }
 
-  componentDidMount() {
+  async componentDidMount() {
 
     let book = this.props.route.params.book;
-
+  
     //Set current book on state
     let setCurrentBook = this.props.setCurrentBook;
 
-    //Load shelves
-    this.props.getShelves().then( () => {
-        setCurrentBook(book);
-    });
+    await this.props.getShelves();
+
+    setCurrentBook(book);
   }
 
 
@@ -31,33 +30,130 @@ class BookDetailScreen extends Component {
 
     const {  loading, error,  shelvesSelect, route, navigation, onSelectShelfChanged, currentBook, shelfSelected } = this.props
 
+    if(loading){
+      return (
+        <Layout style={
+          styles.spinnerContainer}>
+          <Spinner size='giant'></Spinner>
+        </Layout>
+      )
+    }
+
     return (
-      <Layout style={styles.container}>
-        <Text category='h4'>{currentBook.title} </Text>
-        <Text category='h4'>BookDetail {currentBook.bookId} </Text>
-        <Text category='h4'>{currentBook.title} </Text>
-        <Image
-          style={styles.bookImage}
-          source={currentBook.imageUrl ? { uri: currentBook.imageUrl } : null}
-          
-        />
-        <Select
-          data={shelvesSelect}
-          selectedOption={shelfSelected}
-          onSelect={value => onSelectShelfChanged(value.id)}
-        />
-      </Layout>
+      <SafeAreaView style={styles.mainContainer}>
+        <Layout style={styles.statusBar}>
+          <CircularButton
+            onPress={() => navigation.goBack()}        
+            iconName={'arrow-ios-back-outline'}>     
+          </CircularButton>
+        </Layout>
+        <ScrollView>
+          <Layout style={styles.bookImageHeader}>
+            <Layout style={styles.bookImageContainer}>
+              <Image 
+                style={styles.bookImage}
+                source={currentBook.imageUrl ? { uri: currentBook.imageUrl } : null}     
+              />
+            </Layout>          
+          </Layout>
+          <Layout style={styles.bookDetailContainer}>
+            <Text style={styles.text} category='h2'>{currentBook.title} </Text>
+            <Text style={styles.textSub} category='h6'>{currentBook.authors == null || currentBook.authors.length == 0 ? 'No Author' : currentBook.authors[0] } </Text>
+            <Text style={styles.textSub} category='h6'>{currentBook.publisher } </Text>
+            <Text style={styles.textSub} category='h6'>{currentBook.pageCount } Pages </Text>
+            <Select
+              style={styles.shelfSelect}
+              data={shelvesSelect}
+              selectedOption={shelfSelected}
+              onSelect={value => onSelectShelfChanged(value.id)}
+            />
+            <Text style={styles.text} category='p1'>{currentBook.description} </Text>
+            <FlatList
+              style={styles.categoriesList}
+              data={currentBook.categories}
+              keyExtractor={item => item}
+              renderItem={({ item }) =>
+                <Layout style={styles.categoryPill}>
+                <Text appearance='alternative'>{item}</Text>
+                </Layout>
+              }
+              horizontal={true}          
+            /> 
+          </Layout>   
+        </ScrollView>    
+      </SafeAreaView>
     )
   }
 }
 
 const styles = StyleSheet.create({
-  container: {
+  spinnerContainer: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: 'center',
+    width: '100%'
+  },
+  statusBar: {
+    height: 72,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    paddingRight: 30,
+    paddingLeft: 30
+  },
+  mainContainer: {
     flex: 1,
   },
+  bookImageHeader: {
+    width: '100%',
+    height: 300,
+    backgroundColor: 'rgba(0,0,0,0.2)',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
+  bookImageContainer: {
+    width: 140,
+    height: 200,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 2,
+      height: 2,
+    },
+    shadowOpacity: 0.3,
+    shadowRadius: 2,
+    elevation: 3,
+    backgroundColor: 'rgba(0,0,0,0.0)'
+  },
   bookImage:{
-    width: 200,
-    height: 300
+    flex: 1,
+    borderRadius: 8
+  },
+  bookDetailContainer: {
+    padding: 30,
+    alignItems: 'center'
+  },
+  text: {
+    textAlign: 'center',
+    marginBottom: 30
+  },
+  textSub: {
+    textAlign: 'center',
+    marginBottom: 10
+  },
+  shelfSelect: {
+    width: '60%',
+    marginTop: 30,
+    marginBottom: 40
+  },
+  categoriesList:{
+    width: '100%',
+  },
+  categoryPill:{
+    backgroundColor: 'rgba(0,0,0,0.2)',
+    padding: 15,
+    borderRadius: 50,
+    marginTop: 20
   }
 })
 

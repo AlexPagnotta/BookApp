@@ -1,11 +1,14 @@
 import React from 'react'
-import { Card, Text, Layout, Icon, Button} from '@ui-kitten/components';
+import { Card, Text, Layout, Icon, Button,  useTheme, OverflowMenu, MenuItem } from '@ui-kitten/components';
 import {StyleSheet, Image,FlatList} from 'react-native'
 import { useNavigation } from '@react-navigation/native';
 import BookCardItem from './bookCardItem'
+import CircularButton from './circularButton';
 
 function ShelfItem({ shelf, removeShelf, showModal }) {
 
+  const theme = useTheme();
+  
   const navigation = useNavigation();
 
   const EditIcon = (style) => (
@@ -17,16 +20,45 @@ function ShelfItem({ shelf, removeShelf, showModal }) {
   );
 
   
+  const renderToggleButton = () => (
+    <Button >
+      TOGGLE MENU
+    </Button>
+  );
+
+  const listPaddingLayout = () => (
+    <Layout style={{ width: 20 }} ></Layout>
+  );
+
   return (
-    <Layout  style={styles.shelfItemContainer}>
+    <Layout style={styles.shelfItemContainer}>
       <Layout style={styles.headerContainer}>
         <Text category='h6'>{shelf.name}</Text>
-        <Button onPress={() => {showModal(shelf);}} appearance='ghost' status='primary' icon={EditIcon}/>
-        <Button onPress={() => {removeShelf(shelf.shelfId);}} disabled={shelf.books.length !== 0} style={styles.button} appearance='ghost' status='primary' icon={DeleteIcon}/>
+        <Layout style={styles.buttonsContainer}>
+          <CircularButton 
+            customStyle={styles.button}
+            onPress={() => {showModal(shelf)}}        
+            iconName={'edit-outline'}>     
+          </CircularButton>
+          <CircularButton 
+            style={styles.button}
+            onPress={() => {removeShelf(shelf.shelfId)}}        
+            iconName={'trash-outline'}
+            disabled={shelf.books.length !== 0}>     
+          </CircularButton>
+        </Layout>      
       </Layout>
-      <FlatList style={styles.bookList}
+      <FlatList
+        ListHeaderComponent= {listPaddingLayout}
+        ListFooterComponent = {listPaddingLayout}
+        style={[
+          styles.bookList, 
+          {
+            backgroundColor: theme['color-primary-200']
+          }
+        ]}
         data={shelf.books}
-        renderItem={({ item }) => <BookCardItem book={item} />}
+        renderItem={({ item }) => <BookCardItem book={item} horizontalList={true} />}
         keyExtractor={item => item.bookId.toString()}
         horizontal={true}
       />
@@ -36,20 +68,29 @@ function ShelfItem({ shelf, removeShelf, showModal }) {
 
 const styles = StyleSheet.create({
   shelfItemContainer: {
-    height: 300,
-    padding: 20
   },
   headerContainer: {
+    display: 'flex',
     flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    height: 72,
+    paddingLeft: 30,
+    paddingRight: 30
+  },
+  buttonsContainer: {
+    display: 'flex', 
     flexWrap: 'wrap',
-    alignItems: 'center'
+    alignItems: "center",
+    justifyContent: "center"
   },
   button: {
-    margin: 0,
-    borderRadius: 100
+    marginRight: 20
   },
   bookList: {
-    margin: 0,
+    paddingTop: 30,
+    paddingBottom: 30,
+    minHeight: 250
   },
 })
 

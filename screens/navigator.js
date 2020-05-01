@@ -7,7 +7,6 @@ import { Login } from './login'
 import { BookDetail } from './bookDetail'
 import { Search } from './search'
 import { Splash } from './splash'
-
 const Stack = createStackNavigator();
 
 class NavigatorHomeScreen extends Component {
@@ -20,12 +19,12 @@ class NavigatorHomeScreen extends Component {
 
     //Check if the user is already logged
     this.props.checkIsLogged();
-
   }
 
   render() {
 
     const { isLogged, showSplashScreen } = this.props
+
 
     if(showSplashScreen){
       return <Splash />;
@@ -34,11 +33,11 @@ class NavigatorHomeScreen extends Component {
     return (
       <Stack.Navigator initialRouteName='Home'>
         {!isLogged  ? (
-          <Stack.Screen name="Login" component={Login} />
+          <Stack.Screen name="Login" component={Login} options={{headerShown: false}}/>
         ): (
           <>
-            <Stack.Screen name="BookDetail" component={BookDetail} />
-            <Stack.Screen name="Search" component={Search} />
+            <Stack.Screen name="BookDetail" component={BookDetail} options={{headerShown: false}}/>
+            <Stack.Screen name="Search" component={Search} options={{headerShown: false}}/>
             <Stack.Screen name="Home" component={Home} options={{headerShown: false}} />
           </>
         )}
