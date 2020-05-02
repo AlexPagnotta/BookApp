@@ -1,13 +1,16 @@
 # BookApp
 > A cross platform app to organize your books library
 
+<br>
+
 BookApp is a cross platform app, to help you organize your books library, with BookApp you can search for specific books and add them to your library.
 
 You can also create custom shelves, so you can organize your books in various lists, for example, "To Read", "Reading" or even a "Shopping List".
 
+
 <img src="BookApp-Images/AppPresentation.png" width="1920" heigth="1080">
 
-<br><br>
+<br>
 
 ## How has been made? 
 
@@ -21,6 +24,6 @@ The BackEnd for the app has been also developed by me, using AspNet Core, you ca
 
 The Google Books Api is also used to gather info about the books.
 
-<br><br>
+<br>
 
-#### Developed by Alex Pagnotta
+### Developed by Alex Pagnotta
