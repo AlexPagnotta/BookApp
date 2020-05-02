@@ -5,7 +5,7 @@ BookApp is a cross platform app, to help you organize your books library, with B
 
 You can also create custom shelves, so you can organize your books in various lists, for example, "To Read", "Reading" or even a "Shopping List".
 
-![App Presentation](C:\Users\alexp\Desktop\Immagini BookApp\App Presentation.png)
+![App Presentation](C:\Users\alexp\Desktop\Immagini BookApp\AppPresentation.png)
 <img src="BookApp-Images/AppPresentation.PNG" width="640" heigth="360">
 
 <br><br>
