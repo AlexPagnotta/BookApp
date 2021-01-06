@@ -16,7 +16,7 @@
     "@ui-kitten/components": "^4.4.1",
     "@ui-kitten/eva-icons": "^4.4.1",
     "@use-expo/font": "^2.0.0",
-    "axios": "^0.19.2",
+    "axios": "^0.21.1",
     "expo": "^37.0.0",
     "expo-secure-store": "~8.1.0",
     "formik": "^2.1.4",
